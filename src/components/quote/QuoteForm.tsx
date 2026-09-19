@@ -258,10 +258,10 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
               </p>
             </div>
 
-            {/* Subprograma Latina (Opcional) */}
+            {/* Nivel de Cobertura */}
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                Modalidad Latina Seguros
+                Nivel de Cobertura
               </label>
               <div className="grid grid-cols-2 gap-2">
                 <button
@@ -269,11 +269,11 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
                   onClick={() => setProductPreference('LIVIANO_CLASSIC')}
                   className={`px-3 py-2 text-xs font-medium rounded-xl border text-center transition-all cursor-pointer ${
                     productPreference === 'LIVIANO_CLASSIC'
-                      ? 'bg-sky-50 border-sky-600 text-sky-900 font-semibold shadow-2xs'
+                      ? 'bg-red-50 border-red-600 text-red-900 font-semibold shadow-2xs'
                       : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
                   }`}
                 >
-                  Liviano Classic
+                  Cobertura Estándar
                 </button>
                 <button
                   type="button"
@@ -284,7 +284,7 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
                       : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
                   }`}
                 >
-                  Liviano Gold ($50k RC)
+                  Cobertura Gold ($50k RC)
                 </button>
               </div>
             </div>
@@ -311,7 +311,7 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
                   step="500"
                   value={vehicleValue}
                   onChange={(e) => setVehicleValue(Number(e.target.value))}
-                  className="w-36 pl-7 pr-3 py-1.5 text-base font-bold text-right font-mono rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-600 bg-white text-slate-900 shadow-2xs"
+                  className="w-36 pl-7 pr-3 py-1.5 text-base font-bold text-right font-mono rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-red-600 bg-white text-slate-900 shadow-2xs"
                 />
                 <span className="absolute left-2.5 top-2 text-slate-400 font-semibold">$</span>
               </div>
@@ -325,7 +325,7 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
               step="500"
               value={vehicleValue}
               onChange={(e) => setVehicleValue(Number(e.target.value))}
-              className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-red-600"
+              className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#e11b22]"
             />
             
             <div className="flex justify-between text-[11px] text-slate-400 font-mono mt-1">
@@ -339,15 +339,15 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
 
         </div>
 
-        {/* Botón de Cotización Principal */}
+        {/* Botón de Cotización Principal con flecha indicadora */}
         <div className="pt-2">
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-red-600 via-red-700 to-red-800 hover:from-red-700 hover:to-red-900 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer flex items-center justify-center gap-2"
+            className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-red-600 via-red-700 to-[#e11b22] hover:brightness-110 text-white font-black text-base shadow-lg shadow-red-600/30 hover:shadow-xl transition-all duration-200 active:scale-95 cursor-pointer flex items-center justify-center gap-3"
           >
-            <Sparkles className="w-4 h-4 text-red-200" />
-            <span>Comparar 5 Aseguradoras al Instante</span>
+            <Sparkles className="w-5 h-5 text-red-200 animate-pulse" />
+            <span>Comparar Todas las Aseguradoras y Ver Cotizaciones ↓</span>
           </button>
         </div>
 

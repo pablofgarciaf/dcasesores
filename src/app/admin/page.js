@@ -116,7 +116,7 @@ function AseguradorasManager() {
   const currentRecords = data[activeAseguradora] || [];
 
   return (
-    <div className="w-full max-w-6xl mx-auto">
+    <div className="w-full">
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-3xl font-black text-white tracking-tight">Motor de Cotización</h1>
@@ -150,8 +150,8 @@ function AseguradorasManager() {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-1 bg-slate-900 p-6 rounded-3xl border border-slate-800 shadow-xl h-fit">
+      <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
+        <div className="xl:col-span-1 bg-slate-900 p-6 rounded-3xl border border-slate-800 shadow-xl h-fit">
           <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
             📥 Pegar desde Excel 
             <span className="text-[#e11b22] text-sm">({activeAseguradora})</span>
@@ -174,7 +174,7 @@ function AseguradorasManager() {
           </button>
         </div>
 
-        <div className="lg:col-span-2 bg-slate-900 rounded-3xl border border-slate-800 shadow-xl overflow-hidden">
+        <div className="xl:col-span-3 bg-slate-900 rounded-3xl border border-slate-800 shadow-xl overflow-hidden">
           <div className="px-6 py-4 border-b border-slate-800 bg-slate-900/50 flex justify-between items-center">
             <h3 className="font-bold text-white">Matriz Actual: {activeAseguradora}</h3>
             <span className="text-xs font-bold text-slate-500 bg-slate-950 px-3 py-1 rounded-full border border-slate-800">
@@ -233,7 +233,7 @@ function AseguradorasManager() {
 // ----------------------------------------------------
 function CMSManager() {
   return (
-    <div className="w-full max-w-5xl mx-auto">
+    <div className="w-full">
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-3xl font-black text-white tracking-tight">Gestor de Contenidos (CMS)</h1>

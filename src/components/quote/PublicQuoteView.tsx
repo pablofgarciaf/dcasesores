@@ -1,36 +1,18 @@
-/**
- * ═══════════════════════════════════════════════════════════════
- * 📄 ARCHITECTURE MAP — PublicQuoteView.tsx
- * ═══════════════════════════════════════════════════════════════
- * 📁 Path: src/components/quote/PublicQuoteView.tsx
- * 🏷️ Type: Client Component
- * 📦 Module: Sitio Público & Cotizador
- * 🔗 Ver: ARCHITECTURE_MAP.md § Módulo Sitio Público & Cotizador
- * ─────────────────────────────────────────────────────────────
- * 🔍 STRUCTURE:
- *   L1-L40   → Imports de componentes, PDF engine, logo y servicios actuariales
- *   L41-L120 → Hook de cálculo reactivo, persistencia de prospectos en CRM y WhatsApp
- *   L121-L170→ Gestión de descarga de proformas individuales y consolidadas con registro
- *   L171-L260→ Shell de la vista pública (Hero DC Asesores, Formulario, Tabla y Modales)
- * ─────────────────────────────────────────────────────────────
- * 📝 LAST UPDATED: 2026-09-17
- * ═══════════════════════════════════════════════════════════════
- */
+'use client';
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { QuoteInput, InsurerQuoteResult, Insurer, GlobalTaxConfig } from '../../types';
 import { calculateAllQuotes } from '../../lib/calculator';
-import { INITIAL_GLOBAL_CONFIG, INITIAL_INSURERS, seedInitialDataToFirestore } from '../../lib/seedData';
+import { INITIAL_GLOBAL_CONFIG, INITIAL_INSURERS } from '../../lib/seedData';
 import { saveQuoteConsultation } from '../../lib/consultationService';
 import { buildWhatsAppQuoteUrl } from '../../lib/whatsappService';
-import { buildAllInsurersHtml, buildSingleInsurerHtml, generateAndDownloadPdf, DC_COMPANY_INFO } from '../../lib/pdfGenerator';
+import { buildAllInsurersHtml, buildSingleInsurerHtml, generateAndDownloadPdf } from '../../lib/pdfGenerator';
 import { QuoteForm } from './QuoteForm';
 import { ComparisonTable } from './ComparisonTable';
 import { TrustSignals } from './TrustSignals';
 import { PdfQuoteModal } from './PdfQuoteModal';
 import { LeadRegistrationModal } from './LeadRegistrationModal';
-import { DcLogo } from '../common/DcLogo';
-import { CheckCircle2, Zap, FileDown, CheckCircle, Shield } from 'lucide-react';
+import { CheckCircle, Sparkles, ArrowDown, ShieldCheck } from 'lucide-react';
 import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 
@@ -59,15 +41,13 @@ export const PublicQuoteView: React.FC = () => {
     productPreference: 'LIVIANO_CLASSIC',
   });
 
-  // Carga reactiva de datos desde Firestore
+  // Carga reactiva de datos desde Firestore con fallback silencioso
   useEffect(() => {
     async function loadFirestoreData() {
       try {
         const configSnap = await getDoc(doc(db, 'config', 'parameters'));
         if (configSnap.exists()) {
           setGlobalConfig(configSnap.data() as GlobalTaxConfig);
-        } else {
-          await seedInitialDataToFirestore(false);
         }
 
         const insurersSnap = await getDocs(collection(db, 'insurers'));
@@ -77,8 +57,8 @@ export const PublicQuoteView: React.FC = () => {
             setInsurers(loadedInsurers);
           }
         }
-      } catch (err) {
-        console.warn('Usando configuración local en memoria:', err);
+      } catch {
+        // Fallback silencioso a las tasas pre-cargadas en memoria
       }
     }
     loadFirestoreData();
@@ -89,8 +69,20 @@ export const PublicQuoteView: React.FC = () => {
     return calculateAllQuotes(currentInput, insurers, globalConfig);
   }, [currentInput, insurers, globalConfig]);
 
+  const bestPrice = useMemo(() => quoteResults.find(q => q.isBestPrice), [quoteResults]);
+  const topCoverage = useMemo(() => quoteResults.find(q => q.isTopCoverage), [quoteResults]);
+
   const handleValuesChange = useCallback((values: QuoteInput) => {
     setCurrentInput(values);
+  }, []);
+
+  const scrollToResults = useCallback(() => {
+    setTimeout(() => {
+      const el = document.getElementById('seccion-resultados');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 50);
   }, []);
 
   const handleSubmitQuote = useCallback(
@@ -98,8 +90,12 @@ export const PublicQuoteView: React.FC = () => {
       setCurrentInput(values);
       const calculated = calculateAllQuotes(values, insurers, globalConfig);
       await saveQuoteConsultation(values, calculated);
+      
+      scrollToResults();
+      setToastMessage('✓ Cotización calculada. Mostrando comparativa abajo.');
+      setTimeout(() => setToastMessage(null), 4000);
     },
-    [insurers, globalConfig]
+    [insurers, globalConfig, scrollToResults]
   );
 
   // Modal para ver proforma en pantalla
@@ -109,14 +105,14 @@ export const PublicQuoteView: React.FC = () => {
     saveQuoteConsultation(currentInput, quoteResults);
   };
 
-  // Disparador de descarga de TODAS las proformas (abre el modal de registro de usuario y correo)
+  // Disparador de descarga de TODAS las proformas
   const handleTriggerDownloadAll = () => {
     setDownloadMode('all');
     setTargetQuoteForDownload(null);
     setIsLeadModalOpen(true);
   };
 
-  // Disparador de descarga de una proforma individual (abre el modal de registro de usuario y correo)
+  // Disparador de descarga de una proforma individual
   const handleTriggerDownloadSingle = (result: InsurerQuoteResult) => {
     setDownloadMode('single');
     setTargetQuoteForDownload(result);
@@ -139,10 +135,8 @@ export const PublicQuoteView: React.FC = () => {
       };
       setCurrentInput(updatedInput);
 
-      // 1. Registrar consulta y prospecto en Firestore CRM
       await saveQuoteConsultation(updatedInput, quoteResults);
 
-      // 2. Generar el HTML oficial con logo e información de dcasesoresec.com
       let htmlToPrint = '';
       let fileName = 'Proforma_DC_Asesores.pdf';
       const safeClient = updatedInput.clientName.trim().replace(/\s+/g, '_').slice(0, 30);
@@ -158,10 +152,8 @@ export const PublicQuoteView: React.FC = () => {
         fileName = `Proforma_${quoteResults[0].insurer.slug.toUpperCase()}_DC_Asesores_${safeClient}.pdf`;
       }
 
-      // 3. Generar y descargar directamente el archivo .PDF
       await generateAndDownloadPdf(htmlToPrint, fileName);
 
-      // Cerrar modal y notificar al usuario
       setIsLeadModalOpen(false);
       setToastMessage(
         downloadMode === 'all'
@@ -183,9 +175,9 @@ export const PublicQuoteView: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50/50 pb-20">
+    <div className="min-h-screen bg-[#f8fafc] pb-24 font-sans text-slate-800">
       
-      {/* Toast de notificación de descarga */}
+      {/* Toast de notificación */}
       {toastMessage && (
         <div className="fixed top-24 right-4 z-50 p-4 bg-slate-900 text-white rounded-2xl shadow-2xl border border-red-500/40 flex items-center gap-3 animate-in slide-in-from-top-4 duration-300">
           <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0" />
@@ -193,60 +185,26 @@ export const PublicQuoteView: React.FC = () => {
         </div>
       )}
 
-      {/* Hero Section con Identidad Corporativa DC Asesores */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-red-950 text-white pt-12 pb-20 lg:pt-16 lg:pb-28">
-        <div className="absolute inset-0 bg-[radial-gradient(#DC2626_1px,transparent_1px)] [background-size:28px_28px] opacity-15 pointer-events-none" />
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto space-y-4">
-            
-            {/* Logo de la Empresa en el Hero */}
-            <div className="flex justify-center mb-2">
-              <div className="bg-white/10 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/15 inline-block shadow-lg">
-                <DcLogo size="md" variant="white" />
-              </div>
-            </div>
-
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-600/20 border border-red-500/30 text-xs font-semibold text-red-300">
-              <Zap className="w-3.5 h-3.5 text-red-400" />
-              <span>Comparador Actuarial en Vivo • Ley de Seguros Ecuador</span>
-            </div>
-
-            {/* Encabezado Principal H1 para A+ SEO */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
-              Cotiza y Compara tu Seguro de Auto en Ecuador al Instante
-            </h1>
-
-            <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
-              Calculamos al centavo tu prima neta, SUPER (3.5%), SSC (0.5%), derechos de emisión e IVA 15% 
-              con las principales aseguradoras del país: Alianza, Latina, Hispana, Vaz y Privilegio.
-            </p>
-
-            {/* Micro-beneficios con estética DC */}
-            <div className="pt-2 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-slate-300">
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-red-400" />
-                <span>Emisión 100% digital</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-red-400" />
-                <span>12 cuotas mensuales sin recargo</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-red-400" />
-                <span>Asesoría en siniestros 24/7 ({DC_COMPANY_INFO.whatsappDisplay})</span>
-              </div>
-            </div>
-
-          </div>
+      {/* Breadcrumbs y Título Sutil (Cero Hero) */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-8 pb-4">
+        <div className="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+          <span>Inicio</span>
+          <span>/</span>
+          <span className="text-[#e11b22]">Cotizador Inteligente</span>
         </div>
-      </section>
+        <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+          Cotizador de Seguros Vehiculares Multicompañía
+        </h1>
+        <p className="text-sm text-slate-500 mt-1">
+          Ingresa los datos de tu vehículo y compara al instante las tarifas de las mejores aseguradoras de Ecuador.
+        </p>
+      </div>
 
-      {/* Contenido Principal: Formulario y Tablero */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 sm:-mt-14 relative z-20">
+      {/* Contenido Principal: Formulario Único */}
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 space-y-6">
         
         {/* Formulario de Entrada */}
-        <div className="max-w-4xl mx-auto">
+        <div>
           <QuoteForm
             initialValues={currentInput}
             onValuesChange={handleValuesChange}
@@ -254,13 +212,48 @@ export const PublicQuoteView: React.FC = () => {
           />
         </div>
 
-        {/* Señales de Confianza */}
-        <div className="max-w-5xl mx-auto">
-          <TrustSignals />
-        </div>
+        {/* Resumen Rápido en Vivo que da Feedback Inmediato */}
+        {bestPrice && (
+          <div className="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                ✓
+              </div>
+              <div>
+                <p className="text-xs text-slate-500 font-medium">Mejor opción calculada:</p>
+                <p className="text-sm font-black text-slate-900">
+                  {bestPrice.insurer.name} — <span className="text-[#e11b22]">${bestPrice.breakdown.cuotaMensual}/mes</span> (Prima Anual: ${bestPrice.breakdown.primaTotalAnual})
+                </p>
+              </div>
+            </div>
 
-        {/* Tablero Comparativo con Tabla Resumen y Selector Desplegable */}
-        <section className="mt-8">
+            <button
+              onClick={scrollToResults}
+              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-[#e11b22] text-white text-xs font-bold transition-colors flex items-center justify-center gap-2"
+            >
+              <span>Ver Tabla Comparativa</span>
+              <ArrowDown className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        )}
+
+        {/* Señales de Confianza */}
+        <TrustSignals />
+
+        {/* Tablero Comparativo con ancla de scroll */}
+        <div id="seccion-resultados" className="pt-4 scroll-mt-24">
+          <div className="bg-slate-900 text-white p-4 rounded-2xl mb-4 flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <Sparkles className="w-4 h-4 text-red-400" />
+              <span className="text-sm font-bold">
+                Resultados de Cotización para {currentInput.vehicleBrandModel || 'tu Vehículo'} ({currentInput.vehicleYear})
+              </span>
+            </div>
+            <span className="text-xs bg-white/10 px-3 py-1 rounded-full font-mono font-semibold">
+              Valor: ${currentInput.vehicleValue.toLocaleString()} USD
+            </span>
+          </div>
+
           <ComparisonTable
             results={quoteResults}
             inputData={currentInput}
@@ -268,7 +261,7 @@ export const PublicQuoteView: React.FC = () => {
             onDownloadAllPdf={handleTriggerDownloadAll}
             onContactWhatsApp={handleWhatsAppContact}
           />
-        </section>
+        </div>
 
       </main>
 

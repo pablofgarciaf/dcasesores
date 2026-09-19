@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { Navbar } from '@/components/layout/Navbar';
 
 export const metadata = {
   title: 'Blog de Protección Financiera | DC Asesores',
@@ -10,21 +11,8 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-[#f4f4f6] font-sans text-slate-800">
       
-      {/* 🔴 HEADER CORPORATIVO */}
-      <header className="w-full bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-40 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-20">
-          <Link href="/">
-            <img src="/logo.webp" alt="DC Asesores" className="h-12 object-contain" />
-          </Link>
-          <nav className="hidden md:flex gap-8 items-center font-bold text-slate-700 text-sm">
-            <Link href="/" className="hover:text-[#e11b22] transition-colors">Inicio</Link>
-            <Link href="/blog" className="text-[#e11b22]">Blog</Link>
-            <Link href="/cotizador" className="flex items-center gap-1 hover:text-[#e11b22] transition-colors">
-              Cotizador Inteligente
-            </Link>
-          </nav>
-        </div>
-      </header>
+      {/* 🔴 HEADER UNIFICADO */}
+      <Navbar />
 
       {/* HEADER DEL BLOG */}
       <section className="relative py-24 bg-slate-950 text-white overflow-hidden">
