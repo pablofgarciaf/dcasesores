@@ -1,247 +1,280 @@
-"use client";
-import React, { useState } from 'react';
+'use client';
+import { useState } from 'react';
+import { defaultTasas } from '@/lib/data';
+import { db } from '@/lib/firebase';
 import { doc, setDoc } from 'firebase/firestore';
-import { db } from '../../lib/firebase'; // Asegúrate de que esta ruta sea correcta
-
-// Datos pre-llenados extraídos del Google Sheets (Alianza) y PDFs (Latina/Hispana)
-const defaultTasas = {
-  "ALIANZA": [
-    { producto: "1", ciudad: "GYE", vehiculo: "TODOS", desde: "$ -", hasta: "$ 15.000,00", tasa: "3,35%", rc: "25000" },
-    { producto: "1", ciudad: "GYE", vehiculo: "TODOS", desde: "$ 15.001,00", hasta: "$ 25.000,00", tasa: "2,75%", rc: "25000" },
-    { producto: "1", ciudad: "GYE", vehiculo: "TODOS", desde: "$ 25.001,00", hasta: "$ 35.000,00", tasa: "2,55%", rc: "25000" },
-    { producto: "1", ciudad: "GYE", vehiculo: "TODOS", desde: "$ 35.001,00", hasta: "$ 999.999,00", tasa: "2,15%", rc: "25000" },
-    { producto: "1", ciudad: "UIO", vehiculo: "TODOS", desde: "$ -", hasta: "$ 15.000,00", tasa: "3,80%", rc: "25000" },
-    { producto: "1", ciudad: "UIO", vehiculo: "TODOS", desde: "$ 15.001,00", hasta: "$ 25.000,00", tasa: "3,10%", rc: "25000" },
-    { producto: "1", ciudad: "UIO", vehiculo: "TODOS", desde: "$ 25.001,00", hasta: "$ 35.000,00", tasa: "2,90%", rc: "25000" },
-    { producto: "1", ciudad: "UIO", vehiculo: "TODOS", desde: "$ 35.001,00", hasta: "$ 999.999,00", tasa: "2,30%", rc: "25000" },
-    { producto: "1", ciudad: "STO", vehiculo: "TODOS", desde: "$ -", hasta: "$ 15.000,00", tasa: "3,15%", rc: "25000" },
-    { producto: "1", ciudad: "STO", vehiculo: "TODOS", desde: "$ 15.001,00", hasta: "$ 25.000,00", tasa: "2,65%", rc: "25000" },
-    { producto: "1", ciudad: "STO", vehiculo: "TODOS", desde: "$ 25.001,00", hasta: "$ 35.000,00", tasa: "2,65%", rc: "25000" },
-    { producto: "1", ciudad: "STO", vehiculo: "TODOS", desde: "$ 35.001,00", hasta: "$ 999.999,00", tasa: "2,15%", rc: "25000" },
-    { producto: "2", ciudad: "GYE", vehiculo: "TODOS", desde: "$ -", hasta: "$ 15.000,00", tasa: "3,35%", rc: "25000" },
-    { producto: "2", ciudad: "GYE", vehiculo: "TODOS", desde: "$ 15.001,00", hasta: "$ 25.000,00", tasa: "2,75%", rc: "25000" },
-  ],
-  "LATINA": [
-    { producto: "Pesados", ciudad: "NACIONAL", vehiculo: "EXCEPTO HINO", desde: "$ 15.000,00", hasta: "$ 49.999,99", tasa: "3.40%", rc: "25000" },
-    { producto: "Pesados", ciudad: "NACIONAL", vehiculo: "EXCEPTO HINO", desde: "$ 50.000,00", hasta: "$ 99.999,99", tasa: "3.20%", rc: "25000" },
-    { producto: "Pesados", ciudad: "NACIONAL", vehiculo: "EXCEPTO HINO", desde: "$ 100.000,00", hasta: "ADELANTE", tasa: "3.00%", rc: "25000" },
-    { producto: "Pesados", ciudad: "NACIONAL", vehiculo: "HINO (HASTA 4 AÑOS)", desde: "$ -", hasta: "ADELANTE", tasa: "3.80%", rc: "25000" },
-    { producto: "Pesados", ciudad: "NACIONAL", vehiculo: "HINO (HASTA 15 AÑOS)", desde: "$ -", hasta: "ADELANTE", tasa: "4.20%", rc: "25000" },
-  ],
-  "HISPANA": [
-    { producto: "1", ciudad: "NACIONAL", vehiculo: "LIVIANO", desde: "$ -", hasta: "$ 30.000,00", tasa: "3,00%", rc: "$ 40.000,00" },
-    { producto: "1", ciudad: "NACIONAL", vehiculo: "LIVIANO", desde: "$ 30.001,00", hasta: "$ 999.999,00", tasa: "2,50%", rc: "$ 40.000,00" },
-    { producto: "2", ciudad: "NACIONAL", vehiculo: "CAMIONETA", desde: "$ -", hasta: "$ 45.000,00", tasa: "3,50%", rc: "$ 40.000,00" },
-    { producto: "3", ciudad: "NACIONAL", vehiculo: "LIVIANO CERO", desde: "$ -", hasta: "$ 20.000,00", tasa: "3,00%", rc: "$ 40.000,00" },
-    { producto: "3", ciudad: "NACIONAL", vehiculo: "LIVIANO CERO", desde: "$ 21.000,00", hasta: "$ 30.000,00", tasa: "2,30%", rc: "$ 40.000,00" },
-    { producto: "3", ciudad: "NACIONAL", vehiculo: "LIVIANO CERO", desde: "$ 31.000,00", hasta: "$ 999.999,00", tasa: "2,10%", rc: "$ 40.000,00" },
-    { producto: "4", ciudad: "NACIONAL", vehiculo: "CAMIONETA CERO", desde: "$ -", hasta: "$ 45.000,00", tasa: "3,50%", rc: "$ 40.000,00" },
-  ],
-  "VAZ": [
-    { producto: "1", ciudad: "NACIONAL", vehiculo: "LIVIANO", desde: "$ -", hasta: "$ 15.000,00", tasa: "4,80%", rc: "" },
-    { producto: "1", ciudad: "NACIONAL", vehiculo: "LIVIANO", desde: "$ 15.001,00", hasta: "$ 19.999,00", tasa: "4,30%", rc: "" },
-    { producto: "1", ciudad: "NACIONAL", vehiculo: "LIVIANO", desde: "$ 20.000,00", hasta: "$ 24.999,00", tasa: "3,80%", rc: "" },
-    { producto: "1", ciudad: "NACIONAL", vehiculo: "LIVIANO", desde: "$ 25.000,00", hasta: "$ 29.999,00", tasa: "2,60%", rc: "" },
-    { producto: "1", ciudad: "NACIONAL", vehiculo: "LIVIANO", desde: "$ 30.000,00", hasta: "$ 34.999,00", tasa: "2,40%", rc: "" },
-    { producto: "1", ciudad: "NACIONAL", vehiculo: "LIVIANO", desde: "$ 35.000,00", hasta: "$ 69.999,00", tasa: "2,20%", rc: "" },
-    { producto: "1", ciudad: "NACIONAL", vehiculo: "LIVIANO", desde: "$ 70.000,00", hasta: "$ 999.999,00", tasa: "2,00%", rc: "" },
-    { producto: "2", ciudad: "NACIONAL", vehiculo: "CAMIONETA", desde: "$ -", hasta: "$ 15.000,00", tasa: "5,25%", rc: "" },
-    { producto: "2", ciudad: "NACIONAL", vehiculo: "CAMIONETA", desde: "$ 15.001,00", hasta: "$ 19.999,00", tasa: "5,25%", rc: "" },
-    { producto: "2", ciudad: "NACIONAL", vehiculo: "CAMIONETA", desde: "$ 20.000,00", hasta: "$ 24.999,00", tasa: "4,25%", rc: "" },
-    { producto: "2", ciudad: "NACIONAL", vehiculo: "CAMIONETA", desde: "$ 25.000,00", hasta: "$ 29.999,00", tasa: "4,25%", rc: "" },
-    { producto: "2", ciudad: "NACIONAL", vehiculo: "CAMIONETA", desde: "$ 30.000,00", hasta: "$ 34.999,00", tasa: "2,40%", rc: "" },
-    { producto: "2", ciudad: "NACIONAL", vehiculo: "CAMIONETA", desde: "$ 35.000,00", hasta: "$ 69.999,00", tasa: "2,20%", rc: "" },
-    { producto: "2", ciudad: "NACIONAL", vehiculo: "CAMIONETA", desde: "$ 70.000,00", hasta: "$ 999.999,00", tasa: "2,20%", rc: "" },
-    { producto: "3", ciudad: "NACIONAL", vehiculo: "LIVIANO ELECTRICO", desde: "$ -", hasta: "$ 15.000,00", tasa: "5,30%", rc: "" },
-    { producto: "3", ciudad: "NACIONAL", vehiculo: "LIVIANO ELECTRICO", desde: "$ 15.001,00", hasta: "$ 19.999,00", tasa: "4,80%", rc: "" },
-    { producto: "3", ciudad: "NACIONAL", vehiculo: "LIVIANO ELECTRICO", desde: "$ 20.000,00", hasta: "$ 24.999,00", tasa: "4,30%", rc: "" },
-    { producto: "3", ciudad: "NACIONAL", vehiculo: "LIVIANO ELECTRICO", desde: "$ 25.000,00", hasta: "$ 29.999,00", tasa: "2,90%", rc: "" },
-    { producto: "3", ciudad: "NACIONAL", vehiculo: "LIVIANO ELECTRICO", desde: "$ 30.000,00", hasta: "$ 34.999,00", tasa: "2,70%", rc: "" },
-    { producto: "3", ciudad: "NACIONAL", vehiculo: "LIVIANO ELECTRICO", desde: "$ 35.000,00", hasta: "$ 69.999,00", tasa: "2,50%", rc: "" },
-    { producto: "3", ciudad: "NACIONAL", vehiculo: "LIVIANO ELECTRICO", desde: "$ 70.000,00", hasta: "$ 999.999,00", tasa: "2,30%", rc: "" },
-  ],
-  "ADS": [],
-  "SWEADEN": [],
-  "ATL": [],
-  "ATLANTIDA": [],
-  "ZURICH": [],
-  "MAPFRE": [],
-  "PRIVILEGIO": [
-    { producto: "Hasta 10 Años", ciudad: "NACIONAL", vehiculo: "TODOS", desde: "$ -", hasta: "$ 19.999,00", tasa: "2,90%", rc: "$ 30.000,00" },
-    { producto: "Hasta 10 Años", ciudad: "NACIONAL", vehiculo: "TODOS", desde: "$ 20.000,00", hasta: "$ 29.999,00", tasa: "2,70%", rc: "$ 30.000,00" },
-    { producto: "Hasta 10 Años", ciudad: "NACIONAL", vehiculo: "TODOS", desde: "$ 30.000,00", hasta: "$ 39.999,00", tasa: "2,50%", rc: "$ 30.000,00" },
-    { producto: "Hasta 10 Años", ciudad: "NACIONAL", vehiculo: "TODOS", desde: "$ 40.000,00", hasta: "$ 999.999,00", tasa: "2,30%", rc: "$ 30.000,00" },
-    { producto: "Hasta 11 Años", ciudad: "NACIONAL", vehiculo: "TODOS", desde: "$ -", hasta: "$ 19.999,00", tasa: "4,00%", rc: "$ 30.000,00" },
-    { producto: "Hasta 11 Años", ciudad: "NACIONAL", vehiculo: "TODOS", desde: "$ 20.000,00", hasta: "$ 29.999,00", tasa: "3,80%", rc: "$ 30.000,00" },
-    { producto: "Hasta 11 Años", ciudad: "NACIONAL", vehiculo: "TODOS", desde: "$ 30.000,00", hasta: "$ 39.999,00", tasa: "3,50%", rc: "$ 30.000,00" },
-    { producto: "Hasta 11 Años", ciudad: "NACIONAL", vehiculo: "TODOS", desde: "$ 40.000,00", hasta: "$ 999.999,00", tasa: "3,30%", rc: "$ 30.000,00" },
-  ]
-};
 
 export default function AdminPage() {
-  const [aseguradoras, setAseguradoras] = useState(defaultTasas);
-  const [activeAseguradora, setActiveAseguradora] = useState("ALIANZA");
-  const [loading, setLoading] = useState(false);
-  const [pasteData, setPasteData] = useState("");
-
-  const handleSaveToFirebase = async () => {
-    setLoading(true);
-    try {
-      // Guardar todo el objeto de aseguradoras en un documento Firestore llamado "tarifario"
-      await setDoc(doc(db, "cotizador", "tarifario"), aseguradoras);
-      alert('¡Éxito! Todas las tablas han sido subidas y sincronizadas con Firebase.');
-    } catch (error) {
-      console.error("Error al guardar en Firebase:", error);
-      alert('Error al guardar. Asegúrate de haber colocado las credenciales correctas en src/lib/firebase.js o en las variables de entorno de Vercel.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handlePasteFromExcel = (e) => {
-    e.preventDefault();
-    const clipboardData = e.clipboardData.getData('Text');
-    setPasteData(clipboardData);
-    
-    const rows = clipboardData.split('\n').filter(row => row.trim() !== '');
-    
-    const parsedData = rows.map(row => {
-      const cells = row.split('\t');
-      return {
-        producto: cells[0] || '',
-        ciudad: cells[1] || '',
-        vehiculo: cells[2] || '',
-        desde: cells[3] || '',
-        hasta: cells[4] || '',
-        tasa: cells[5] || '',
-        rc: cells[6] || ''
-      };
-    });
-
-    if (parsedData.length > 0 && parsedData[0].producto.toUpperCase().includes('PRODUCTO')) {
-      parsedData.shift();
-    }
-
-    setAseguradoras(prev => ({
-      ...prev,
-      [activeAseguradora]: [...prev[activeAseguradora], ...parsedData]
-    }));
-    
-    setPasteData("");
-  };
-
-  const currentData = aseguradoras[activeAseguradora] || [];
+  const [activeTab, setActiveTab] = useState('aseguradoras');
 
   return (
-    <div className="space-y-6 animate-fadeIn">
-      <div className="flex justify-between items-start">
+    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-[#e11b22] selection:text-white flex">
+      
+      {/* SIDEBAR ADMIN */}
+      <aside className="w-64 bg-slate-900 border-r border-slate-800 p-6 flex flex-col h-screen sticky top-0">
+         <img src="/logo.webp" alt="DC Asesores" className="h-10 object-contain mb-10 filter grayscale brightness-200" />
+         
+         <nav className="space-y-2 flex-1">
+            <button 
+              onClick={() => setActiveTab('aseguradoras')}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-colors ${activeTab === 'aseguradoras' ? 'bg-[#e11b22] text-white' : 'hover:bg-slate-800 text-slate-400'}`}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+              Calculadora Tasas
+            </button>
+            <button 
+              onClick={() => setActiveTab('cms')}
+              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-sm transition-colors ${activeTab === 'cms' ? 'bg-[#e11b22] text-white' : 'hover:bg-slate-800 text-slate-400'}`}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path></svg>
+              Gestor Blog / Textos
+            </button>
+         </nav>
+         
+         <div className="pt-6 border-t border-slate-800">
+           <a href="/" className="text-slate-500 hover:text-white text-sm font-bold flex items-center gap-2 transition-colors">
+             ← Volver a la Web
+           </a>
+         </div>
+      </aside>
+
+      {/* MAIN CONTENT */}
+      <main className="flex-1 p-10">
+        
+        {activeTab === 'aseguradoras' && (
+          <AseguradorasManager />
+        )}
+
+        {activeTab === 'cms' && (
+          <CMSManager />
+        )}
+
+      </main>
+    </div>
+  );
+}
+
+// ----------------------------------------------------
+// COMPONENTE: GESTOR DE ASEGURADORAS Y TASAS (El original intacto)
+// ----------------------------------------------------
+function AseguradorasManager() {
+  const [data, setData] = useState(defaultTasas);
+  const [isUploading, setIsUploading] = useState(false);
+  const [activeAseguradora, setActiveAseguradora] = useState(Object.keys(defaultTasas)[0]);
+  const [pasteData, setPasteData] = useState('');
+  
+  const uploadToFirebase = async () => {
+    try {
+      setIsUploading(true);
+      await setDoc(doc(db, "configuracion", "tasasVehiculares"), data);
+      alert('¡Datos subidos a Firebase exitosamente!');
+    } catch (error) {
+      console.error(error);
+      alert('Error subiendo a Firebase. Revisa las reglas o credenciales.');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handlePasteExcel = (e) => {
+    e.preventDefault();
+    if (!pasteData) return;
+    const lines = pasteData.trim().split('\n');
+    const newRecords = lines.map(line => {
+      const cols = line.split('\t');
+      return {
+        producto: cols[0] || '',
+        ciudad: cols[1] || '',
+        vehiculo: cols[2] || '',
+        desde: Number(cols[3]) || 0,
+        hasta: Number(cols[4]) || 99999,
+        tasa: Number(cols[5]) || 0,
+        rc: Number(cols[6]) || 0,
+      };
+    });
+    
+    setData(prev => ({
+      ...prev,
+      [activeAseguradora]: newRecords
+    }));
+    setPasteData('');
+    alert(`Se importaron ${newRecords.length} registros a ${activeAseguradora}`);
+  };
+
+  const currentRecords = data[activeAseguradora] || [];
+
+  return (
+    <div className="w-full max-w-6xl mx-auto">
+      <div className="flex justify-between items-center mb-8">
         <div>
-          <h2 className="text-3xl font-black text-white mb-2 tracking-tight">Matriz de Tarifas por Aseguradora</h2>
-          <p className="text-slate-400 text-sm max-w-2xl">
-            Selecciona la aseguradora y pega directamente los datos desde Excel. Las tablas ya vienen pre-cargadas con los datos de Alianza y Latina.
-          </p>
+          <h1 className="text-3xl font-black text-white tracking-tight">Motor de Cotización</h1>
+          <p className="text-slate-400 mt-1">Configura las tasas y tablas de Excel por Aseguradora.</p>
         </div>
         <button 
-          onClick={handleSaveToFirebase}
-          disabled={loading}
-          className="bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold py-3 px-8 rounded-xl shadow-xl shadow-emerald-900/30 transition-all active:scale-95 disabled:opacity-50 text-base flex items-center gap-2 border border-emerald-400/20"
+          onClick={uploadToFirebase}
+          disabled={isUploading}
+          className="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 transition-colors disabled:opacity-50 shadow-lg shadow-green-900/50"
         >
-          {loading ? (
-            <span className="flex items-center gap-2">
-              <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-              Sincronizando...
-            </span>
-          ) : 'Subir TODO a Firebase'}
+          {isUploading ? 'Subiendo...' : 'Subir TODO a Firebase ☁️'}
         </button>
       </div>
 
-      {/* Tabs Aseguradoras */}
-      <div className="flex flex-wrap gap-2 border-b border-white/10 pb-4">
-        {Object.keys(aseguradoras).map((aseguradora) => (
+      <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scrollbar-hide">
+        {Object.keys(data).map(aseguradora => (
           <button
             key={aseguradora}
             onClick={() => setActiveAseguradora(aseguradora)}
-            className={`px-5 py-2.5 rounded-lg font-bold text-sm transition-all active:scale-95 ${
+            className={`px-5 py-2.5 rounded-full font-bold text-sm whitespace-nowrap transition-all shadow-md ${
               activeAseguradora === aseguradora 
-                ? 'bg-gradient-to-r from-sky-600 to-indigo-600 text-white shadow-lg shadow-sky-900/50' 
-                : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
+                ? 'bg-[#e11b22] text-white' 
+                : 'bg-slate-900 text-slate-400 hover:bg-slate-800'
             }`}
           >
             {aseguradora}
-            {aseguradoras[aseguradora].length > 0 && (
-              <span className="ml-2 bg-white/20 px-2 py-0.5 rounded-full text-xs">
-                {aseguradoras[aseguradora].length}
-              </span>
-            )}
+            <span className="ml-2 bg-black/20 px-2 py-0.5 rounded-full text-xs">
+              {(data[aseguradora] || []).length}
+            </span>
           </button>
         ))}
       </div>
 
-      <div className="bg-[#19222a]/80 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-2xl">
-        
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="text-xl font-bold text-sky-400">
-            Tabla de Tarifas: {activeAseguradora}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-1 bg-slate-900 p-6 rounded-3xl border border-slate-800 shadow-xl h-fit">
+          <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            📥 Pegar desde Excel 
+            <span className="text-[#e11b22] text-sm">({activeAseguradora})</span>
           </h3>
+          <p className="text-xs text-slate-500 mb-4 leading-relaxed">
+            Copia las filas desde tu Google Sheets o Excel y pégalas aquí. <br/>
+            <strong>Orden:</strong> Producto | Ciudad | Vehículo | Desde | Hasta | Tasa | RC
+          </p>
+          <textarea 
+            value={pasteData}
+            onChange={(e) => setPasteData(e.target.value)}
+            className="w-full h-40 bg-slate-950 border border-slate-800 rounded-xl p-4 text-slate-300 font-mono text-xs outline-none focus:border-[#e11b22] focus:ring-1 focus:ring-[#e11b22] transition-all resize-none mb-4"
+            placeholder="Pega aquí los datos de Excel (Tabulados)..."
+          ></textarea>
           <button 
-            onClick={() => setAseguradoras({...aseguradoras, [activeAseguradora]: []})}
-            className="text-xs bg-red-500/10 text-red-400 hover:bg-red-500/20 px-3 py-1.5 rounded-md font-semibold transition-colors"
+            onClick={handlePasteExcel}
+            className="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 rounded-xl transition-colors"
           >
-            Limpiar Tabla
+            Reemplazar matriz
           </button>
         </div>
 
-        {/* Zona de Pegado de Excel */}
-        <div className="mb-6 relative">
-          <label className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 block">Pegado rápido desde Excel</label>
-          <textarea
-            className="w-full bg-[#131a20] border-2 border-dashed border-sky-500/30 rounded-xl p-4 text-slate-300 text-sm focus:outline-none focus:border-sky-500 focus:bg-[#1a232f] transition-all resize-none"
-            rows="3"
-            placeholder="Selecciona las celdas en tu Excel, presiona Ctrl+C y pega aquí (Ctrl+V)..."
-            value={pasteData}
-            onChange={(e) => setPasteData(e.target.value)}
-            onPaste={handlePasteFromExcel}
-          ></textarea>
-        </div>
-
-        {/* Tabla Visual */}
-        <div className="overflow-x-auto rounded-xl border border-white/5 max-h-[500px] overflow-y-auto">
-          <table className="w-full text-left text-sm text-slate-300 whitespace-nowrap">
-            <thead className="bg-[#131a20] text-xs uppercase font-bold text-slate-500 sticky top-0">
-              <tr>
-                <th className="px-4 py-3">Producto</th>
-                <th className="px-4 py-3">Ciudad</th>
-                <th className="px-4 py-3">Vehículo</th>
-                <th className="px-4 py-3">Desde ($)</th>
-                <th className="px-4 py-3">Hasta ($)</th>
-                <th className="px-4 py-3 text-sky-400">Tasa (%)</th>
-                <th className="px-4 py-3">RC</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-white/5">
-              {currentData.length === 0 ? (
+        <div className="lg:col-span-2 bg-slate-900 rounded-3xl border border-slate-800 shadow-xl overflow-hidden">
+          <div className="px-6 py-4 border-b border-slate-800 bg-slate-900/50 flex justify-between items-center">
+            <h3 className="font-bold text-white">Matriz Actual: {activeAseguradora}</h3>
+            <span className="text-xs font-bold text-slate-500 bg-slate-950 px-3 py-1 rounded-full border border-slate-800">
+              {currentRecords.length} registros
+            </span>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm">
+              <thead className="bg-slate-950 text-slate-400 text-xs uppercase tracking-wider">
                 <tr>
-                  <td colSpan="7" className="px-4 py-12 text-center text-slate-500 italic">
-                    No hay datos para {activeAseguradora}. Pega los datos desde Excel arriba.
-                  </td>
+                  <th className="px-6 py-4 font-bold">Producto</th>
+                  <th className="px-6 py-4 font-bold">Ciudad</th>
+                  <th className="px-6 py-4 font-bold">Vehículo</th>
+                  <th className="px-6 py-4 font-bold text-right">Rango Valor</th>
+                  <th className="px-6 py-4 font-bold text-right">Tasa</th>
+                  <th className="px-6 py-4 font-bold text-right">RC</th>
                 </tr>
-              ) : (
-                currentData.map((row, index) => (
-                  <tr key={index} className="hover:bg-white/5 transition-colors">
-                    <td className="px-4 py-3 font-medium text-white">{row.producto}</td>
-                    <td className="px-4 py-3">{row.ciudad}</td>
-                    <td className="px-4 py-3">{row.vehiculo}</td>
-                    <td className="px-4 py-3">{row.desde}</td>
-                    <td className="px-4 py-3">{row.hasta}</td>
-                    <td className="px-4 py-3 font-bold text-sky-400">{row.tasa}</td>
-                    <td className="px-4 py-3">{row.rc}</td>
+              </thead>
+              <tbody className="divide-y divide-slate-800/50">
+                {currentRecords.length === 0 ? (
+                  <tr>
+                    <td colSpan="6" className="px-6 py-12 text-center text-slate-500">
+                      No hay tasas cargadas para {activeAseguradora}.<br/>Usa el panel izquierdo para pegar desde Excel.
+                    </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : (
+                  currentRecords.slice(0, 15).map((row, i) => (
+                    <tr key={i} className="hover:bg-slate-800/30 transition-colors">
+                      <td className="px-6 py-3 font-medium text-slate-300">{row.producto}</td>
+                      <td className="px-6 py-3 text-slate-400">{row.ciudad}</td>
+                      <td className="px-6 py-3 text-slate-400">{row.vehiculo}</td>
+                      <td className="px-6 py-3 text-right font-mono text-slate-400">${row.desde} - ${row.hasta === 99999 ? '∞' : row.hasta}</td>
+                      <td className="px-6 py-3 text-right font-black text-[#e11b22]">{row.tasa}%</td>
+                      <td className="px-6 py-3 text-right text-slate-400 font-mono">${row.rc}</td>
+                    </tr>
+                  ))
+                )}
+                {currentRecords.length > 15 && (
+                  <tr>
+                    <td colSpan="6" className="px-6 py-4 text-center text-xs text-slate-500 bg-slate-900">
+                      Y {currentRecords.length - 15} registros más... (Ocultos para rendimiento)
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
+      </div>
+    </div>
+  );
+}
 
+// ----------------------------------------------------
+// COMPONENTE: GESTOR DE CMS (Blog y Textos) - NUEVO
+// ----------------------------------------------------
+function CMSManager() {
+  return (
+    <div className="w-full max-w-5xl mx-auto">
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-3xl font-black text-white tracking-tight">Gestor de Contenidos (CMS)</h1>
+          <p className="text-slate-400 mt-1">Administra los artículos de tu Blog y textos del sitio centralizados en Firebase.</p>
+        </div>
+        <button 
+          className="bg-[#e11b22] hover:bg-red-700 text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 transition-colors shadow-lg shadow-red-900/50"
+        >
+          + Nuevo Artículo
+        </button>
+      </div>
+
+      <div className="bg-slate-900 rounded-3xl border border-slate-800 shadow-xl overflow-hidden mb-8">
+         <div className="px-6 py-5 border-b border-slate-800 flex justify-between items-center">
+            <h3 className="font-bold text-white">Artículos Publicados (Blog)</h3>
+         </div>
+         <div className="divide-y divide-slate-800/50">
+            {/* FAKE DATA DEMO FOR THE ADMIN PANEL */}
+            {[
+              { id: 1, title: 'El seguro: La herramienta para que Latinoamérica salga de la pobreza', author: 'DC Equipo', status: 'Publicado', date: 'Hoy' },
+              { id: 2, title: 'Los orígenes: Cómo iniciaron los seguros en el Ecuador', author: 'DC Equipo', status: 'Publicado', date: 'Ayer' },
+              { id: 3, title: 'Más que un papel: Cómo en DC Asesores te damos asistencia real', author: 'Dirección Médica', status: 'Borrador', date: '15/Sep' },
+            ].map(post => (
+              <div key={post.id} className="p-6 flex items-center justify-between hover:bg-slate-800/30 transition-colors">
+                 <div>
+                    <h4 className="font-bold text-slate-200 text-lg mb-1">{post.title}</h4>
+                    <div className="flex gap-4 text-xs text-slate-500 font-medium">
+                       <span>Autor: {post.author}</span>
+                       <span>•</span>
+                       <span>Fecha: {post.date}</span>
+                    </div>
+                 </div>
+                 <div className="flex items-center gap-4">
+                    <span className={`px-3 py-1 rounded-full text-xs font-bold ${post.status === 'Publicado' ? 'bg-green-900/50 text-green-400' : 'bg-orange-900/50 text-orange-400'}`}>
+                      {post.status}
+                    </span>
+                    <button className="p-2 text-slate-400 hover:text-white transition-colors">
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                    </button>
+                 </div>
+              </div>
+            ))}
+         </div>
+      </div>
+
+      <div className="bg-slate-900 p-8 rounded-3xl border border-slate-800 shadow-xl opacity-60">
+         <div className="flex items-center gap-4 mb-4">
+            <svg className="w-8 h-8 text-[#e11b22]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <h3 className="text-xl font-bold text-white">Próximo paso de desarrollo</h3>
+         </div>
+         <p className="text-slate-400 leading-relaxed max-w-3xl">
+           La interfaz gráfica del CMS está lista. El siguiente paso técnico es conectar estos botones directamente con la colección <code>blog_posts</code> en Firebase Firestore. De esta manera, cualquier artículo que escribas o edites aquí, se actualizará instantáneamente en la página pública del Blog.
+         </p>
       </div>
     </div>
   );

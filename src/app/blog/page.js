@@ -1,85 +1,147 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const metadata = {
-  title: 'Blog | DC Asesores en Seguros',
-  description: 'Noticias, consejos y artículos sobre seguros, educación financiera y protección patrimonial.',
+  title: 'Blog de Protección Financiera | DC Asesores',
+  description: 'Noticias, consejos e historia sobre seguros, educación financiera y protección patrimonial en Ecuador.',
 };
 
 export default function BlogPage() {
   return (
-    <div className="min-h-screen bg-[#f9f9fb] font-sans text-slate-800">
+    <div className="min-h-screen bg-[#f4f4f6] font-sans text-slate-800">
       
-      {/* 🔴 HEADER CORPORATIVO (Mantenido global) */}
-      <header className="w-full bg-white shadow-sm sticky top-0 z-40 border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-24">
+      {/* 🔴 HEADER CORPORATIVO */}
+      <header className="w-full bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-40 border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-20">
           <Link href="/">
-            <img src="/logo.webp" alt="DC Asesores" className="h-14 object-contain" />
+            <img src="/logo.webp" alt="DC Asesores" className="h-12 object-contain" />
           </Link>
-          <nav className="hidden md:flex gap-8 items-center font-medium text-slate-700 text-sm">
+          <nav className="hidden md:flex gap-8 items-center font-bold text-slate-700 text-sm">
             <Link href="/" className="hover:text-[#e11b22] transition-colors">Inicio</Link>
-            <Link href="/blog" className="text-[#e11b22] font-bold">Blog</Link>
+            <Link href="/blog" className="text-[#e11b22]">Blog</Link>
             <Link href="/cotizador" className="flex items-center gap-1 hover:text-[#e11b22] transition-colors">
-              Cotizador <svg className="w-3 h-3 text-slate-400" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+              Cotizador Inteligente
             </Link>
           </nav>
         </div>
       </header>
 
       {/* HEADER DEL BLOG */}
-      <section className="py-20 bg-slate-900 text-white text-center px-4">
-        <h4 className="text-[#e11b22] font-semibold tracking-widest text-sm uppercase mb-3">APRENDE CON NOSOTROS</h4>
-        <h1 className="text-4xl md:text-6xl font-bold mb-6">Blog de Seguros y Protección Financiera</h1>
-        <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-          Consejos expertos para elegir la mejor cobertura, cuidar tu patrimonio y asegurar el futuro de tu familia.
-        </p>
+      <section className="relative py-24 bg-slate-950 text-white overflow-hidden">
+        {/* Background blobs for luxury feel */}
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#e11b22]/20 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+        
+        <div className="max-w-5xl mx-auto px-4 text-center relative z-10">
+          <h4 className="text-[#e11b22] font-bold tracking-[0.3em] text-xs uppercase mb-4">Aprende con DC Asesores</h4>
+          <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight">Inteligencia <br/> Financiera y Seguros</h1>
+          <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-medium">
+            Información real y valiosa para proteger tu patrimonio, entender la historia de los seguros y mejorar tu calidad de vida.
+          </p>
+        </div>
       </section>
 
-      {/* GRID DE ARTÍCULOS */}
-      <section className="py-24 max-w-7xl mx-auto px-4">
+      {/* ARTÍCULOS DESTACADOS */}
+      <section className="py-20 max-w-7xl mx-auto px-4 -mt-10 relative z-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           
-          {/* Post Placeholder 1 */}
-          <article className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl transition-shadow">
-            <div className="h-48 bg-slate-200 w-full object-cover">
-               {/* Placeholder image */}
-               <img src="https://dcasesoresec.com/wp-content/uploads/2026/02/Diseno-sin-titulo-2026-02-26T213339.263.png" className="w-full h-full object-cover opacity-80" alt="Blog Post 1" />
+          {/* ARTÍCULO 1: Jurgen / Pobreza */}
+          <article className="bg-white rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden flex flex-col group hover:-translate-y-2 transition-transform duration-300">
+            <div className="relative h-60 overflow-hidden">
+               <Image src="/blog_peace.jpg" alt="Familia durmiendo tranquila" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+               <div className="absolute top-4 left-4 bg-white/90 backdrop-blur text-slate-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                 Educación Financiera
+               </div>
             </div>
-            <div className="p-6">
-              <span className="text-xs font-bold text-[#e11b22] uppercase tracking-wider mb-2 block">Seguro de Vida</span>
-              <h2 className="text-xl font-bold text-slate-800 mb-3 hover:text-[#e11b22] cursor-pointer">5 razones por las que necesitas un seguro de vida con ahorro</h2>
-              <p className="text-slate-500 text-sm mb-4">Descubre cómo proteger a tu familia mientras construyes un fondo para tu jubilación o proyectos futuros.</p>
-              <Link href="#" className="text-slate-800 font-bold text-sm flex items-center gap-2 hover:text-[#e11b22]">Leer artículo <span>→</span></Link>
+            <div className="p-8 flex-1 flex flex-col">
+              <h2 className="text-2xl font-black text-slate-900 mb-4 leading-tight group-hover:text-[#e11b22] transition-colors">
+                El seguro: La herramienta para que Latinoamérica salga de la pobreza
+              </h2>
+              <div className="prose prose-sm text-slate-500 flex-1">
+                <p>
+                  Como menciona frecuentemente el experto <strong>Jürgen Klarić</strong>, una de las grandes diferencias entre las economías desarrolladas y Latinoamérica es la cultura de la prevención. Los seguros no son un gasto, son un escudo contra la pobreza extrema.
+                </p>
+                <p>
+                  Un imprevisto médico o la pérdida del proveedor principal de la familia puede destruir décadas de esfuerzo patrimonial en un solo día. <strong>Asegurar tu vida y tu salud es comprar el derecho a dormir tranquilo</strong>. Mejora tu calidad de vida sabiendo que, pase lo que pase, el futuro de tus hijos y tu dignidad financiera están completamente protegidos.
+                </p>
+              </div>
+              <div className="mt-6 pt-6 border-t border-slate-100 flex items-center gap-3">
+                <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-400">DC</div>
+                <div>
+                  <p className="text-xs font-bold text-slate-900">Equipo Asesor</p>
+                  <p className="text-xs text-slate-500">Lectura de 3 min</p>
+                </div>
+              </div>
             </div>
           </article>
 
-          {/* Post Placeholder 2 */}
-          <article className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl transition-shadow">
-            <div className="h-48 bg-slate-200 w-full object-cover">
-               <img src="https://dcasesoresec.com/wp-content/uploads/2026/02/Diseno-sin-titulo-2026-02-27T082522.267-380x380.png" className="w-full h-full object-cover opacity-80" alt="Blog Post 2" />
+          {/* ARTÍCULO 2: Historia */}
+          <article className="bg-white rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden flex flex-col group hover:-translate-y-2 transition-transform duration-300">
+            <div className="relative h-60 overflow-hidden">
+               <Image src="/blog_history.jpg" alt="Historia de los seguros" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+               <div className="absolute top-4 left-4 bg-[#e11b22]/90 backdrop-blur text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                 Historia
+               </div>
             </div>
-            <div className="p-6">
-              <span className="text-xs font-bold text-[#e11b22] uppercase tracking-wider mb-2 block">Salud</span>
-              <h2 className="text-xl font-bold text-slate-800 mb-3 hover:text-[#e11b22] cursor-pointer">Diferencias entre seguros médicos locales e internacionales</h2>
-              <p className="text-slate-500 text-sm mb-4">Aprende a elegir la cobertura médica adecuada dependiendo de tu estilo de vida y necesidades de viaje.</p>
-              <Link href="#" className="text-slate-800 font-bold text-sm flex items-center gap-2 hover:text-[#e11b22]">Leer artículo <span>→</span></Link>
+            <div className="p-8 flex-1 flex flex-col">
+              <h2 className="text-2xl font-black text-slate-900 mb-4 leading-tight group-hover:text-[#e11b22] transition-colors">
+                Los orígenes: Cómo iniciaron los seguros en el Ecuador
+              </h2>
+              <div className="prose prose-sm text-slate-500 flex-1">
+                <p>
+                  La historia de los seguros a nivel mundial nació de la necesidad de proteger las expediciones marítimas comerciales. En **Ecuador**, esta historia no fue muy distinta. A finales del siglo XIX y principios del XX, impulsados por el auge cacaotero en Guayaquil, los comerciantes necesitaron proteger sus cargas de los voraces incendios que azotaban la ciudad.
+                </p>
+                <p>
+                  Así nacieron las primeras compañías de seguros nacionales, sentando las bases del sistema financiero moderno ecuatoriano. Hoy en día, la industria aseguradora en Ecuador es robusta, regulada y esencial para el desarrollo de todo tipo de empresas y familias a lo largo de las 24 provincias.
+                </p>
+              </div>
+              <div className="mt-6 pt-6 border-t border-slate-100 flex items-center gap-3">
+                <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-400">DC</div>
+                <div>
+                  <p className="text-xs font-bold text-slate-900">Equipo Asesor</p>
+                  <p className="text-xs text-slate-500">Lectura de 4 min</p>
+                </div>
+              </div>
             </div>
           </article>
 
-          {/* Post Placeholder 3 */}
-          <article className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl transition-shadow">
-            <div className="h-48 bg-slate-200 w-full object-cover">
-               <img src="https://dcasesoresec.com/wp-content/uploads/2026/02/Diseno-sin-titulo-2026-02-26T215428.014-90x90.png" className="w-full h-full object-cover opacity-80" alt="Blog Post 3" />
+          {/* ARTÍCULO 3: DC Asistencia */}
+          <article className="bg-white rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden flex flex-col group hover:-translate-y-2 transition-transform duration-300">
+            <div className="relative h-60 overflow-hidden">
+               <Image src="/blog_advisor.jpg" alt="Asesora de seguros" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+               <div className="absolute top-4 left-4 bg-slate-900/90 backdrop-blur text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                 Servicio al Cliente
+               </div>
             </div>
-            <div className="p-6">
-              <span className="text-xs font-bold text-[#e11b22] uppercase tracking-wider mb-2 block">Empresas</span>
-              <h2 className="text-xl font-bold text-slate-800 mb-3 hover:text-[#e11b22] cursor-pointer">Protege tu patrimonio: Seguros empresariales obligatorios</h2>
-              <p className="text-slate-500 text-sm mb-4">Una guía completa sobre las pólizas que toda PYME y empresa grande debe tener para operar con seguridad.</p>
-              <Link href="#" className="text-slate-800 font-bold text-sm flex items-center gap-2 hover:text-[#e11b22]">Leer artículo <span>→</span></Link>
+            <div className="p-8 flex-1 flex flex-col">
+              <h2 className="text-2xl font-black text-slate-900 mb-4 leading-tight group-hover:text-[#e11b22] transition-colors">
+                Más que un papel: Cómo en DC Asesores te damos asistencia real
+              </h2>
+              <div className="prose prose-sm text-slate-500 flex-1">
+                <p>
+                  Vender un seguro es fácil; el verdadero valor de un *bróker* se demuestra en el momento de la verdad: **el siniestro**. En DC Asesores, nuestro trabajo real comienza el día que firmas tu póliza.
+                </p>
+                <p>
+                  Contamos con un departamento especializado de asistencia. Si tienes un choque a las 2 AM, o una emergencia médica el fin de semana, nosotros tomamos el control. Hablamos con los peritos, llenamos los formularios por ti, peleamos las coberturas con la aseguradora y garantizamos que recibas tu indemnización en tiempo récord. **Tu única preocupación debe ser tu salud; del papeleo nos encargamos nosotros.**
+                </p>
+              </div>
+              <div className="mt-6 pt-6 border-t border-slate-100 flex items-center gap-3">
+                <div className="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-400">DC</div>
+                <div>
+                  <p className="text-xs font-bold text-slate-900">Dirección Médica</p>
+                  <p className="text-xs text-slate-500">Lectura de 2 min</p>
+                </div>
+              </div>
             </div>
           </article>
 
         </div>
       </section>
+
+      {/* FOOTER */}
+      <footer className="bg-slate-900 py-10 border-t-4 border-[#e11b22] text-center">
+         <p className="text-slate-500 font-medium text-sm">© 2026 DC Asesores en Seguros. Todos los derechos reservados.</p>
+      </footer>
     </div>
   );
 }
