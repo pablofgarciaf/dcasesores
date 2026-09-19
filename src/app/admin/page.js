@@ -62,7 +62,20 @@ const defaultTasas = {
   ],
   "ADS": [],
   "SWEADEN": [],
-  "ATL": []
+  "ATL": [],
+  "ATLANTIDA": [],
+  "ZURICH": [],
+  "MAPFRE": [],
+  "PRIVILEGIO": [
+    { producto: "Hasta 10 Años", ciudad: "NACIONAL", vehiculo: "TODOS", desde: "$ -", hasta: "$ 19.999,00", tasa: "2,90%", rc: "$ 30.000,00" },
+    { producto: "Hasta 10 Años", ciudad: "NACIONAL", vehiculo: "TODOS", desde: "$ 20.000,00", hasta: "$ 29.999,00", tasa: "2,70%", rc: "$ 30.000,00" },
+    { producto: "Hasta 10 Años", ciudad: "NACIONAL", vehiculo: "TODOS", desde: "$ 30.000,00", hasta: "$ 39.999,00", tasa: "2,50%", rc: "$ 30.000,00" },
+    { producto: "Hasta 10 Años", ciudad: "NACIONAL", vehiculo: "TODOS", desde: "$ 40.000,00", hasta: "$ 999.999,00", tasa: "2,30%", rc: "$ 30.000,00" },
+    { producto: "Hasta 11 Años", ciudad: "NACIONAL", vehiculo: "TODOS", desde: "$ -", hasta: "$ 19.999,00", tasa: "4,00%", rc: "$ 30.000,00" },
+    { producto: "Hasta 11 Años", ciudad: "NACIONAL", vehiculo: "TODOS", desde: "$ 20.000,00", hasta: "$ 29.999,00", tasa: "3,80%", rc: "$ 30.000,00" },
+    { producto: "Hasta 11 Años", ciudad: "NACIONAL", vehiculo: "TODOS", desde: "$ 30.000,00", hasta: "$ 39.999,00", tasa: "3,50%", rc: "$ 30.000,00" },
+    { producto: "Hasta 11 Años", ciudad: "NACIONAL", vehiculo: "TODOS", desde: "$ 40.000,00", hasta: "$ 999.999,00", tasa: "3,30%", rc: "$ 30.000,00" },
+  ]
 };
 
 export default function AdminPage() {

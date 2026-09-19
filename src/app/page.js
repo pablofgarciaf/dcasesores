@@ -110,6 +110,12 @@ export default function Home() {
             <div className="text-3xl font-black text-slate-800 tracking-tighter">
               CONFIAMED
             </div>
+            <div className="text-4xl font-serif font-black text-red-600">
+              MAPFRE
+            </div>
+            <div className="text-4xl font-black text-slate-800 flex items-center gap-1">
+              <span className="text-blue-700">ZURICH</span>
+            </div>
             <div className="text-4xl font-serif font-black text-slate-800">
               <span className="text-red-600">■</span> Redbridge.
             </div>
@@ -119,6 +125,9 @@ export default function Home() {
             <div className="text-5xl font-black text-slate-800 flex items-center gap-2">
               <span className="text-red-600">AF</span> 
               <span className="text-slate-300">|||</span>
+            </div>
+            <div className="text-3xl font-black text-indigo-900 tracking-wider">
+              PRIVILEGIO
             </div>
           </div>
           
@@ -133,6 +142,12 @@ export default function Home() {
             <div className="text-3xl font-black text-slate-800 tracking-tighter">
               CONFIAMED
             </div>
+            <div className="text-4xl font-serif font-black text-red-600">
+              MAPFRE
+            </div>
+            <div className="text-4xl font-black text-slate-800 flex items-center gap-1">
+              <span className="text-blue-700">ZURICH</span>
+            </div>
             <div className="text-4xl font-serif font-black text-slate-800">
               <span className="text-red-600">■</span> Redbridge.
             </div>
@@ -142,6 +157,9 @@ export default function Home() {
             <div className="text-5xl font-black text-slate-800 flex items-center gap-2">
               <span className="text-red-600">AF</span> 
               <span className="text-slate-300">|||</span>
+            </div>
+            <div className="text-3xl font-black text-indigo-900 tracking-wider">
+              PRIVILEGIO
             </div>
           </div>
         </div>
@@ -186,10 +204,25 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="bg-white py-12 border-t border-slate-200">
+      {/* CTA Final */}
+      <section className="py-24 bg-slate-900 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-red-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-6">Protege tu vehículo hoy.</h2>
+          <p className="text-xl text-slate-300 mb-10">Cotiza de manera inteligente, rápida y 100% digital.</p>
+          <Link 
+            href="/cotizador" 
+            className="inline-flex bg-red-600 hover:bg-red-500 text-white px-12 py-5 rounded-full font-bold text-lg shadow-[0_10px_40px_rgba(220,38,38,0.4)] transition-all hover:-translate-y-1 active:scale-95 items-center justify-center gap-3"
+          >
+            Generar Cotización
+          </Link>
+        </div>
+      </section>
+
+      <footer className="bg-slate-950 py-12 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <Image src="/logo.png" alt="DC Asesores" width={100} height={35} className="mx-auto opacity-50 mb-6 object-contain" />
-          <p className="text-slate-400 font-medium text-sm">© {new Date().getFullYear()} DC Asesores en Seguros. Ingeniería y diseño con estándares A+.</p>
+          <Image src="/logo.png" alt="DC Asesores" width={120} height={40} className="mx-auto opacity-40 mb-6 object-contain filter grayscale invert" />
+          <p className="text-slate-500 font-medium text-sm">© {new Date().getFullYear()} DC Asesores en Seguros. Ingeniería y diseño con estándares A+.</p>
         </div>
       </footer>
     </div>
