@@ -124,32 +124,37 @@ export default function Home() {
         </div>
 
         {/* Gradient Masks */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-r from-white to-transparent z-10"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-l from-white to-transparent z-10"></div>
+        <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
 
-        <div className="w-[200%] flex overflow-hidden group py-6">
-          <div className="animate-marquee flex items-center space-x-16 sm:space-x-32 px-8 w-1/2 justify-around grayscale hover:grayscale-0 transition-all duration-500 opacity-70 hover:opacity-100">
-            <div className="text-4xl font-black text-slate-800 flex items-center gap-2"><span className="text-red-600">///</span> BMI</div>
-            <div className="text-4xl font-black text-slate-800"><span className="text-blue-600 text-5xl leading-none mr-1">♦</span> SWEADEN</div>
-            <div className="text-3xl font-black text-slate-800 tracking-tighter">CONFIAMED</div>
-            <div className="text-4xl font-serif font-black text-red-600">MAPFRE</div>
-            <div className="text-4xl font-black text-blue-700">ZURICH</div>
-            <div className="text-4xl font-serif font-black text-slate-800"><span className="text-red-600">■</span> Redbridge.</div>
-            <div className="text-4xl font-black text-slate-800 flex items-center gap-1"><span className="text-green-500 text-5xl">*</span> Olé</div>
-            <div className="text-5xl font-black text-slate-800 flex items-center gap-2"><span className="text-red-600">AF</span> <span className="text-slate-300">|||</span></div>
-            <div className="text-3xl font-black text-indigo-900 tracking-wider">PRIVILEGIO</div>
-          </div>
-          
-          <div className="animate-marquee flex items-center space-x-16 sm:space-x-32 px-8 w-1/2 justify-around grayscale hover:grayscale-0 transition-all duration-500 opacity-70 hover:opacity-100">
-            <div className="text-4xl font-black text-slate-800 flex items-center gap-2"><span className="text-red-600">///</span> BMI</div>
-            <div className="text-4xl font-black text-slate-800"><span className="text-blue-600 text-5xl leading-none mr-1">♦</span> SWEADEN</div>
-            <div className="text-3xl font-black text-slate-800 tracking-tighter">CONFIAMED</div>
-            <div className="text-4xl font-serif font-black text-red-600">MAPFRE</div>
-            <div className="text-4xl font-black text-blue-700">ZURICH</div>
-            <div className="text-4xl font-serif font-black text-slate-800"><span className="text-red-600">■</span> Redbridge.</div>
-            <div className="text-4xl font-black text-slate-800 flex items-center gap-1"><span className="text-green-500 text-5xl">*</span> Olé</div>
-            <div className="text-5xl font-black text-slate-800 flex items-center gap-2"><span className="text-red-600">AF</span> <span className="text-slate-300">|||</span></div>
-            <div className="text-3xl font-black text-indigo-900 tracking-wider">PRIVILEGIO</div>
+        <div className="w-full flex overflow-hidden py-6">
+          <div className="animate-marquee flex items-center w-max">
+            {[
+              <div className="text-4xl font-black text-slate-800 flex items-center gap-2"><span className="text-red-600">///</span> BMI</div>,
+              <div className="text-4xl font-black text-slate-800"><span className="text-blue-600 text-5xl leading-none mr-1">♦</span> SWEADEN</div>,
+              <div className="text-3xl font-black text-slate-800 tracking-tighter">CONFIAMED</div>,
+              <div className="text-4xl font-serif font-black text-red-600">MAPFRE</div>,
+              <div className="text-4xl font-black text-blue-700">ZURICH</div>,
+              <div className="text-4xl font-serif font-black text-slate-800"><span className="text-red-600">■</span> Redbridge.</div>,
+              <div className="text-4xl font-black text-slate-800 flex items-center gap-1"><span className="text-green-500 text-5xl">*</span> Olé</div>,
+              <div className="text-5xl font-black text-slate-800 flex items-center gap-2"><span className="text-red-600">AF</span> <span className="text-slate-300">|||</span></div>,
+              <div className="text-3xl font-black text-indigo-900 tracking-wider">PRIVILEGIO</div>,
+              
+              /* Duplicado exacto para crear el loop infinito sin cortes */
+              <div className="text-4xl font-black text-slate-800 flex items-center gap-2"><span className="text-red-600">///</span> BMI</div>,
+              <div className="text-4xl font-black text-slate-800"><span className="text-blue-600 text-5xl leading-none mr-1">♦</span> SWEADEN</div>,
+              <div className="text-3xl font-black text-slate-800 tracking-tighter">CONFIAMED</div>,
+              <div className="text-4xl font-serif font-black text-red-600">MAPFRE</div>,
+              <div className="text-4xl font-black text-blue-700">ZURICH</div>,
+              <div className="text-4xl font-serif font-black text-slate-800"><span className="text-red-600">■</span> Redbridge.</div>,
+              <div className="text-4xl font-black text-slate-800 flex items-center gap-1"><span className="text-green-500 text-5xl">*</span> Olé</div>,
+              <div className="text-5xl font-black text-slate-800 flex items-center gap-2"><span className="text-red-600">AF</span> <span className="text-slate-300">|||</span></div>,
+              <div className="text-3xl font-black text-indigo-900 tracking-wider">PRIVILEGIO</div>
+            ].map((brand, idx) => (
+              <div key={idx} className="shrink-0 w-[220px] md:w-[280px] flex items-center justify-center px-4">
+                {brand}
+              </div>
+            ))}
           </div>
         </div>
       </section>
