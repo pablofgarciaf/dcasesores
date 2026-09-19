@@ -196,7 +196,6 @@ export default function Home() {
       </section>
 
       {/* 🔴 MARCAS (Estilo EnergyEngine, A Color, Sin cortes) */}
-      {/* Mantenemos tu arreglo anterior que funcionó perfectamente */}
       <section id="marcas" className="relative py-14 overflow-hidden bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)] border-y border-slate-200/80">
         <div className="container mx-auto px-6 mb-10 text-center max-w-5xl relative z-10">
           <h3 className="text-3xl md:text-4xl lg:text-5xl font-black text-black tracking-tighter leading-none uppercase">
@@ -239,7 +238,80 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 🔴 FOOTER */}
+      {/* 🔴 CÓMO TRABAJAMOS (El flujo de 4 pasos circulares) */}
+      <section className="py-24 bg-white relative">
+        <div className="max-w-7xl mx-auto px-4 text-center mb-16">
+          <h4 className="text-[#e11b22] font-semibold tracking-widest text-sm uppercase mb-3">CÓMO TRABAJAMOS</h4>
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-800">Nuestro proceso de asesoría en seguros</h2>
+          <div className="w-20 h-1 bg-[#e11b22] mx-auto mt-6"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 relative mt-20">
+           {/* The dashed line (Desktop only) */}
+           <div className="hidden md:block absolute top-[90px] left-[10%] w-[80%] border-t-[3px] border-dashed border-slate-300 z-0"></div>
+           
+           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-4 relative z-10">
+             {[
+               { num: '01', title: 'Análisis de necesidades', desc: 'Nos reunimos contigo para comprender tu situación financiera, prioridades y riesgos actuales, realizando un diagnóstico profesional y personalizado.', img: 'https://dcasesoresec.com/wp-content/uploads/2026/02/01-8-195x195.png' },
+               { num: '02', title: 'Diseño de solución', desc: 'Evaluamos las mejores opciones del mercado y estructuramos una propuesta estratégica alineada a tus objetivos de protección.', img: 'https://dcasesoresec.com/wp-content/uploads/2026/02/01-9-195x195.png' },
+               { num: '03', title: 'Contratación y gestión', desc: 'Te acompañamos durante todo el proceso de contratación, explicando coberturas, condiciones y beneficios con total transparencia.', img: 'https://dcasesoresec.com/wp-content/uploads/2026/02/01-10-195x195.png' },
+               { num: '04', title: 'Acompañamiento', desc: 'Brindamos seguimiento permanente y gestionamos cualquier siniestro de manera oportuna hasta su resolución final.', img: 'https://dcasesoresec.com/wp-content/uploads/2026/02/01-11-195x195.png' },
+             ].map((step, i) => (
+               <div key={i} className="flex flex-col items-center text-center group">
+                 <div className="relative mb-8">
+                   <div className="w-[180px] h-[180px] rounded-full overflow-hidden shadow-2xl border-4 border-white transform transition-transform group-hover:scale-105">
+                      <img src={step.img} alt={step.title} className="w-full h-full object-cover" />
+                   </div>
+                   <div className="absolute top-2 -left-2 bg-[#e11b22] text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg shadow-lg border-2 border-white">
+                     {step.num}
+                   </div>
+                 </div>
+                 <h3 className="text-xl font-bold text-slate-800 mb-3">{step.title}</h3>
+                 <p className="text-slate-500 text-sm leading-relaxed px-2">{step.desc}</p>
+               </div>
+             ))}
+           </div>
+        </div>
+      </section>
+
+      {/* 🔴 FORMULARIO DE CONTACTO */}
+      <section id="contacto" className="w-full flex flex-col md:flex-row bg-[#f9f9fb] border-y border-slate-200">
+        <div className="w-full md:w-1/2 min-h-[400px] bg-slate-200 relative overflow-hidden">
+           {/* Imagen de fondo representativa (apretón de manos o póliza) */}
+           <img src="https://dcasesoresec.com/wp-content/uploads/2026/02/Diseno-sin-titulo-2026-02-26T213533.380.png" className="w-full h-full object-cover absolute inset-0" alt="Contacto DC Asesores" />
+           <div className="absolute inset-0 bg-[#e11b22]/70 mix-blend-multiply"></div>
+           <div className="absolute inset-0 bg-slate-900/30"></div>
+           
+           <div className="relative z-10 flex flex-col items-center justify-center h-full p-12 text-center text-white">
+              <svg className="w-16 h-16 mb-6 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg>
+              <h3 className="text-3xl font-bold mb-4">Estamos aquí para ayudarte</h3>
+              <p className="text-lg font-medium opacity-90 max-w-sm">Déjanos tus datos y un asesor especializado se comunicará contigo a la brevedad.</p>
+           </div>
+        </div>
+        
+        <div className="w-full md:w-1/2 p-10 md:p-20 bg-white">
+           <h4 className="text-[#e11b22] font-semibold tracking-widest text-sm uppercase mb-3">SOLICITA INFORMACIÓN</h4>
+           <h2 className="text-4xl md:text-5xl font-bold text-slate-800 leading-tight mb-10">Hablemos sobre la protección que necesitas</h2>
+           
+           <form className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <input type="text" placeholder="Nombre completo*" className="w-full bg-white border border-slate-300 rounded p-4 outline-none focus:border-[#e11b22] focus:ring-1 focus:ring-[#e11b22] shadow-sm transition-all" required />
+                <input type="tel" placeholder="Teléfono / WhatsApp*" className="w-full bg-white border border-slate-300 rounded p-4 outline-none focus:border-[#e11b22] focus:ring-1 focus:ring-[#e11b22] shadow-sm transition-all" required />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <input type="email" placeholder="Correo electrónico*" className="w-full bg-white border border-slate-300 rounded p-4 outline-none focus:border-[#e11b22] focus:ring-1 focus:ring-[#e11b22] shadow-sm transition-all" required />
+                <input type="text" placeholder="Servicio de interés (Ej: Seguro Médico)" className="w-full bg-white border border-slate-300 rounded p-4 outline-none focus:border-[#e11b22] focus:ring-1 focus:ring-[#e11b22] shadow-sm transition-all" />
+              </div>
+              <textarea placeholder="Cuéntanos qué tipo de protección necesitas..." rows="4" className="w-full bg-white border border-slate-300 rounded p-4 outline-none focus:border-[#e11b22] focus:ring-1 focus:ring-[#e11b22] shadow-sm transition-all resize-none"></textarea>
+              
+              <button type="submit" className="bg-slate-800 hover:bg-[#e11b22] text-white font-bold py-4 px-10 rounded transition-colors shadow-lg hover:shadow-xl w-full sm:w-auto">
+                Solicitar asesoría
+              </button>
+           </form>
+        </div>
+      </section>
+
+      {/* 🔴 FOOTER CON OFUSCACIÓN DE CORREOS PARA SEGURIDAD (Agente Arquitectura) */}
       <footer className="bg-slate-900 pt-20 pb-10 border-t-4 border-[#e11b22]">
         <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           <div>
@@ -248,13 +320,13 @@ export default function Home() {
               En DC Asesores en Seguros brindamos asesoría integral en protección financiera para personas, familias y empresas. Analizamos cada necesidad de forma personalizada y acompañamos a nuestros clientes con ética, compromiso y profesionalismo en cada etapa de su vida.
             </p>
             <div className="flex gap-4">
-               {/* Redes sociales placeholders */}
-               <div className="w-10 h-10 bg-slate-800 rounded flex items-center justify-center text-white hover:bg-[#e11b22] transition-colors cursor-pointer">
+               {/* Redes sociales */}
+               <a href="#" className="w-10 h-10 bg-slate-800 rounded flex items-center justify-center text-white hover:bg-[#e11b22] transition-colors shadow-lg">
                  f
-               </div>
-               <div className="w-10 h-10 bg-slate-800 rounded flex items-center justify-center text-white hover:bg-[#e11b22] transition-colors cursor-pointer">
+               </a>
+               <a href="#" className="w-10 h-10 bg-slate-800 rounded flex items-center justify-center text-white hover:bg-[#e11b22] transition-colors shadow-lg">
                  in
-               </div>
+               </a>
             </div>
           </div>
           <div>
@@ -263,6 +335,7 @@ export default function Home() {
               <li><Link href="/" className="hover:text-[#e11b22] flex items-center gap-2"><span className="text-[#e11b22]">»</span> Inicio</Link></li>
               <li><Link href="#nosotros" className="hover:text-[#e11b22] flex items-center gap-2"><span className="text-[#e11b22]">»</span> Nosotros</Link></li>
               <li><Link href="#servicios" className="hover:text-[#e11b22] flex items-center gap-2"><span className="text-[#e11b22]">»</span> Servicios</Link></li>
+              <li><Link href="/blog" className="hover:text-[#e11b22] flex items-center gap-2"><span className="text-[#e11b22]">»</span> Blog</Link></li>
               <li><Link href="/cotizador" className="hover:text-[#e11b22] flex items-center gap-2"><span className="text-[#e11b22]">»</span> Cotizador</Link></li>
               <li><Link href="#contacto" className="hover:text-[#e11b22] flex items-center gap-2"><span className="text-[#e11b22]">»</span> Contacto</Link></li>
             </ul>
@@ -280,7 +353,8 @@ export default function Home() {
               </li>
               <li className="flex gap-3">
                 <svg className="w-5 h-5 text-[#e11b22] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                info@dcasesoresec.com
+                {/* Obfuscación de correo para evitar scrapers de spam (Regla Agente Arquitectura) */}
+                <span>info</span><span className="text-[#e11b22]">&#64;</span><span>dcasesoresec.com</span>
               </li>
             </ul>
           </div>
@@ -289,6 +363,32 @@ export default function Home() {
           <p className="text-slate-500 font-medium text-sm">© 2026 DC Asesores en Seguros. Todos los derechos reservados.</p>
         </div>
       </footer>
+
+      {/* 🤖 INYECCIÓN DE JSON-LD PARA GOOGLE Y AI OVERVIEWS (Regla GEO) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "DC Asesores en Seguros",
+            "url": "https://dcasesoresec.com",
+            "logo": "https://dcasesoresec.com/logo.webp",
+            "description": "Asesoría integral en seguros, salud, vida, patrimoniales y vehiculares en Ecuador.",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+593-99-193-8754",
+              "contactType": "customer service",
+              "areaServed": "EC",
+              "availableLanguage": "es"
+            },
+            "sameAs": [
+              "https://www.facebook.com/dcasesoresec",
+              "https://www.linkedin.com/company/dcasesoresec"
+            ]
+          })
+        }}
+      />
     </div>
   );
 }

@@ -1,0 +1,41 @@
+User-agent: *
+Allow: /
+
+# GEO / AI Agents explicitly allowed
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+# Block malicious bots
+User-agent: HTTrack
+Disallow: /
+
+User-agent: Wget
+Disallow: /
+
+User-agent: Scrapy
+Disallow: /
+
+# Block private routes
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
+
+Sitemap: https://dcasesoresec.com/sitemap.xml
