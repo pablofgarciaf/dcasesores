@@ -13,8 +13,8 @@ export default function Home() {
       {/* 🌟 Background Ambient Blobs (Stripe/Linear style) */}
       <div className="absolute top-0 left-0 w-full h-screen overflow-hidden -z-10 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-red-400/20 mix-blend-multiply filter blur-[100px] animate-blob"></div>
-        <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-blue-300/20 mix-blend-multiply filter blur-[100px] animate-blob animation-delay-2000"></div>
-        <div className="absolute bottom-[-20%] left-[20%] w-[700px] h-[700px] rounded-full bg-slate-300/30 mix-blend-multiply filter blur-[100px] animate-blob animation-delay-4000"></div>
+        <div className="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-blue-300/20 mix-blend-multiply filter blur-[100px] animate-blob" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-[-20%] left-[20%] w-[700px] h-[700px] rounded-full bg-slate-300/30 mix-blend-multiply filter blur-[100px] animate-blob" style={{ animationDelay: '4s' }}></div>
       </div>
 
       {/* 🚀 Floating Premium Navbar */}
