@@ -1,4 +1,33 @@
 import Link from 'next/link';
+import Image from 'next/image';
+
+const BRANDS = [
+  { label: 'BMI', prefix: '///', prefixColor: 'text-[#e11b22]', size: 'text-4xl' },
+  { label: 'SWEADEN', prefix: '♦', prefixColor: 'text-blue-600', size: 'text-4xl' },
+  { label: 'CONFIAMED', size: 'text-3xl' },
+  { label: 'MAPFRE', size: 'text-4xl font-serif text-[#e11b22]' },
+  { label: 'ZURICH', size: 'text-4xl text-blue-700' },
+  { label: 'Redbridge.', prefix: '■', prefixColor: 'text-[#e11b22]', size: 'text-4xl font-serif' },
+  { label: 'Olé', prefix: '*', prefixColor: 'text-green-500', size: 'text-4xl' },
+  { label: 'ALIANZA', prefix: 'AF', prefixColor: 'text-[#e11b22]', size: 'text-4xl' },
+  { label: 'PRIVILEGIO', size: 'text-3xl text-indigo-900' },
+];
+const BRANDS_DOUBLED = [...BRANDS, ...BRANDS];
+
+function MarqueeBrands() {
+  return (
+    <div className="animate-marquee flex items-center w-max">
+      {BRANDS_DOUBLED.map((brand, idx) => (
+        <div key={idx} className="shrink-0 w-[220px] md:w-[280px] flex items-center justify-center px-4">
+          <div className={`font-black text-slate-800 flex items-center gap-2 ${brand.size}`}>
+            {brand.prefix && <span className={brand.prefixColor}>{brand.prefix}</span>}
+            {brand.label}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export const metadata = {
   title: 'DC Asesores en Seguros | Protección Financiera',
@@ -152,33 +181,7 @@ export default function Home() {
         <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
         <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
         <div className="w-full flex overflow-hidden py-4">
-          <div className="animate-marquee flex items-center w-max">
-            {[
-              <div className="text-4xl font-black text-slate-800 flex items-center gap-2"><span className="text-[#e11b22]">///</span> BMI</div>,
-              <div className="text-4xl font-black text-slate-800"><span className="text-blue-600 text-5xl leading-none mr-1">♦</span> SWEADEN</div>,
-              <div className="text-3xl font-black text-slate-800 tracking-tighter">CONFIAMED</div>,
-              <div className="text-4xl font-serif font-black text-[#e11b22]">MAPFRE</div>,
-              <div className="text-4xl font-black text-blue-700">ZURICH</div>,
-              <div className="text-4xl font-serif font-black text-slate-800"><span className="text-[#e11b22]">■</span> Redbridge.</div>,
-              <div className="text-4xl font-black text-slate-800 flex items-center gap-1"><span className="text-green-500 text-5xl">*</span> Olé</div>,
-              <div className="text-5xl font-black text-slate-800 flex items-center gap-2"><span className="text-[#e11b22]">AF</span> <span className="text-slate-300">|||</span></div>,
-              <div className="text-3xl font-black text-indigo-900 tracking-wider">PRIVILEGIO</div>,
-              {/* Duplicate */}
-              <div className="text-4xl font-black text-slate-800 flex items-center gap-2"><span className="text-[#e11b22]">///</span> BMI</div>,
-              <div className="text-4xl font-black text-slate-800"><span className="text-blue-600 text-5xl leading-none mr-1">♦</span> SWEADEN</div>,
-              <div className="text-3xl font-black text-slate-800 tracking-tighter">CONFIAMED</div>,
-              <div className="text-4xl font-serif font-black text-[#e11b22]">MAPFRE</div>,
-              <div className="text-4xl font-black text-blue-700">ZURICH</div>,
-              <div className="text-4xl font-serif font-black text-slate-800"><span className="text-[#e11b22]">■</span> Redbridge.</div>,
-              <div className="text-4xl font-black text-slate-800 flex items-center gap-1"><span className="text-green-500 text-5xl">*</span> Olé</div>,
-              <div className="text-5xl font-black text-slate-800 flex items-center gap-2"><span className="text-[#e11b22]">AF</span> <span className="text-slate-300">|||</span></div>,
-              <div className="text-3xl font-black text-indigo-900 tracking-wider">PRIVILEGIO</div>
-            ].map((brand, idx) => (
-              <div key={idx} className="shrink-0 w-[220px] md:w-[280px] flex items-center justify-center px-4">
-                {brand}
-              </div>
-            ))}
-          </div>
+          <MarqueeBrands />
         </div>
       </section>
 
