@@ -9,10 +9,9 @@ import { buildWhatsAppQuoteUrl } from '../../lib/whatsappService';
 import { buildAllInsurersHtml, buildSingleInsurerHtml, generateAndDownloadPdf } from '../../lib/pdfGenerator';
 import { QuoteForm } from './QuoteForm';
 import { ComparisonTable } from './ComparisonTable';
-import { TrustSignals } from './TrustSignals';
 import { PdfQuoteModal } from './PdfQuoteModal';
 import { LeadRegistrationModal } from './LeadRegistrationModal';
-import { CheckCircle, Sparkles, ArrowDown, ShieldCheck } from 'lucide-react';
+import { CheckCircle, Sparkles, ArrowRight, ShieldCheck, FileDown, Layers } from 'lucide-react';
 import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 
@@ -22,14 +21,15 @@ export const PublicQuoteView: React.FC = () => {
   const [activeQuoteForPdf, setActiveQuoteForPdf] = useState<InsurerQuoteResult | null>(null);
   const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
 
-  // Estados para la pasarela de descarga de proformas con registro de usuario y correo
+  // Estados para descarga de proformas y registro
   const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
   const [downloadMode, setDownloadMode] = useState<'all' | 'single'>('all');
   const [targetQuoteForDownload, setTargetQuoteForDownload] = useState<InsurerQuoteResult | null>(null);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [hasCalculated, setHasCalculated] = useState(true);
 
-  // Valores iniciales de cotización
+  // Valores iniciales
   const [currentInput, setCurrentInput] = useState<QuoteInput>({
     clientName: 'Carlos Mendoza',
     clientPhone: '0998765432',
@@ -41,7 +41,7 @@ export const PublicQuoteView: React.FC = () => {
     productPreference: 'LIVIANO_CLASSIC',
   });
 
-  // Carga reactiva de datos desde Firestore con fallback silencioso
+  // Carga reactiva de datos desde Firestore
   useEffect(() => {
     async function loadFirestoreData() {
       try {
@@ -58,44 +58,39 @@ export const PublicQuoteView: React.FC = () => {
           }
         }
       } catch {
-        // Fallback silencioso a las tasas pre-cargadas en memoria
+        // Fallback silencioso a tasas de memoria
       }
     }
     loadFirestoreData();
   }, []);
 
-  // Cálculo actuarial reactivo
+  // Cálculo actuarial reactivo para TODAS las aseguradoras
   const quoteResults = useMemo(() => {
     return calculateAllQuotes(currentInput, insurers, globalConfig);
   }, [currentInput, insurers, globalConfig]);
-
-  const bestPrice = useMemo(() => quoteResults.find(q => q.isBestPrice), [quoteResults]);
-  const topCoverage = useMemo(() => quoteResults.find(q => q.isTopCoverage), [quoteResults]);
 
   const handleValuesChange = useCallback((values: QuoteInput) => {
     setCurrentInput(values);
   }, []);
 
-  const scrollToResults = useCallback(() => {
-    setTimeout(() => {
-      const el = document.getElementById('seccion-resultados');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 50);
-  }, []);
-
   const handleSubmitQuote = useCallback(
     async (values: QuoteInput) => {
       setCurrentInput(values);
+      setHasCalculated(true);
       const calculated = calculateAllQuotes(values, insurers, globalConfig);
       await saveQuoteConsultation(values, calculated);
       
-      scrollToResults();
-      setToastMessage('✓ Cotización calculada. Mostrando comparativa abajo.');
-      setTimeout(() => setToastMessage(null), 4000);
+      // En móviles hace scroll suave hacia la derecha/abajo
+      if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+        setTimeout(() => {
+          document.getElementById('panel-resultados')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+      
+      setToastMessage('✓ Cotizaciones actualizadas para todas las aseguradoras.');
+      setTimeout(() => setToastMessage(null), 3500);
     },
-    [insurers, globalConfig, scrollToResults]
+    [insurers, globalConfig]
   );
 
   // Modal para ver proforma en pantalla
@@ -175,9 +170,9 @@ export const PublicQuoteView: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] pb-24 font-sans text-slate-800">
+    <div className="min-h-screen bg-[#f8fafc] text-slate-800 font-sans pb-16">
       
-      {/* Toast de notificación */}
+      {/* Toast flotante */}
       {toastMessage && (
         <div className="fixed top-24 right-4 z-50 p-4 bg-slate-900 text-white rounded-2xl shadow-2xl border border-red-500/40 flex items-center gap-3 animate-in slide-in-from-top-4 duration-300">
           <CheckCircle className="w-5 h-5 text-emerald-400 shrink-0" />
@@ -185,87 +180,76 @@ export const PublicQuoteView: React.FC = () => {
         </div>
       )}
 
-      {/* Breadcrumbs y Título Sutil (Cero Hero) */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 pt-8 pb-4">
-        <div className="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
-          <span>Inicio</span>
-          <span>/</span>
-          <span className="text-[#e11b22]">Cotizador Inteligente</span>
-        </div>
-        <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-          Cotizador de Seguros Vehiculares Multicompañía
-        </h1>
-        <p className="text-sm text-slate-500 mt-1">
-          Ingresa los datos de tu vehículo y compara al instante las tarifas de las mejores aseguradoras de Ecuador.
-        </p>
-      </div>
-
-      {/* Contenido Principal: Formulario Único */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 space-y-6">
-        
-        {/* Formulario de Entrada */}
-        <div>
-          <QuoteForm
-            initialValues={currentInput}
-            onValuesChange={handleValuesChange}
-            onSubmitQuote={handleSubmitQuote}
-          />
-        </div>
-
-        {/* Resumen Rápido en Vivo que da Feedback Inmediato */}
-        {bestPrice && (
-          <div className="bg-white p-4 rounded-2xl border border-slate-200/90 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-                ✓
-              </div>
-              <div>
-                <p className="text-xs text-slate-500 font-medium">Mejor opción calculada:</p>
-                <p className="text-sm font-black text-slate-900">
-                  {bestPrice.insurer.name} — <span className="text-[#e11b22]">${bestPrice.breakdown.cuotaMensual}/mes</span> (Prima Anual: ${bestPrice.breakdown.primaTotalAnual})
-                </p>
-              </div>
+      {/* Micro Barra Superior */}
+      <div className="w-full max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-4">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-wider">
+              <span>Inicio</span>
+              <span>/</span>
+              <span className="text-[#e11b22]">Cotizador Inteligente</span>
             </div>
-
+            <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-0.5">
+              Cotizador y Comparador Multicompañía
+            </h1>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center gap-1.5 text-xs text-slate-600 bg-white px-3.5 py-1.5 rounded-full border border-slate-200 shadow-2xs font-semibold">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>{insurers.length} Aseguradoras Activas</span>
+            </span>
             <button
-              onClick={scrollToResults}
-              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-[#e11b22] text-white text-xs font-bold transition-colors flex items-center justify-center gap-2"
+              onClick={handleTriggerDownloadAll}
+              className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-[#e11b22] text-white text-xs font-bold transition-all shadow-md active:scale-95 flex items-center gap-2 cursor-pointer"
             >
-              <span>Ver Tabla Comparativa</span>
-              <ArrowDown className="w-3.5 h-3.5" />
+              <FileDown className="w-4 h-4" />
+              <span>Descargar Proforma Consolidada</span>
             </button>
           </div>
-        )}
+        </div>
+      </div>
 
-        {/* Señales de Confianza */}
-        <TrustSignals />
+      {/* ─────────────────────────────────────────────────────────────
+          SPLIT SCREEN DASHBOARD (Todo visible en una sola pantalla desktop)
+          ───────────────────────────────────────────────────────────── */}
+      <main className="w-full max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* COLUMNA IZQUIERDA (4 COLS): Formulario Compacto */}
+          <div className="lg:col-span-4 xl:col-span-4 lg:sticky lg:top-24">
+            <QuoteForm
+              initialValues={currentInput}
+              onValuesChange={handleValuesChange}
+              onSubmitQuote={handleSubmitQuote}
+            />
 
-        {/* Tablero Comparativo con ancla de scroll */}
-        <div id="seccion-resultados" className="pt-4 scroll-mt-24">
-          <div className="bg-slate-900 text-white p-4 rounded-2xl mb-4 flex items-center justify-between">
-            <div className="flex items-center gap-2.5">
-              <Sparkles className="w-4 h-4 text-red-400" />
-              <span className="text-sm font-bold">
-                Resultados de Cotización para {currentInput.vehicleBrandModel || 'tu Vehículo'} ({currentInput.vehicleYear})
-              </span>
+            {/* Micro Señales de Confianza debajo del form */}
+            <div className="mt-4 bg-white p-4 rounded-2xl border border-slate-200/80 text-xs text-slate-500 space-y-2">
+              <div className="flex items-center gap-2 text-slate-700 font-bold">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <span>Garantía DC Asesores en Siniestros 24/7</span>
+              </div>
+              <p className="text-[11px] leading-relaxed text-slate-400">
+                Pólizas emitidas directamente con las aseguradoras autorizadas por la Superintendencia de Compañías del Ecuador.
+              </p>
             </div>
-            <span className="text-xs bg-white/10 px-3 py-1 rounded-full font-mono font-semibold">
-              Valor: ${currentInput.vehicleValue.toLocaleString()} USD
-            </span>
           </div>
 
-          <ComparisonTable
-            results={quoteResults}
-            inputData={currentInput}
-            onSelectForPdf={handleTriggerDownloadSingle}
-            onDownloadAllPdf={handleTriggerDownloadAll}
-            onContactWhatsApp={handleWhatsAppContact}
-          />
-        </div>
+          {/* COLUMNA DERECHA (8 COLS): Tablero de Resultados Dinámico */}
+          <div id="panel-resultados" className="lg:col-span-8 xl:col-span-8 space-y-6">
+            <ComparisonTable
+              results={quoteResults}
+              inputData={currentInput}
+              onSelectForPdf={handleTriggerDownloadSingle}
+              onDownloadAllPdf={handleTriggerDownloadAll}
+              onContactWhatsApp={handleWhatsAppContact}
+            />
+          </div>
 
+        </div>
       </main>
 
-      {/* Pasarela Modal: Registro obligatorio de Correo y Usuario antes de descargar la Proforma */}
+      {/* Modal: Registro de prospecto antes de descargar Proforma */}
       <LeadRegistrationModal
         isOpen={isLeadModalOpen}
         onClose={() => setIsLeadModalOpen(false)}
@@ -276,7 +260,7 @@ export const PublicQuoteView: React.FC = () => {
         isProcessing={isGeneratingPdf}
       />
 
-      {/* Modal de visualización de Proforma Formal en pantalla */}
+      {/* Modal: Visualización en pantalla */}
       <PdfQuoteModal
         isOpen={isPdfModalOpen}
         onClose={() => setIsPdfModalOpen(false)}

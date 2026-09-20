@@ -41,7 +41,27 @@ export const defaultTasas = {
     { producto: 'TODORIESGO', ciudad: 'GUAYAQUIL', vehiculo: 'LIVIANO', desde: 0, hasta: 20000, tasa: 3.5, rc: 200 },
     { producto: 'TERCEROS', ciudad: 'NACIONAL', vehiculo: 'LIVIANO', desde: 0, hasta: 99999, tasa: 1.3, rc: 130 },
   ],
-  MAPFRE: [],
-  ZURICH: [],
-  ATLANTIDA: [],
+  MAPFRE: [
+    { producto: 'TODORIESGO', ciudad: 'QUITO', vehiculo: 'LIVIANO', desde: 0, hasta: 15000, tasa: 3.6, rc: 350 },
+    { producto: 'TODORIESGO', ciudad: 'QUITO', vehiculo: 'LIVIANO', desde: 15001, hasta: 30000, tasa: 3.3, rc: 400 },
+    { producto: 'TODORIESGO', ciudad: 'GUAYAQUIL', vehiculo: 'LIVIANO', desde: 0, hasta: 20000, tasa: 3.8, rc: 350 },
+  ],
+  ZURICH: [
+    { producto: 'TODORIESGO', ciudad: 'QUITO', vehiculo: 'LIVIANO', desde: 0, hasta: 15000, tasa: 3.7, rc: 400 },
+    { producto: 'TODORIESGO', ciudad: 'QUITO', vehiculo: 'LIVIANO', desde: 15001, hasta: 30000, tasa: 3.4, rc: 450 },
+    { producto: 'TODORIESGO', ciudad: 'GUAYAQUIL', vehiculo: 'LIVIANO', desde: 0, hasta: 20000, tasa: 3.9, rc: 400 },
+  ],
+  ATLANTIDA: [
+    { producto: 'TODORIESGO', ciudad: 'QUITO', vehiculo: 'LIVIANO', desde: 0, hasta: 15000, tasa: 3.8, rc: 250 },
+    { producto: 'TODORIESGO', ciudad: 'QUITO', vehiculo: 'LIVIANO', desde: 15001, hasta: 30000, tasa: 3.5, rc: 300 },
+    { producto: 'TODORIESGO', ciudad: 'GUAYAQUIL', vehiculo: 'LIVIANO', desde: 0, hasta: 20000, tasa: 3.9, rc: 250 },
+  ],
+  SWEADEN: [
+    { producto: 'TODORIESGO', ciudad: 'QUITO', vehiculo: 'LIVIANO', desde: 0, hasta: 15000, tasa: 3.75, rc: 300 },
+    { producto: 'TODORIESGO', ciudad: 'QUITO', vehiculo: 'LIVIANO', desde: 15001, hasta: 30000, tasa: 3.45, rc: 350 },
+  ],
+  BMI: [
+    { producto: 'TODORIESGO', ciudad: 'QUITO', vehiculo: 'LIVIANO', desde: 0, hasta: 15000, tasa: 3.9, rc: 400 },
+    { producto: 'TODORIESGO', ciudad: 'QUITO', vehiculo: 'LIVIANO', desde: 15001, hasta: 30000, tasa: 3.5, rc: 500 },
+  ],
 };
