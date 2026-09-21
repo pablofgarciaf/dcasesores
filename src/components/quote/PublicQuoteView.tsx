@@ -31,8 +31,8 @@ export const PublicQuoteView: React.FC = () => {
 
   // Valores iniciales
   const [currentInput, setCurrentInput] = useState<QuoteInput>({
-    clientName: 'Carlos Mendoza',
-    clientPhone: '0991938754',
+    clientName: '',
+    clientPhone: '',
     clientEmail: '',
     vehicleBrandModel: 'Chevrolet D-Max 4x4',
     vehicleYear: 2023,

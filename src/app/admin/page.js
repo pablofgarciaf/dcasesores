@@ -38,12 +38,14 @@ export default function AdminPage() {
       <aside className="w-full md:w-60 md:h-screen md:max-h-screen bg-slate-900/95 backdrop-blur-md border-r border-slate-800 p-4 md:p-5 flex flex-col justify-between shrink-0">
         <div>
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-9 h-9 rounded-xl bg-[#e11b22] flex items-center justify-center font-black text-white text-base shadow-lg shadow-red-900/40 shrink-0">
-              DC
-            </div>
-            <div>
-              <span className="font-black text-white text-sm tracking-tight block">DC ASESORES</span>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#e11b22] font-bold">Panel Master</span>
+            <img 
+              src="/logo-white.png" 
+              alt="DC Asesores en Seguros" 
+              className="h-10 w-auto object-contain shrink-0" 
+            />
+            <div className="flex flex-col border-l border-slate-700 pl-3">
+              <span className="font-black text-white text-xs tracking-tight leading-none">DC ASESORES</span>
+              <span className="text-[9px] font-extrabold uppercase tracking-widest text-[#e11b22] mt-1 leading-tight">Panel Master</span>
             </div>
           </div>
           
@@ -111,6 +113,45 @@ export default function AdminPage() {
   );
 }
 
+// Utilidad para parsear números en formato Latino/Ecuatoriano ($15.000,00 o 3,35% o $30.000)
+function parseExcelNumber(val) {
+  if (!val) return 0;
+  let clean = String(val).trim().replace(/[$%]/g, '').trim();
+  if (!clean) return 0;
+  if (clean.includes('.') && clean.includes(',')) {
+    if (clean.lastIndexOf(',') > clean.lastIndexOf('.')) {
+      clean = clean.replace(/\./g, '').replace(',', '.');
+    } else {
+      clean = clean.replace(/,/g, '');
+    }
+  } else if (clean.includes(',')) {
+    clean = clean.replace(',', '.');
+  } else if (clean.includes('.')) {
+    const parts = clean.split('.');
+    if (parts.length === 2 && parts[1].length === 3 && parts[0].length >= 1) {
+      clean = clean.replace('.', '');
+    }
+  }
+  const n = parseFloat(clean);
+  return isNaN(n) ? 0 : n;
+}
+
+function normalizeInsurerName(raw) {
+  const upper = String(raw || '').trim().toUpperCase();
+  if (upper.includes('ALIANZA')) return 'ALIANZA';
+  if (upper.includes('LATINA')) return 'LATINA';
+  if (upper.includes('VAZ')) return 'VAZ';
+  if (upper.includes('PRIVILEGIO')) return 'PRIVILEGIO';
+  if (upper.includes('HISPANA')) return 'HISPANA';
+  if (upper.includes('SWEADEN')) return 'SWEADEN';
+  if (upper.includes('ZURICH')) return 'ZURICH';
+  if (upper.includes('MAPFRE')) return 'MAPFRE';
+  if (upper.includes('ATLANTIDA') || upper.includes('ATLÁNTIDA')) return 'ATLANTIDA';
+  if (upper.includes('ADS')) return 'ADS';
+  if (upper.includes('BMI')) return 'BMI';
+  return upper.replace(/[\s-]+/g, '_');
+}
+
 // ─────────────────────────────────────────────────────────────
 // 1. GESTOR DE ASEGURADORAS Y TASAS (Con Modal TSV y Edición Inline)
 // ─────────────────────────────────────────────────────────────
@@ -122,7 +163,7 @@ function AseguradorasManager() {
   
   // Estado para Modal de Carga de Excel (TSV)
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalInsurer, setModalInsurer] = useState(activeAseguradora);
+  const [modalInsurer, setModalInsurer] = useState('CONSOLIDADO');
   const [pasteData, setPasteData] = useState('');
   const [importMode, setImportMode] = useState('replace'); // 'replace' | 'append'
   const [parsedPreview, setParsedPreview] = useState([]);
@@ -134,7 +175,7 @@ function AseguradorasManager() {
   useEffect(() => {
     if (!pasteData.trim()) {
       setParsedPreview([]);
-      setIsMultiInsurer(false);
+      setIsMultiInsurer(modalInsurer === 'CONSOLIDADO');
       setDetectedInsurers([]);
       return;
     }
@@ -146,51 +187,55 @@ function AseguradorasManager() {
       return;
     }
 
+    // Detectar delimitador (tabulador, punto y coma o coma)
+    const firstLine = validLines[0];
+    const delimiter = firstLine.includes('\t') ? '\t' : (firstLine.includes(';') ? ';' : ',');
+
     // Verificar si la primera fila es encabezado
     let startIndex = 0;
-    const firstLineCols = validLines[0]?.split('\t') || [];
-    const firstColClean = (firstLineCols[0] || '').trim().toUpperCase();
+    const firstLineCols = firstLine.split(delimiter).map(c => c.trim().replace(/^["']|["']$/g, ''));
+    const firstColClean = (firstLineCols[0] || '').toUpperCase();
     if (firstColClean === 'ASEGURADORA' || firstColClean === 'COMPAÑÍA' || firstColClean === 'COMPANIA' || firstColClean === 'PRODUCTO') {
       startIndex = 1;
     }
 
-    // Detectar si las filas tienen 8 o más columnas (donde col 0 es Aseguradora)
-    const sampleCols = (validLines[startIndex] || validLines[0])?.split('\t') || [];
-    const is8Col = sampleCols.length >= 8;
+    // Detectar si las filas tienen 8 columnas o col 0 es Aseguradora o usuario eligió CONSOLIDADO
+    const sampleCols = (validLines[startIndex] || validLines[0])?.split(delimiter).map(c => c.trim().replace(/^["']|["']$/g, '')) || [];
+    const is8Col = sampleCols.length >= 8 || modalInsurer === 'CONSOLIDADO';
     setIsMultiInsurer(is8Col);
 
     const insurersSet = new Set();
     const parsed = [];
 
     for (let i = startIndex; i < validLines.length; i++) {
-      const cols = validLines[i].split('\t');
+      const cols = validLines[i].split(delimiter).map(c => c.trim().replace(/^["']|["']$/g, ''));
       if (cols.length < 4) continue;
 
       if (is8Col) {
-        const rawIns = cols[0]?.trim().toUpperCase().replace(/[\s-]+/g, '_') || modalInsurer;
+        const rawIns = normalizeInsurerName(cols[0]) || modalInsurer;
         insurersSet.add(rawIns);
         parsed.push({
           id: i,
           aseguradora: rawIns,
-          producto: cols[1]?.trim().toUpperCase() || 'TODORIESGO',
-          ciudad: cols[2]?.trim().toUpperCase() || 'NACIONAL',
-          vehiculo: cols[3]?.trim().toUpperCase() || 'LIVIANO',
-          desde: Number(cols[4]?.replace(/[^0-9.]/g, '')) || 0,
-          hasta: cols[5] ? Number(cols[5]?.replace(/[^0-9.]/g, '')) || 99999 : 99999,
-          tasa: Number(cols[6]?.replace(/[^0-9.]/g, '')) || 0,
-          rc: Number(cols[7]?.replace(/[^0-9.]/g, '')) || 0,
+          producto: cols[1]?.toUpperCase() || 'TODORIESGO',
+          ciudad: cols[2]?.toUpperCase() || 'NACIONAL',
+          vehiculo: cols[3]?.toUpperCase() || 'LIVIANO',
+          desde: parseExcelNumber(cols[4]),
+          hasta: cols[5] ? parseExcelNumber(cols[5]) : 999999,
+          tasa: parseExcelNumber(cols[6]),
+          rc: parseExcelNumber(cols[7]) || 30000,
         });
       } else {
         parsed.push({
           id: i,
           aseguradora: modalInsurer,
-          producto: cols[0]?.trim().toUpperCase() || 'TODORIESGO',
-          ciudad: cols[1]?.trim().toUpperCase() || 'NACIONAL',
-          vehiculo: cols[2]?.trim().toUpperCase() || 'LIVIANO',
-          desde: Number(cols[3]?.replace(/[^0-9.]/g, '')) || 0,
-          hasta: cols[4] ? Number(cols[4]?.replace(/[^0-9.]/g, '')) || 99999 : 99999,
-          tasa: Number(cols[5]?.replace(/[^0-9.]/g, '')) || 0,
-          rc: Number(cols[6]?.replace(/[^0-9.]/g, '')) || 0,
+          producto: cols[0]?.toUpperCase() || 'TODORIESGO',
+          ciudad: cols[1]?.toUpperCase() || 'NACIONAL',
+          vehiculo: cols[2]?.toUpperCase() || 'LIVIANO',
+          desde: parseExcelNumber(cols[3]),
+          hasta: cols[4] ? parseExcelNumber(cols[4]) : 999999,
+          tasa: parseExcelNumber(cols[5]),
+          rc: parseExcelNumber(cols[6]) || 30000,
         });
       }
     }
@@ -627,25 +672,27 @@ function AseguradorasManager() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-xs font-bold text-slate-300 block mb-1">
-                    {isMultiInsurer ? 'Modo de Distribución:' : 'Aseguradora Destino:'}
+                    Aseguradora Destino / Consolidado:
                   </label>
-                  {isMultiInsurer ? (
-                    <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-xs text-slate-200">
-                      <span className="font-bold text-[#e11b22] block mb-1">⚡ Consolidado Multicompañía Detectado (8 Cols)</span>
-                      <span className="text-[11px] text-slate-400">
-                        Los registros se asignarán automáticamente a cada aseguradora según la Columna 1.
+                  <select 
+                    value={modalInsurer} 
+                    onChange={(e) => setModalInsurer(e.target.value)}
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white outline-none focus:border-[#e11b22] font-semibold"
+                  >
+                    <option value="CONSOLIDADO">🌟 CONSOLIDADO MULTICOMPAÑÍA (Todas las aseguradoras)</option>
+                    {Object.keys(data).map(ins => (
+                      <option key={ins} value={ins}>{ins}</option>
+                    ))}
+                  </select>
+                  {isMultiInsurer && (
+                    <div className="mt-2 p-2.5 bg-red-500/10 border border-red-500/30 rounded-xl text-[11px] text-slate-200">
+                      <span className="font-bold text-[#e11b22] block">⚡ Modo Multicompañía Activo (8 Columnas)</span>
+                      <span className="text-slate-400">
+                        {detectedInsurers.length > 0 
+                          ? `Detectadas: ${detectedInsurers.join(', ')}` 
+                          : 'Se distribuirán según la Columna 1 de tu hoja de cálculo.'}
                       </span>
                     </div>
-                  ) : (
-                    <select 
-                      value={modalInsurer} 
-                      onChange={(e) => setModalInsurer(e.target.value)}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white outline-none focus:border-[#e11b22]"
-                    >
-                      {Object.keys(data).map(ins => (
-                        <option key={ins} value={ins}>{ins}</option>
-                      ))}
-                    </select>
                   )}
                 </div>
 

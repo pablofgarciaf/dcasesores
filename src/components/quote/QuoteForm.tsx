@@ -47,8 +47,8 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
   const [vehicleType, setVehicleType] = useState<VehicleCategory>(
     initialValues.vehicleType || 'CAMIONETA'
   );
-  const [clientName, setClientName] = useState(initialValues.clientName || 'Carlos Mendoza');
-  const [clientPhone, setClientPhone] = useState(initialValues.clientPhone || '0991938754');
+  const [clientName, setClientName] = useState(initialValues.clientName || '');
+  const [clientPhone, setClientPhone] = useState(initialValues.clientPhone || '');
   const [clientEmail, setClientEmail] = useState(initialValues.clientEmail || '');
   const [vehicleBrandModel, setVehicleBrandModel] = useState(
     initialValues.vehicleBrandModel || 'Chevrolet D-Max 4x4'
@@ -326,14 +326,14 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
                 type="text"
                 value={clientName}
                 onChange={(e) => setClientName(e.target.value)}
-                placeholder="Nombre completo"
+                placeholder="Ej: Tu nombre"
                 className="px-3 py-1.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium focus:outline-none focus:border-[#e11b22] w-36 sm:w-44"
               />
               <input
                 type="tel"
                 value={clientPhone}
                 onChange={(e) => setClientPhone(e.target.value)}
-                placeholder="WhatsApp (099...)"
+                placeholder="Ej: 099 123 4567"
                 className="px-3 py-1.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-mono font-medium focus:outline-none focus:border-[#e11b22] w-32 sm:w-36"
               />
             </div>

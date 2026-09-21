@@ -15,9 +15,12 @@ export const metadata = {
   title: "DC Asesores en Seguros | Cotizador Inteligente Ecuador 2026",
   description: "Agencia Asesora Productora de Seguros autorizada en Ecuador. Cotización inteligente multicompañía en tiempo real.",
   icons: {
-    icon: "/logo.webp",
-    shortcut: "/logo.webp",
-    apple: "/logo.webp",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "192x192" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
   },
 };
 

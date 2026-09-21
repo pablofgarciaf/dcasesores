@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
 import { StatsSection } from '@/components/home/StatsSection';
 import { ServicesCarousel } from '@/components/home/ServicesCarousel';
 import { WhatsAppWidget } from '@/components/common/WhatsAppWidget';
@@ -20,29 +21,40 @@ import {
   ShieldCheck
 } from 'lucide-react';
 
-const BRANDS = [
-  { label: 'ALIANZA', prefix: 'AF', prefixColor: 'text-[#e11b22]', size: 'text-3xl' },
-  { label: 'LATINA', prefix: '●', prefixColor: 'text-[#D9222A]', size: 'text-3xl font-bold' },
-  { label: 'HISPANA', prefix: '♦', prefixColor: 'text-amber-500', size: 'text-3xl' },
-  { label: 'SWEADEN', prefix: '♦', prefixColor: 'text-blue-600', size: 'text-3xl' },
-  { label: 'ZURICH', prefix: '■', prefixColor: 'text-blue-700', size: 'text-3xl' },
-  { label: 'MAPFRE', size: 'text-3xl font-serif text-[#e11b22]' },
-  { label: 'PRIVILEGIO', size: 'text-3xl text-indigo-900 dark:text-indigo-400 font-bold' },
-  { label: 'ATLÁNTIDA', prefix: '▲', prefixColor: 'text-teal-600', size: 'text-3xl' },
-  { label: 'ADS SEGUROS', size: 'text-3xl font-bold text-slate-800 dark:text-slate-200' },
-  { label: 'VAZ SEGUROS', prefix: '✦', prefixColor: 'text-orange-500', size: 'text-3xl' },
-  { label: 'BMI', prefix: '///', prefixColor: 'text-[#e11b22]', size: 'text-3xl' },
+const INSURER_LOGOS = [
+  { src: '/images/insurers/insurer_1.jpeg', alt: 'Aseguradora Alianza' },
+  { src: '/images/insurers/insurer_2.jpeg', alt: 'Latina Seguros' },
+  { src: '/images/insurers/insurer_3.jpeg', alt: 'Hispana de Seguros' },
+  { src: '/images/insurers/insurer_4.jpeg', alt: 'Sweaden Seguros' },
+  { src: '/images/insurers/insurer_5.jpeg', alt: 'Zurich Seguros' },
+  { src: '/images/insurers/insurer_6.jpeg', alt: 'Mapfre Seguros' },
+  { src: '/images/insurers/insurer_7.jpeg', alt: 'Seguros Privilegio' },
+  { src: '/images/insurers/insurer_8.jpeg', alt: 'Seguros Atlántida' },
+  { src: '/images/insurers/insurer_9.jpeg', alt: 'ADS Seguros' },
+  { src: '/images/insurers/insurer_10.jpeg', alt: 'Vaz Seguros' },
+  { src: '/images/insurers/insurer_11.jpeg', alt: 'BMI Ecuador' },
+  { src: '/images/insurers/insurer_12.jpeg', alt: 'Chubb Seguros' },
+  { src: '/images/insurers/insurer_13.jpeg', alt: 'Liberty Seguros' },
+  { src: '/images/insurers/insurer_14.jpeg', alt: 'Bupa Seguros' },
+  { src: '/images/insurers/insurer_15.jpeg', alt: 'AIG Metropolitana' },
+  { src: '/images/insurers/insurer_16.jpeg', alt: 'Seguros Equinoccial' },
+  { src: '/images/insurers/insurer_17.jpeg', alt: 'Confiamed' },
+  { src: '/images/insurers/insurer_18.jpeg', alt: 'Pan-American Life' },
 ];
-const BRANDS_DOUBLED = [...BRANDS, ...BRANDS];
+const INSURER_LOGOS_DOUBLED = [...INSURER_LOGOS, ...INSURER_LOGOS];
 
 function MarqueeBrands() {
   return (
     <div className="animate-marquee flex items-center w-max">
-      {BRANDS_DOUBLED.map((brand, idx) => (
-        <div key={idx} className="shrink-0 w-[200px] md:w-[260px] flex items-center justify-center px-4">
-          <div className={`font-black text-slate-800 dark:text-slate-100 flex items-center gap-2 ${brand.size}`}>
-            {brand.prefix && <span className={brand.prefixColor}>{brand.prefix}</span>}
-            <span>{brand.label}</span>
+      {INSURER_LOGOS_DOUBLED.map((brand, idx) => (
+        <div key={idx} className="shrink-0 w-[170px] sm:w-[210px] flex items-center justify-center px-4 sm:px-6">
+          <div className="h-14 sm:h-16 w-full flex items-center justify-center p-2 rounded-xl bg-white transition-all hover:scale-105">
+            <img 
+              src={brand.src} 
+              alt={brand.alt}
+              loading="lazy"
+              className="max-h-full max-w-full object-contain filter contrast-105"
+            />
           </div>
         </div>
       ))}
@@ -129,22 +141,22 @@ export default function Home() {
       {/* 🔴 1. SECCIÓN DE STATS DE ALTO IMPACTO (Métricas de Confianza) */}
       <StatsSection />
 
-      {/* 🔴 2. BANDA DE MARCAS (Ubicada exactamente después de los stats) */}
-      <section className="relative py-16 overflow-hidden bg-white dark:bg-slate-900 border-b border-slate-200/80 dark:border-slate-800 shadow-xs transition-colors">
-        <div className="container mx-auto px-6 mb-8 text-center max-w-5xl relative z-10">
-          <p className="text-xs font-mono font-black uppercase tracking-[0.2em] text-slate-400 mb-2">
+      {/* 🔴 2. BANDA DE MARCAS (Blanca y nítida tanto en modo claro como oscuro) */}
+      <section className="relative py-14 overflow-hidden bg-white dark:bg-white border-b border-slate-200/80 shadow-xs">
+        <div className="container mx-auto px-6 mb-7 text-center max-w-5xl relative z-10">
+          <p className="text-xs font-mono font-black uppercase tracking-[0.2em] text-[#e11b22] mb-2">
             Alianzas Estratégicas
           </p>
-          <h2 className="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
             Respaldados por las aseguradoras <span className="text-[#e11b22]">más sólidas del mercado</span>
           </h2>
         </div>
         
-        {/* Sombras laterales difuminadas para carrusel infinito */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-36 bg-gradient-to-r from-white dark:from-slate-900 to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-36 bg-gradient-to-l from-white dark:from-slate-900 to-transparent z-10 pointer-events-none"></div>
+        {/* Sombras laterales difuminadas para carrusel infinito (blanco consistente) */}
+        <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
         
-        <div className="w-full flex overflow-hidden py-3">
+        <div className="w-full flex overflow-hidden py-2">
           <MarqueeBrands />
         </div>
       </section>
@@ -201,43 +213,95 @@ export default function Home() {
                       <h4 className="text-sm font-black text-white">Diego Carpio G.</h4>
                       <p className="text-xs text-slate-300">Director General & Consultor Actuarial</p>
                     </div>
-                  </div>
                 </div>
               </div>
             </div>
-
           </div>
-        </div>
-      </section>
 
-      {/* 🔴 CÓMO TRABAJAMOS (Metodología DC Asesores) */}
-      <section id="proceso" className="py-24 sm:py-32 bg-slate-900 text-white relative overflow-hidden border-t border-slate-800">
+        </div>
+      </div>
+    </section>
+
+      {/* 🔴 CÓMO TRABAJAMOS (Metodología Oficial DC Asesores - Estilo dcasesoresec.com) */}
+      <section id="proceso" className="py-24 sm:py-32 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white relative overflow-hidden border-t border-slate-200/80 dark:border-slate-800 transition-colors">
+        
+        {/* Glow sutil de fondo */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-red-600/5 dark:bg-red-600/10 rounded-full blur-[160px] pointer-events-none" />
+
         <div className="max-w-7xl mx-auto px-4 text-center mb-16 sm:mb-20 relative z-10">
-          <h4 className="text-[#e11b22] font-black tracking-[0.2em] text-xs uppercase mb-3 font-mono">
-            Metodología DC
-          </h4>
-          <h2 className="text-3xl sm:text-5xl font-black tracking-tight">
-            Nuestro proceso de asesoría integral
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-[#e11b22] text-xs font-mono font-black uppercase tracking-wider mb-4 shadow-xs">
+            <Sparkles className="w-3.5 h-3.5" />
+            CÓMO TRABAJAMOS
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+            Nuestro proceso de asesoría en seguros
           </h2>
+          <div className="w-16 h-1 bg-[#e11b22] rounded-full mx-auto mt-4 mb-4"></div>
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 font-medium max-w-2xl mx-auto">
+            Un acompañamiento profesional e integral desde el diagnóstico inicial hasta la resolución y liquidación oportuna de cualquier siniestro.
+          </p>
         </div>
         
         <div className="max-w-7xl mx-auto px-4 relative">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+          
+          {/* Línea conectora punteada para desktop */}
+          <div className="hidden lg:block absolute top-[90px] left-[15%] right-[15%] h-0.5 border-t-2 border-dashed border-red-500/30 dark:border-red-500/20 pointer-events-none z-0"></div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 relative z-10">
             {[
-              { num: '01', title: 'Diagnóstico', desc: 'Analizamos tus riesgos y capacidades financieras sin costo.' },
-              { num: '02', title: 'Diseño', desc: 'Estructuramos y comparamos la póliza perfecta entre 10 aseguradoras.' },
-              { num: '03', title: 'Contratación', desc: 'Transparencia total en cláusulas, deducibles y derechos de ley.' },
-              { num: '04', title: 'Siniestros', desc: 'Acompañamiento presencial e in situ 24/7 cuando más nos necesitas.' },
+              {
+                num: '01',
+                img: '/images/process/paso1.png',
+                title: 'Análisis de necesidades',
+                desc: 'Nos reunimos contigo para comprender tu situación financiera, prioridades y riesgos actuales, realizando un diagnóstico profesional y personalizado.',
+              },
+              {
+                num: '02',
+                img: '/images/process/paso2.png',
+                title: 'Diseño de solución',
+                desc: 'Evaluamos las mejores opciones del mercado y estructuramos una propuesta estratégica alineada a tus objetivos de protección.',
+              },
+              {
+                num: '03',
+                img: '/images/process/paso3.png',
+                title: 'Contratación y gestión',
+                desc: 'Te acompañamos durante todo el proceso de contratación, explicando coberturas, condiciones y beneficios con total transparencia.',
+              },
+              {
+                num: '04',
+                img: '/images/process/paso4.png',
+                title: 'Acompañamiento',
+                desc: 'Brindamos seguimiento permanente y gestionamos cualquier siniestro de manera oportuna hasta su resolución final.',
+              },
             ].map((step, i) => (
               <div 
                 key={i} 
-                className="bg-slate-950/60 backdrop-blur-xl p-8 rounded-3xl border border-slate-800 hover:border-[#e11b22] transition-colors group"
+                className="flex flex-col items-center text-center group relative hover:-translate-y-2 transition-all duration-500"
               >
-                <div className="text-5xl sm:text-6xl font-black text-slate-800 group-hover:text-[#e11b22] transition-colors mb-4 opacity-70 font-mono">
-                  {step.num}
+                {/* Imagen Circular con Medallón Flotante */}
+                <div className="relative mb-6">
+                  <div className="w-40 h-40 sm:w-44 sm:h-44 rounded-full p-2 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 group-hover:border-[#e11b22] shadow-xl group-hover:shadow-2xl group-hover:shadow-red-600/20 transition-all duration-500 overflow-hidden">
+                    <img 
+                      src={step.img} 
+                      alt={step.title}
+                      width={195}
+                      height={195}
+                      className="w-full h-full rounded-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                    />
+                  </div>
+                  {/* Medallón con número rojo flotante */}
+                  <div className="absolute -bottom-1 -right-1 w-11 h-11 rounded-full bg-[#e11b22] text-white font-mono font-black text-sm flex items-center justify-center shadow-lg border-2 border-white dark:border-slate-900 ring-2 ring-red-100 dark:ring-red-950/50 group-hover:scale-110 transition-transform duration-300">
+                    {step.num}
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-white">{step.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{step.desc}</p>
+
+                {/* Título y Descripción */}
+                <h3 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white mb-2.5 group-hover:text-[#e11b22] transition-colors leading-snug">
+                  {step.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed max-w-xs">
+                  {step.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -444,7 +508,7 @@ export default function Home() {
                           name="name" 
                           type="text" 
                           autoComplete="name"
-                          placeholder="Ej: Carlos Mendoza" 
+                          placeholder="Ej: Tu nombre completo" 
                           className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3.5 outline-none focus:border-[#e11b22] text-xs font-medium text-slate-800 dark:text-slate-100 transition-colors shadow-2xs" 
                           required 
                         />
@@ -474,7 +538,7 @@ export default function Home() {
                         name="email" 
                         type="email" 
                         autoComplete="email"
-                        placeholder="Ej: carlos.mendoza@empresa.com" 
+                        placeholder="Ej: nombre@empresa.com" 
                         className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3.5 outline-none focus:border-[#e11b22] text-xs font-medium text-slate-800 dark:text-slate-100 transition-colors shadow-2xs" 
                         required 
                       />
@@ -505,7 +569,7 @@ export default function Home() {
                       </label>
                       <textarea 
                         id="client-message"
-                        name="message"
+                        name="message" 
                         placeholder="Indícanos marca, año y valor del vehículo, o edad de los integrantes de tu familia..." 
                         rows={4} 
                         className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3.5 outline-none focus:border-[#e11b22] text-xs font-medium text-slate-800 dark:text-slate-100 transition-colors shadow-2xs resize-none"
@@ -534,111 +598,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 🔴 FOOTER DE LUJO */}
-      <footer className="bg-slate-950 pt-20 pb-12 border-t-4 border-[#e11b22] text-white">
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-          
-          <div className="md:col-span-1">
-            <Link href="/" className="flex items-center gap-3 mb-6">
-              <img src="/logo.webp" alt="DC Asesores" className="h-10 w-auto filter brightness-200" />
-              <div className="flex flex-col border-l border-slate-700 pl-3">
-                <span className="text-sm font-black tracking-tight text-white leading-none">DC ASESORES</span>
-                <span className="text-[10px] font-bold tracking-wider text-[#e11b22] uppercase mt-0.5">Asesores en Seguros</span>
-              </div>
-            </Link>
-            <p className="text-slate-400 font-medium text-xs leading-relaxed mb-4">
-              Asesoría actuarial y corretaje de seguros en Ecuador. Protección patrimonial, vehicular, médica y corporativa con estándares de excelencia.
-            </p>
-
-            {/* Redes Sociales Oficiales */}
-            <div className="pt-1">
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500 block mb-2.5">
-                Canales Oficiales
-              </span>
-              <div className="flex items-center gap-3">
-                <a 
-                  href="https://www.facebook.com/Asesor012/" 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  aria-label="Facebook DC Asesores"
-                  className="w-8 h-8 rounded-xl bg-white/5 hover:bg-[#e11b22] hover:text-white border border-white/10 text-slate-300 transition-all flex items-center justify-center active:scale-95 shadow-xs"
-                >
-                  <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                </a>
-                <a 
-                  href="https://www.tiktok.com/@asesorseguros2?_r=1&_t=ZS-94CCdpAiPGZ" 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  aria-label="TikTok DC Asesores"
-                  className="w-8 h-8 rounded-xl bg-white/5 hover:bg-[#e11b22] hover:text-white border border-white/10 text-slate-300 transition-all flex items-center justify-center active:scale-95 shadow-xs"
-                >
-                  <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 2.89 3.5 2.64 1.25-.11 2.37-.93 2.78-2.11.23-.6.3-1.25.28-1.89.02-4.97.01-9.94.01-14.91z"/></svg>
-                </a>
-                <a 
-                  href="https://www.instagram.com/dc.asesorseguros?igsh=MXMwd2oxbWkza3hjdw%3D%3D" 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  aria-label="Instagram DC Asesores"
-                  className="w-8 h-8 rounded-xl bg-white/5 hover:bg-[#e11b22] hover:text-white border border-white/10 text-slate-300 transition-all flex items-center justify-center active:scale-95 shadow-xs"
-                >
-                  <svg className="w-4 h-4 fill-currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h4 className="text-white font-black text-sm uppercase tracking-wider mb-5">Ramos de Seguros</h4>
-            <ul className="space-y-2.5 text-slate-400 text-xs font-medium">
-              <li><Link href="/servicios/seguro-medico-integral" className="hover:text-[#e11b22] transition-colors">Seguro Médico Integral</Link></li>
-              <li><Link href="/servicios/seguro-vida-ahorro" className="hover:text-[#e11b22] transition-colors">Seguro de Vida con Ahorro</Link></li>
-              <li><Link href="/servicios/seguro-vehicular" className="hover:text-[#e11b22] transition-colors">Seguro Vehicular Multicompañía</Link></li>
-              <li><Link href="/servicios/seguros-empresariales" className="hover:text-[#e11b22] transition-colors">Seguros Empresariales</Link></li>
-              <li><Link href="/servicios/seguros-patrimoniales" className="hover:text-[#e11b22] transition-colors">Seguros Patrimoniales & Hogar</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-white font-black text-sm uppercase tracking-wider mb-5">Navegación Rápida</h4>
-            <ul className="space-y-2.5 text-slate-400 text-xs font-medium">
-              <li><Link href="/" className="hover:text-[#e11b22] transition-colors">Inicio</Link></li>
-              <li><Link href="/#nosotros" className="hover:text-[#e11b22] transition-colors">Nosotros</Link></li>
-              <li><Link href="/servicios" className="hover:text-[#e11b22] transition-colors">Catálogo de Servicios</Link></li>
-              <li><Link href="/cotizador" className="hover:text-[#e11b22] transition-colors">Cotizador Inteligente 2026</Link></li>
-              <li><Link href="/blog" className="hover:text-[#e11b22] transition-colors">Blog & Artículos</Link></li>
-              <li><Link href="/terminos-y-condiciones" className="hover:text-[#e11b22] transition-colors">Términos y Condiciones</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-white font-black text-sm uppercase tracking-wider mb-5">Contacto Oficial</h4>
-            <ul className="space-y-3 text-slate-400 text-xs font-medium">
-              <li className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-[#e11b22] shrink-0 mt-0.5" />
-                <span>Quito, Pichincha, Ecuador (Sector La Carolina)</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-[#e11b22] shrink-0" />
-                <span>(02) 500-3373 / +593 99 193 8754</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-[#e11b22] shrink-0" />
-                <span><span>info</span><span className="text-[#e11b22]">&#64;</span><span>dcasesoresec.com</span></span>
-              </li>
-            </ul>
-          </div>
-
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 text-center border-t border-slate-900 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 font-medium">
-          <p>© 2026 DC Asesores en Seguros. Todos los derechos reservados.</p>
-          <div className="flex gap-4 mt-4 sm:mt-0">
-            <Link href="/admin" className="hover:text-slate-400 transition-colors">Acceso Master</Link>
-            <span>•</span>
-            <Link href="/terminos-y-condiciones" className="hover:text-slate-400 transition-colors">Términos Legales</Link>
-          </div>
-        </div>
-      </footer>
+      {/* 🔴 FOOTER DE LUJO UNIFICADO */}
+      <Footer />
 
       {/* JSON-LD Schema.org de Organización */}
       <script
