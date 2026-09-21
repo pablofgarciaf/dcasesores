@@ -19,7 +19,7 @@ export default function ServiciosPage() {
       <Navbar />
 
       {/* Hero Servicios con Imagen Nítida y Aetherion Glow */}
-      <section className="relative bg-slate-950 text-white py-24 lg:py-36 px-4 overflow-hidden">
+      <section className="relative bg-slate-950 text-white -mt-20 sm:-mt-28 pt-32 sm:pt-40 lg:pt-48 pb-20 px-4 overflow-hidden">
         
         {/* Imagen de Fondo de Alta Calidad Visible */}
         <div className="absolute inset-0 z-0">
