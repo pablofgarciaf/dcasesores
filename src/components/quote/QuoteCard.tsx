@@ -109,8 +109,19 @@ export const QuoteCard: React.FC<QuoteCardProps> = ({
         <div className="flex items-start justify-between gap-4 mb-4">
           <div className="flex items-center gap-3">
             <div
-              className="w-11 h-11 rounded-xl flex items-center justify-center font-bold text-xs text-white shadow-xs"
-              style={{ backgroundColor: insurer.color || '#0284C7' }}
+              className={`w-11 h-11 rounded-xl flex items-center justify-center font-bold text-xs text-white shadow-xs ${
+                insurer.slug === 'latina' ? 'bg-[#D9222A]' :
+                insurer.slug === 'alianza' ? 'bg-[#005596]' :
+                insurer.slug === 'hispana' ? 'bg-[#0A2540]' :
+                insurer.slug === 'vaz' ? 'bg-[#E06D10]' :
+                insurer.slug === 'sweaden' ? 'bg-[#004B87]' :
+                insurer.slug === 'privilegio' ? 'bg-[#2A6F97]' :
+                insurer.slug === 'atlantida' ? 'bg-[#006699]' :
+                insurer.slug === 'zurich' ? 'bg-[#1B365D]' :
+                insurer.slug === 'mapfre' ? 'bg-[#D8232A]' :
+                insurer.slug === 'bmi' ? 'bg-[#b91c1c]' :
+                'bg-slate-900'
+              }`}
             >
               {insurer.logoText.slice(0, 4)}
             </div>

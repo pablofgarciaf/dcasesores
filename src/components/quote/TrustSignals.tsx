@@ -22,8 +22,8 @@ export const TrustSignals: React.FC = () => {
   const items = [
     {
       icon: ShieldCheck,
-      title: '5 Aseguradoras Oficiales',
-      desc: 'Alianza, Latina, Hispana, Vaz y Privilegio en un solo comparador.',
+      title: '+10 Aseguradoras Líderes',
+      desc: 'Alianza, Hispana, Sweaden, Zurich, Mapfre, Privilegio, Atlántida y más.',
     },
     {
       icon: Percent,

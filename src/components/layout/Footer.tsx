@@ -46,26 +46,50 @@ export const Footer: React.FC = () => {
             <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-200">
               Compañías Aseguradoras
             </h3>
-            <ul className="space-y-2 text-xs">
-              <li className="hover:text-white transition-colors flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>
-                <span>Alianza Compañía de Seguros</span>
+            <ul className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-xs">
+              <li className="hover:text-white transition-colors flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-600 shrink-0"></span>
+                <span>Alianza</span>
               </li>
-              <li className="hover:text-white transition-colors flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>
-                <span>Latina Seguros (Classic & Gold)</span>
+              <li className="hover:text-white transition-colors flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-600 shrink-0"></span>
+                <span>Latina Seguros</span>
               </li>
-              <li className="hover:text-white transition-colors flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>
-                <span>Hispana de Seguros S.A.</span>
+              <li className="hover:text-white transition-colors flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-600 shrink-0"></span>
+                <span>Hispana de Seguros</span>
               </li>
-              <li className="hover:text-white transition-colors flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>
-                <span>Vaz Seguros Ecuador</span>
+              <li className="hover:text-white transition-colors flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-600 shrink-0"></span>
+                <span>Sweaden Seguros</span>
               </li>
-              <li className="hover:text-white transition-colors flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-red-600"></span>
+              <li className="hover:text-white transition-colors flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-600 shrink-0"></span>
+                <span>Zurich Ecuador</span>
+              </li>
+              <li className="hover:text-white transition-colors flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-600 shrink-0"></span>
+                <span>Mapfre Seguros</span>
+              </li>
+              <li className="hover:text-white transition-colors flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-600 shrink-0"></span>
                 <span>Seguros Privilegio</span>
+              </li>
+              <li className="hover:text-white transition-colors flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-600 shrink-0"></span>
+                <span>Seguros Atlántida</span>
+              </li>
+              <li className="hover:text-white transition-colors flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-600 shrink-0"></span>
+                <span>ADS Seguros</span>
+              </li>
+              <li className="hover:text-white transition-colors flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-600 shrink-0"></span>
+                <span>Vaz Seguros</span>
+              </li>
+              <li className="hover:text-white transition-colors flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-600 shrink-0"></span>
+                <span>BMI del Ecuador</span>
               </li>
             </ul>
           </div>

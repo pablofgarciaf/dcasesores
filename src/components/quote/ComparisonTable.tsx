@@ -178,8 +178,19 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-2.5">
                         <div
-                          className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white text-[11px] shrink-0 shadow-2xs"
-                          style={{ backgroundColor: insurer.color }}
+                          className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white text-[11px] shrink-0 shadow-2xs ${
+                            insurer.slug === 'latina' ? 'bg-[#D9222A]' :
+                            insurer.slug === 'alianza' ? 'bg-[#005596]' :
+                            insurer.slug === 'hispana' ? 'bg-[#0A2540]' :
+                            insurer.slug === 'vaz' ? 'bg-[#E06D10]' :
+                            insurer.slug === 'sweaden' ? 'bg-[#004B87]' :
+                            insurer.slug === 'privilegio' ? 'bg-[#2A6F97]' :
+                            insurer.slug === 'atlantida' ? 'bg-[#006699]' :
+                            insurer.slug === 'zurich' ? 'bg-[#1B365D]' :
+                            insurer.slug === 'mapfre' ? 'bg-[#D8232A]' :
+                            insurer.slug === 'bmi' ? 'bg-[#b91c1c]' :
+                            'bg-slate-900'
+                          }`}
                         >
                           {insurer.logoText}
                         </div>
