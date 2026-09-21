@@ -153,7 +153,7 @@ export default function Home() {
       </ScrollReveal>
 
       {/* 🔴 2. BANDA DE MARCAS (Blanca y nítida tanto en modo claro como oscuro) */}
-      <section className="relative py-14 overflow-hidden bg-white dark:bg-white border-b border-slate-200/80 shadow-xs">
+      <section className="relative mt-8 sm:mt-12 py-14 overflow-hidden bg-white dark:bg-white border-b border-slate-200/80 shadow-xs">
         <ScrollReveal animation="fade-up" className="container mx-auto px-6 mb-7 text-center max-w-5xl relative z-10">
           <p className="text-xs font-mono font-black uppercase tracking-[0.2em] text-[#e11b22] mb-2">
             Alianzas Estratégicas

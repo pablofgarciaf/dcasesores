@@ -198,14 +198,6 @@ export function ServicesCarousel() {
                   </div>
                 </div>
 
-                {/* Pie de tarjeta con micro-interacción */}
-                <div className="pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-slate-500 dark:text-slate-400 group-hover:text-[#e11b22] transition-colors">
-                  <span className="text-[11px] uppercase tracking-wider">Ver detalles del plan</span>
-                  <div className="flex items-center gap-1">
-                    <span className="text-xs group-hover:translate-x-0.5 transition-transform">Acceder</span>
-                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-[#e11b22]" />
-                  </div>
-                </div>
               </div>
             </Link>
           );
