@@ -5,6 +5,7 @@ import { Footer } from '@/components/layout/Footer';
 import { StatsSection } from '@/components/home/StatsSection';
 import { ServicesCarousel } from '@/components/home/ServicesCarousel';
 import { WhatsAppWidget } from '@/components/common/WhatsAppWidget';
+import { ScrollReveal } from '@/components/common/ScrollReveal';
 import { 
   Shield, 
   MapPin, 
@@ -80,8 +81,8 @@ export default function Home() {
       {/* 🔴 LUXURY NAVBAR UNIFICADO CON TOPBAR OFICIAL Y THEME SWITCH */}
       <Navbar />
 
-      {/* 🔴 LUXURY HERO SECTION COMPACTA CON FOTOGRAFÍA NÍTIDA (VISIBLE JUNTO CON STATS EN 1 IMPACTO) */}
-      <section className="relative w-full -mt-20 sm:-mt-28 min-h-[440px] lg:h-[58vh] max-h-[620px] flex items-center justify-center overflow-hidden bg-slate-950">
+      {/* 🔴 LUXURY HERO SECTION COMPACTA Y MAJESTUOSA CON FOTOGRAFÍA NÍTIDA (+20% DE ALTURA) */}
+      <section className="relative w-full -mt-20 sm:-mt-28 min-h-[520px] sm:min-h-[570px] lg:h-[70vh] max-h-[740px] flex items-center justify-center overflow-hidden bg-slate-950">
         
         {/* Imagen de Fondo Responsiva con Alta Claridad que sube detrás del Navbar */}
         <div className="absolute inset-0 z-0">
@@ -102,67 +103,79 @@ export default function Home() {
           <div className="absolute top-1/4 -right-1/4 w-[500px] sm:w-[750px] h-[500px] sm:h-[750px] bg-[#e11b22]/20 rounded-full blur-[140px] pointer-events-none"></div>
         </div>
 
-        {/* Contenido Central Compacto del Hero (Optimizado para encajar con Stats en 1 pantalla) */}
-        <div className="max-w-4xl mx-auto px-4 relative z-10 text-center text-white pt-24 sm:pt-32 pb-8 sm:pb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 border border-white/25 backdrop-blur-md text-white text-[11px] font-bold tracking-[0.2em] uppercase mb-4 sm:mb-5 shadow-xl">
-            <span className="w-2 h-2 rounded-full bg-[#e11b22] animate-ping"></span> 
-            ASESORÍA INTEGRAL EN SEGUROS • ECUADOR
-          </div>
+        {/* Contenido Central del Hero con Transición Secuencial (Aetherion / Apple Feel) */}
+        <div className="max-w-4xl mx-auto px-4 relative z-10 text-center text-white pt-28 sm:pt-36 lg:pt-40 pb-12 sm:pb-16">
+          <ScrollReveal animation="fade-up" delay={75}>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 border border-white/25 backdrop-blur-md text-white text-[11px] font-bold tracking-[0.2em] uppercase mb-4 sm:mb-5 shadow-xl">
+              <span className="w-2 h-2 rounded-full bg-[#e11b22] animate-ping"></span> 
+              ASESORÍA INTEGRAL EN SEGUROS • ECUADOR
+            </div>
+          </ScrollReveal>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-[50px] font-black leading-[1.1] tracking-tight mb-3 sm:mb-4 drop-shadow-md">
-            Protege lo que más importa con el <br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e11b22] via-red-500 to-amber-400">
-              respaldo correcto.
-            </span>
-          </h1>
+          <ScrollReveal animation="fade-up" delay={150}>
+            <h1 className="text-3xl sm:text-5xl lg:text-[52px] font-black leading-[1.12] tracking-tight mb-4 sm:mb-5 drop-shadow-md">
+              Protege lo que más importa con el <br className="hidden sm:block" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e11b22] via-red-500 to-amber-400">
+                respaldo correcto.
+              </span>
+            </h1>
+          </ScrollReveal>
 
-          <p className="text-xs sm:text-base text-slate-200 font-medium max-w-2xl mx-auto mb-6 sm:mb-7 leading-relaxed drop-shadow-md">
-            Analizamos tus necesidades reales para diseñar soluciones personalizadas en salud, vida y patrimonio. Tu tranquilidad es nuestro contrato.
-          </p>
+          <ScrollReveal animation="fade-up" delay={300}>
+            <p className="text-xs sm:text-base lg:text-lg text-slate-200 font-medium max-w-2xl mx-auto mb-7 sm:mb-8 leading-relaxed drop-shadow-md">
+              Analizamos tus necesidades reales para diseñar soluciones personalizadas en salud, vida y patrimonio. Tu tranquilidad es nuestro contrato.
+            </p>
+          </ScrollReveal>
 
-          <div className="flex flex-row justify-center gap-3 sm:gap-4">
-            <Link 
-              href="/cotizador" 
-              className="bg-[#e11b22] hover:bg-red-600 text-white px-6 sm:px-8 py-3.5 sm:py-4 font-black text-xs sm:text-sm rounded-full shadow-[0_8px_30px_rgba(225,27,34,0.4)] transition-all hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
-            >
-              <span>Cotizar mi seguro ahora</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link 
-              href="/servicios" 
-              className="bg-white/15 hover:bg-white/25 text-white px-5 sm:px-7 py-3.5 sm:py-4 font-bold text-xs sm:text-sm rounded-full border border-white/25 backdrop-blur-md transition-all active:scale-95 flex items-center justify-center gap-1.5"
-            >
-              Explorar Coberturas
-            </Link>
-          </div>
+          <ScrollReveal animation="fade-up" delay={450}>
+            <div className="flex flex-row justify-center gap-3 sm:gap-4">
+              <Link 
+                href="/cotizador" 
+                className="bg-[#e11b22] hover:bg-red-600 text-white px-6 sm:px-8 py-3.5 sm:py-4 font-black text-xs sm:text-sm rounded-full shadow-[0_8px_30px_rgba(225,27,34,0.4)] transition-all hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
+              >
+                <span>Cotizar mi seguro ahora</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link 
+                href="/servicios" 
+                className="bg-white/15 hover:bg-white/25 text-white px-5 sm:px-7 py-3.5 sm:py-4 font-bold text-xs sm:text-sm rounded-full border border-white/25 backdrop-blur-md transition-all active:scale-95 flex items-center justify-center gap-1.5"
+              >
+                Explorar Coberturas
+              </Link>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* 🔴 1. SECCIÓN DE STATS DE ALTO IMPACTO (Métricas de Confianza) */}
-      <StatsSection />
+      <ScrollReveal animation="fade-up" delay={150}>
+        <StatsSection />
+      </ScrollReveal>
 
       {/* 🔴 2. BANDA DE MARCAS (Blanca y nítida tanto en modo claro como oscuro) */}
       <section className="relative py-14 overflow-hidden bg-white dark:bg-white border-b border-slate-200/80 shadow-xs">
-        <div className="container mx-auto px-6 mb-7 text-center max-w-5xl relative z-10">
+        <ScrollReveal animation="fade-up" className="container mx-auto px-6 mb-7 text-center max-w-5xl relative z-10">
           <p className="text-xs font-mono font-black uppercase tracking-[0.2em] text-[#e11b22] mb-2">
             Alianzas Estratégicas
           </p>
           <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
             Respaldados por las aseguradoras <span className="text-[#e11b22]">más sólidas del mercado</span>
           </h2>
-        </div>
+        </ScrollReveal>
         
         {/* Sombras laterales difuminadas para carrusel infinito (blanco consistente) */}
         <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
         <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
         
-        <div className="w-full flex overflow-hidden py-2">
+        <ScrollReveal animation="fade-in" delay={150} className="w-full flex overflow-hidden py-2">
           <MarqueeBrands />
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* 🔴 3. CARRUSEL INTERMINABLE DE SERVICIOS (Estilo Vermilion / Aetherion) */}
-      <ServicesCarousel />
+      <ScrollReveal animation="fade-up">
+        <ServicesCarousel />
+      </ScrollReveal>
 
       {/* 🔴 4. SECCIÓN NOSOTROS (VINCULADA AL NAVBAR OFICIAL) */}
       <section id="nosotros" className="py-24 sm:py-32 bg-slate-950 text-white relative overflow-hidden">
@@ -170,7 +183,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            <div className="lg:col-span-6 space-y-6">
+            <ScrollReveal animation="left" className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-500/15 border border-red-500/30 text-xs font-mono font-bold text-red-400 uppercase tracking-widest">
                 <Users className="w-3.5 h-3.5" />
                 Sobre DC Asesores
@@ -194,9 +207,9 @@ export default function Home() {
                   <p className="text-[11px] text-slate-400 mt-1">Presencia física inmediata en emergencias graves.</p>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
-            <div className="lg:col-span-6 relative">
+            <ScrollReveal animation="right" delay={200} className="lg:col-span-6 relative">
               <div className="rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative">
                 <img 
                   src="/services-hero.webp" 
@@ -213,14 +226,14 @@ export default function Home() {
                       <h4 className="text-sm font-black text-white">Diego Carpio G.</h4>
                       <p className="text-xs text-slate-300">Director General & Consultor Actuarial</p>
                     </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </ScrollReveal>
 
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
       {/* 🔴 CÓMO TRABAJAMOS (Metodología Oficial DC Asesores - Estilo dcasesoresec.com) */}
       <section id="proceso" className="py-24 sm:py-32 bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white relative overflow-hidden border-t border-slate-200/80 dark:border-slate-800 transition-colors">
@@ -228,7 +241,7 @@ export default function Home() {
         {/* Glow sutil de fondo */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-red-600/5 dark:bg-red-600/10 rounded-full blur-[160px] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 text-center mb-16 sm:mb-20 relative z-10">
+        <ScrollReveal animation="fade-up" className="max-w-7xl mx-auto px-4 text-center mb-16 sm:mb-20 relative z-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-[#e11b22] text-xs font-mono font-black uppercase tracking-wider mb-4 shadow-xs">
             <Sparkles className="w-3.5 h-3.5" />
             CÓMO TRABAJAMOS
@@ -240,7 +253,7 @@ export default function Home() {
           <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 font-medium max-w-2xl mx-auto">
             Un acompañamiento profesional e integral desde el diagnóstico inicial hasta la resolución y liquidación oportuna de cualquier siniestro.
           </p>
-        </div>
+        </ScrollReveal>
         
         <div className="max-w-7xl mx-auto px-4 relative">
           
@@ -274,8 +287,10 @@ export default function Home() {
                 desc: 'Brindamos seguimiento permanente y gestionamos cualquier siniestro de manera oportuna hasta su resolución final.',
               },
             ].map((step, i) => (
-              <div 
+              <ScrollReveal 
                 key={i} 
+                animation="fade-up" 
+                delay={i * 150}
                 className="flex flex-col items-center text-center group relative hover:-translate-y-2 transition-all duration-500"
               >
                 {/* Imagen Circular con Medallón Flotante */}
@@ -302,7 +317,7 @@ export default function Home() {
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed max-w-xs">
                   {step.desc}
                 </p>
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -311,7 +326,7 @@ export default function Home() {
       {/* 🔴 SECCIÓN BLOG HOME */}
       <section className="py-24 sm:py-32 bg-[#f4f4f6] dark:bg-slate-950 transition-colors">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-14">
+          <ScrollReveal animation="fade-up" className="flex flex-col md:flex-row justify-between items-start md:items-end mb-14">
             <div>
               <h4 className="text-[#e11b22] font-black tracking-[0.2em] text-xs uppercase mb-3 font-mono">
                 Últimas publicaciones
@@ -327,50 +342,56 @@ export default function Home() {
               <span>Ver todos los artículos</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
-          </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Link href="/blog" className="group rounded-[2.5rem] bg-white dark:bg-slate-900 overflow-hidden shadow-lg shadow-slate-200/50 dark:shadow-black/40 hover:shadow-2xl hover:-translate-y-1.5 transition-all block border border-slate-200/60 dark:border-slate-800">
-              <div className="h-60 relative overflow-hidden">
-                <img src="/blog_peace.jpg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="El Seguro y la Tranquilidad" />
-              </div>
-              <div className="p-8">
-                <h3 className="text-xl font-black text-slate-900 dark:text-white mb-3 group-hover:text-[#e11b22] transition-colors leading-snug">
-                  El seguro: La herramienta para que Latinoamérica salga de la pobreza
-                </h3>
-                <p className="text-slate-500 dark:text-slate-400 font-medium text-sm leading-relaxed">
-                  Jürgen Klarić lo advierte: asegurar tu salud y tu vida es comprar el derecho a dormir tranquilo.
-                </p>
-              </div>
-            </Link>
+            <ScrollReveal animation="fade-up" delay={0}>
+              <Link href="/blog" className="group rounded-[2.5rem] bg-white dark:bg-slate-900 overflow-hidden shadow-lg shadow-slate-200/50 dark:shadow-black/40 hover:shadow-2xl hover:-translate-y-1.5 transition-all block border border-slate-200/60 dark:border-slate-800 h-full">
+                <div className="h-60 relative overflow-hidden">
+                  <img src="/blog_peace.jpg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="El Seguro y la Tranquilidad" />
+                </div>
+                <div className="p-8">
+                  <h3 className="text-xl font-black text-slate-900 dark:text-white mb-3 group-hover:text-[#e11b22] transition-colors leading-snug">
+                    El seguro: La herramienta para que Latinoamérica salga de la pobreza
+                  </h3>
+                  <p className="text-slate-500 dark:text-slate-400 font-medium text-sm leading-relaxed">
+                    Jürgen Klarić lo advierte: asegurar tu salud y tu vida es comprar el derecho a dormir tranquilo.
+                  </p>
+                </div>
+              </Link>
+            </ScrollReveal>
             
-            <Link href="/blog" className="group rounded-[2.5rem] bg-white dark:bg-slate-900 overflow-hidden shadow-lg shadow-slate-200/50 dark:shadow-black/40 hover:shadow-2xl hover:-translate-y-1.5 transition-all block border border-slate-200/60 dark:border-slate-800">
-              <div className="h-60 relative overflow-hidden">
-                <img src="/blog_history.jpg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Historia de los Seguros en Ecuador" />
-              </div>
-              <div className="p-8">
-                <h3 className="text-xl font-black text-slate-900 dark:text-white mb-3 group-hover:text-[#e11b22] transition-colors leading-snug">
-                  Los orígenes: Cómo iniciaron los seguros en el Ecuador
-                </h3>
-                <p className="text-slate-500 dark:text-slate-400 font-medium text-sm leading-relaxed">
-                  Desde los grandes incendios de Guayaquil hasta la actualidad, conoce la evolución de la protección.
-                </p>
-              </div>
-            </Link>
+            <ScrollReveal animation="fade-up" delay={150}>
+              <Link href="/blog" className="group rounded-[2.5rem] bg-white dark:bg-slate-900 overflow-hidden shadow-lg shadow-slate-200/50 dark:shadow-black/40 hover:shadow-2xl hover:-translate-y-1.5 transition-all block border border-slate-200/60 dark:border-slate-800 h-full">
+                <div className="h-60 relative overflow-hidden">
+                  <img src="/blog_history.jpg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Historia de los Seguros en Ecuador" />
+                </div>
+                <div className="p-8">
+                  <h3 className="text-xl font-black text-slate-900 dark:text-white mb-3 group-hover:text-[#e11b22] transition-colors leading-snug">
+                    Los orígenes: Cómo iniciaron los seguros en el Ecuador
+                  </h3>
+                  <p className="text-slate-500 dark:text-slate-400 font-medium text-sm leading-relaxed">
+                    Desde los grandes incendios de Guayaquil hasta la actualidad, conoce la evolución de la protección.
+                  </p>
+                </div>
+              </Link>
+            </ScrollReveal>
 
-            <Link href="/blog" className="group rounded-[2.5rem] bg-white dark:bg-slate-900 overflow-hidden shadow-lg shadow-slate-200/50 dark:shadow-black/40 hover:shadow-2xl hover:-translate-y-1.5 transition-all block border border-slate-200/60 dark:border-slate-800">
-              <div className="h-60 relative overflow-hidden">
-                <img src="/blog_advisor.jpg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Asistencia Real en Siniestros" />
-              </div>
-              <div className="p-8">
-                <h3 className="text-xl font-black text-slate-900 dark:text-white mb-3 group-hover:text-[#e11b22] transition-colors leading-snug">
-                  Más que un papel: Cómo en DC Asesores te damos asistencia real
-                </h3>
-                <p className="text-slate-500 dark:text-slate-400 font-medium text-sm leading-relaxed">
-                  Si tienes un siniestro a las 2 AM o una urgencia clínica, nuestro equipo toma el control presencial.
-                </p>
-              </div>
-            </Link>
+            <ScrollReveal animation="fade-up" delay={300}>
+              <Link href="/blog" className="group rounded-[2.5rem] bg-white dark:bg-slate-900 overflow-hidden shadow-lg shadow-slate-200/50 dark:shadow-black/40 hover:shadow-2xl hover:-translate-y-1.5 transition-all block border border-slate-200/60 dark:border-slate-800 h-full">
+                <div className="h-60 relative overflow-hidden">
+                  <img src="/blog_advisor.jpg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Asistencia Real en Siniestros" />
+                </div>
+                <div className="p-8">
+                  <h3 className="text-xl font-black text-slate-900 dark:text-white mb-3 group-hover:text-[#e11b22] transition-colors leading-snug">
+                    Más que un papel: Cómo en DC Asesores te damos asistencia real
+                  </h3>
+                  <p className="text-slate-500 dark:text-slate-400 font-medium text-sm leading-relaxed">
+                    Si tienes un siniestro a las 2 AM o una urgencia clínica, nuestro equipo toma el control presencial.
+                  </p>
+                </div>
+              </Link>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -379,7 +400,7 @@ export default function Home() {
       <section id="contacto" className="py-24 sm:py-32 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 transition-colors">
         <div className="max-w-7xl mx-auto px-4">
           
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <ScrollReveal animation="fade-up" className="text-center max-w-3xl mx-auto mb-16">
             <h4 className="text-[#e11b22] font-black tracking-[0.2em] text-xs uppercase mb-3 font-mono">
               Atención Personalizada
             </h4>
@@ -389,12 +410,12 @@ export default function Home() {
             <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 font-medium mt-3">
               Estamos ubicados en el corazón corporativo y financiero de Quito, con cobertura en todo el Ecuador.
             </p>
-          </div>
+          </ScrollReveal>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
             
             {/* 🔴 COLUMNA IZQUIERDA: DATOS DE CONTACTO SOBRE EL MAPA (ALTURA IGUAL A LA DERECHA) */}
-            <div className="lg:col-span-6 flex flex-col justify-between h-full space-y-6">
+            <ScrollReveal animation="left" delay={100} className="lg:col-span-6 flex flex-col justify-between h-full space-y-6">
               
               {/* Tarjetas Corporativas Sobre el Mapa */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -480,10 +501,10 @@ export default function Home() {
                 </div>
               </div>
 
-            </div>
+            </ScrollReveal>
 
             {/* 🔴 COLUMNA DERECHA: FORMULARIO SOLO (CON AUTOCOMPLETADO Y ALTURA SINCRONIZADA) */}
-            <div className="lg:col-span-6 flex flex-col justify-between h-full">
+            <ScrollReveal animation="right" delay={200} className="lg:col-span-6 flex flex-col justify-between h-full">
               <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-xl flex flex-col justify-between h-full">
                 <div>
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 text-red-600 dark:text-red-400 text-xs font-mono font-bold uppercase tracking-wider mb-4">
@@ -591,7 +612,7 @@ export default function Home() {
                   <span>Tus datos están protegidos bajo estricto secreto profesional y confidencialidad.</span>
                 </div>
               </div>
-            </div>
+            </ScrollReveal>
 
           </div>
 

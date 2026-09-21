@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { SERVICES_DATA } from '@/lib/servicesData';
+import { ScrollReveal } from '@/components/common/ScrollReveal';
 import { Shield, ArrowRight, CheckCircle2, PhoneCall, Sparkles } from 'lucide-react';
 
 export const metadata = {
@@ -33,7 +34,7 @@ export default function ServiciosPage() {
           <div className="absolute -top-24 -right-24 w-[600px] h-[600px] bg-[#e11b22]/20 rounded-full blur-[140px] pointer-events-none"></div>
         </div>
 
-        <div className="max-w-5xl mx-auto text-center relative z-10">
+        <ScrollReveal animation="fade-up" className="max-w-5xl mx-auto text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-xs font-mono font-bold text-red-400 uppercase tracking-widest mb-6 shadow-xl">
             <span className="w-2 h-2 rounded-full bg-[#e11b22] animate-ping" />
             Portafolio Estratégico 2026
@@ -47,98 +48,108 @@ export default function ServiciosPage() {
           <p className="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed font-medium">
             Respaldamos tu patrimonio, la salud de tu familia y tus activos comerciales con convenios directos ante las aseguradoras más solventes del Ecuador.
           </p>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Cápsula GEO / Key Takeaways Byte-0 */}
       <section className="max-w-6xl mx-auto px-4 -mt-12 relative z-20">
-        <aside className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl rounded-3xl p-6 sm:p-8 shadow-2xl shadow-slate-900/10 border border-slate-200/80 dark:border-slate-800">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#e11b22]" />
-            <h2 className="text-xs font-mono uppercase tracking-[0.2em] text-[#e11b22] font-black">
-              Resumen Ejecutivo • ¿Por qué elegir DC Asesores?
-            </h2>
-          </div>
-          <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-medium">
-            <li className="flex items-start gap-3">
-              <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
-              <span><strong>Acompañamiento 24/7 en siniestros:</strong> Peritaje técnico y defensa jurídica in situ sin costo adicional.</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
-              <span><strong>Independencia real:</strong> Comparamos tarifas y deducibles para entregarte la mejor propuesta del mercado.</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
-              <span><strong>Resolución garantizada:</strong> Tasa superior al 99.8% en cobro oportuno y efectivo de indemnizaciones.</span>
-            </li>
-          </ul>
-        </aside>
+        <ScrollReveal animation="fade-up" delay={150}>
+          <aside className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl rounded-3xl p-6 sm:p-8 shadow-2xl shadow-slate-900/10 border border-slate-200/80 dark:border-slate-800">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#e11b22]" />
+              <h2 className="text-xs font-mono uppercase tracking-[0.2em] text-[#e11b22] font-black">
+                Resumen Ejecutivo • ¿Por qué elegir DC Asesores?
+              </h2>
+            </div>
+            <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-medium">
+              <li className="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                <span><strong>Acompañamiento 24/7 en siniestros:</strong> Peritaje técnico y defensa jurídica in situ sin costo adicional.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                <span><strong>Independencia real:</strong> Comparamos tarifas y deducibles para entregarte la mejor propuesta del mercado.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
+                <span><strong>Resolución garantizada:</strong> Tasa superior al 99.8% en cobro oportuno y efectivo de indemnizaciones.</span>
+              </li>
+            </ul>
+          </aside>
+        </ScrollReveal>
       </section>
 
       {/* Cuadrícula de Servicios Luxury con Imágenes y Transiciones */}
       <section className="max-w-7xl mx-auto px-4 py-20 sm:py-28">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {SERVICES_DATA.map((srv) => (
-            <div 
+          {SERVICES_DATA.map((srv, idx) => (
+            <ScrollReveal 
               key={srv.slug}
-              className="bg-white dark:bg-slate-900/80 rounded-3xl overflow-hidden border border-slate-200/90 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-black/40 flex flex-col justify-between hover:shadow-2xl hover:border-[#e11b22]/50 dark:hover:border-[#e11b22]/50 hover:-translate-y-1.5 transition-all duration-300 group"
+              animation="fade-up"
+              delay={(idx % 3) * 150}
+              className="h-full"
             >
-              {/* Imagen Fotográfica del Servicio con Zoom */}
-              <div className="h-56 relative overflow-hidden bg-slate-950">
-                <img 
-                  src={srv.imageUrl || '/services-hero.webp'} 
-                  alt={srv.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                <div className="absolute top-4 left-4">
-                  <span className="text-[10px] font-mono font-black uppercase tracking-wider px-3 py-1 rounded-full bg-black/60 text-white backdrop-blur-md border border-white/20 shadow-md">
-                    {srv.badge}
-                  </span>
-                </div>
-              </div>
+              <Link 
+                href={`/servicios/${srv.slug}`}
+                className="bg-white dark:bg-slate-900/90 rounded-3xl overflow-hidden border border-slate-200/90 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-black/40 flex flex-col justify-between hover:shadow-2xl hover:border-[#e11b22]/50 dark:hover:border-[#e11b22]/50 hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer h-full"
+              >
+                {/* Imagen Fotográfica del Servicio con Título ADENTRO */}
+                <div className="h-56 relative overflow-hidden bg-slate-950 shrink-0">
+                  <img 
+                    src={srv.imageUrl || '/services-hero.webp'} 
+                    alt={srv.title} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
+                  
+                  {/* Badge de categoría */}
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="text-[10px] font-mono font-black uppercase tracking-wider px-3 py-1 rounded-full bg-black/60 text-white backdrop-blur-md border border-white/20 shadow-md">
+                      {srv.badge}
+                    </span>
+                  </div>
 
-              {/* Contenido del Servicio */}
-              <div className="p-8 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-3 group-hover:text-[#e11b22] transition-colors leading-snug">
-                    {srv.title}
-                  </h3>
-                  <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed mb-6">
-                    {srv.shortDesc}
-                  </p>
+                  {/* Ícono de rama en orbe */}
+                  <div className="absolute top-4 right-4 z-10 w-9 h-9 rounded-xl bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-md group-hover:bg-[#e11b22] transition-colors">
+                    <img src={srv.iconUrl} alt={srv.title} className="w-5 h-5 object-contain filter brightness-200" />
+                  </div>
 
-                  <div className="space-y-2.5 mb-8">
-                    {srv.benefits.slice(0, 3).map((b, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5 text-xs text-slate-600 dark:text-slate-300 font-medium">
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#e11b22] shrink-0 mt-1.5" />
-                        <span>{b}</span>
-                      </div>
-                    ))}
+                  {/* 🔴 TÍTULO DEL SERVICIO ADENTRO DE LA IMAGEN */}
+                  <div className="absolute bottom-3.5 left-5 right-5 z-10">
+                    <h3 className="text-xl sm:text-2xl font-black text-white leading-tight drop-shadow-md group-hover:text-red-400 transition-colors line-clamp-2">
+                      {srv.title}
+                    </h3>
                   </div>
                 </div>
 
-                <div className="pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                  <Link 
-                    href={`/servicios/${srv.slug}`}
-                    className="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white group-hover:text-[#e11b22] flex items-center gap-1.5 transition-colors"
-                  >
-                    <span>Ver cobertura completa</span>
-                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </Link>
+                {/* Contenido del Servicio (Sin botón tosco, clic en toda la tarjeta) */}
+                <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+                  <div>
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed mb-4 line-clamp-2">
+                      {srv.shortDesc}
+                    </p>
 
-                  {srv.slug === 'seguro-vehicular' && (
-                    <Link 
-                      href="/cotizador"
-                      className="px-3.5 py-1.5 rounded-xl bg-[#e11b22] hover:bg-red-600 text-white text-[11px] font-black uppercase tracking-wider shadow-md active:scale-95 transition-all"
-                    >
-                      Cotizar
-                    </Link>
-                  )}
+                    <div className="space-y-2 mb-4">
+                      {srv.benefits.slice(0, 3).map((b, bIdx) => (
+                        <div key={bIdx} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300 font-medium">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#e11b22] shrink-0 mt-0.5" />
+                          <span className="line-clamp-1">{b}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Pie de tarjeta sutil */}
+                  <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-slate-500 dark:text-slate-400 group-hover:text-[#e11b22] transition-colors">
+                    <span className="text-[11px] uppercase tracking-wider">Ver detalles del plan</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-xs group-hover:translate-x-0.5 transition-transform">Acceder</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-[#e11b22]" />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </Link>
+            </ScrollReveal>
           ))}
         </div>
       </section>
@@ -146,7 +157,7 @@ export default function ServiciosPage() {
       {/* CTA Final Luxury */}
       <section className="bg-slate-950 text-white py-20 px-4 relative overflow-hidden border-t border-slate-900">
         <div className="absolute inset-0 aetherion-glow pointer-events-none"></div>
-        <div className="max-w-4xl mx-auto text-center space-y-6 relative z-10">
+        <ScrollReveal animation="fade-up" className="max-w-4xl mx-auto text-center space-y-6 relative z-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-xs font-mono text-slate-300 uppercase tracking-widest border border-white/10">
             Atención Especializada
           </div>
@@ -158,14 +169,14 @@ export default function ServiciosPage() {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
             <Link 
-              href="/cotizador"
+              href="/cotizador" 
               className="px-8 py-4 rounded-full bg-[#e11b22] hover:bg-red-600 text-white font-black text-xs uppercase tracking-wider shadow-lg shadow-red-600/30 active:scale-95 transition-all"
             >
               Cotizar en Línea
             </Link>
             <a 
               href="https://wa.me/593991938754?text=Hola%20DC%20Asesores,%20deseo%20una%20revisión%20de%20mis%20seguros"
-              target="_blank"
+              target="_blank" 
               rel="noopener noreferrer"
               className="px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider border border-white/20 active:scale-95 transition-all flex items-center justify-center gap-2"
             >
@@ -173,7 +184,7 @@ export default function ServiciosPage() {
               <span>Chatear por WhatsApp</span>
             </a>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Footer */}

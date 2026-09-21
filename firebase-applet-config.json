@@ -1,12 +1,9 @@
 {
-  "projectId": "credible-willow-bvxch",
-  "appId": "1:37749571378:web:4baccfaa571ecc73ad212b",
-  "apiKey": "AIzaSyCO77JScpcIjzNpCiwioZjsKBGcjBRSXVE",
-  "authDomain": "credible-willow-bvxch.firebaseapp.com",
-  "firestoreDatabaseId": "ai-studio-dcasesoresdesegu-1497cd9e-24a1-4025-9bb7-eb8f49656fc2",
-  "storageBucket": "credible-willow-bvxch.firebasestorage.app",
-  "messagingSenderId": "37749571378",
-  "measurementId": "",
-  "oAuthClientId": "37749571378-dt5gu157gqi2vde62pp714qalbhu80fd.apps.googleusercontent.com",
-  "recaptchaSiteKey": ""
+  "projectId": "studio-9268277525-3e4c7",
+  "appId": "1:209828727143:web:4f2b96ffb3240964bd47c2",
+  "apiKey": "AIzaSyCMopkfwbcJUjeqmCMRJn9AreWllFJMlZw",
+  "authDomain": "studio-9268277525-3e4c7.firebaseapp.com",
+  "storageBucket": "studio-9268277525-3e4c7.firebasestorage.app",
+  "messagingSenderId": "209828727143",
+  "firestoreDatabaseId": ""
 }
