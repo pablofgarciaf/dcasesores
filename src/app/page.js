@@ -80,10 +80,10 @@ export default function Home() {
       {/* 🔴 LUXURY NAVBAR UNIFICADO CON TOPBAR OFICIAL Y THEME SWITCH */}
       <Navbar />
 
-      {/* 🔴 LUXURY HERO SECTION CON FOTOGRAFÍA NÍTIDA VISIBLE (MOBILE / DESKTOP) */}
-      <section className="relative w-full min-h-[640px] lg:h-[90vh] flex items-center justify-center overflow-hidden bg-slate-950">
+      {/* 🔴 LUXURY HERO SECTION COMPACTA CON FOTOGRAFÍA NÍTIDA (VISIBLE JUNTO CON STATS EN 1 IMPACTO) */}
+      <section className="relative w-full -mt-20 sm:-mt-28 min-h-[440px] lg:h-[58vh] max-h-[620px] flex items-center justify-center overflow-hidden bg-slate-950">
         
-        {/* Imagen de Fondo Responsiva con Alta Claridad */}
+        {/* Imagen de Fondo Responsiva con Alta Claridad que sube detrás del Navbar */}
         <div className="absolute inset-0 z-0">
           <picture>
             <source media="(max-width: 767px)" srcSet="/hero-mobile.webp" />
@@ -91,46 +91,46 @@ export default function Home() {
             <img 
               src="/hero-desktop.webp" 
               alt="DC Asesores en Seguros - Protección Familiar y Financiera" 
-              className="w-full h-full object-cover object-center opacity-85 dark:opacity-75 transition-opacity duration-700"
+              className="w-full h-full object-cover object-center opacity-90 dark:opacity-80 transition-opacity duration-700"
             />
           </picture>
           
-          {/* Degradado Cinematográfico Suave que conserva la visibilidad de la foto */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-slate-950/20"></div>
+          {/* Degradado Cinematográfico Suave para perfecta legibilidad */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/45 to-slate-950/20"></div>
           
           {/* Luz roja escénica (Aetherion Glow) */}
-          <div className="absolute top-1/4 -right-1/4 w-[600px] sm:w-[900px] h-[600px] sm:h-[900px] bg-[#e11b22]/20 rounded-full blur-[160px] pointer-events-none"></div>
+          <div className="absolute top-1/4 -right-1/4 w-[500px] sm:w-[750px] h-[500px] sm:h-[750px] bg-[#e11b22]/20 rounded-full blur-[140px] pointer-events-none"></div>
         </div>
 
-        {/* Contenido Central del Hero */}
-        <div className="max-w-5xl mx-auto px-4 relative z-10 text-center text-white pt-16 pb-24 sm:py-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 border border-white/25 backdrop-blur-md text-white text-xs font-bold tracking-[0.2em] uppercase mb-8 shadow-2xl">
+        {/* Contenido Central Compacto del Hero (Optimizado para encajar con Stats en 1 pantalla) */}
+        <div className="max-w-4xl mx-auto px-4 relative z-10 text-center text-white pt-24 sm:pt-32 pb-8 sm:pb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 border border-white/25 backdrop-blur-md text-white text-[11px] font-bold tracking-[0.2em] uppercase mb-4 sm:mb-5 shadow-xl">
             <span className="w-2 h-2 rounded-full bg-[#e11b22] animate-ping"></span> 
             ASESORÍA INTEGRAL EN SEGUROS • ECUADOR
           </div>
 
-          <h1 className="text-4xl sm:text-6xl lg:text-[76px] font-black leading-[1.08] tracking-tight mb-8">
-            Protege lo que más importa con el <br className="hidden md:block" />
+          <h1 className="text-3xl sm:text-4xl lg:text-[50px] font-black leading-[1.1] tracking-tight mb-3 sm:mb-4 drop-shadow-md">
+            Protege lo que más importa con el <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e11b22] via-red-500 to-amber-400">
               respaldo correcto.
             </span>
           </h1>
 
-          <p className="text-base sm:text-xl text-slate-200 font-medium max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow-md">
+          <p className="text-xs sm:text-base text-slate-200 font-medium max-w-2xl mx-auto mb-6 sm:mb-7 leading-relaxed drop-shadow-md">
             Analizamos tus necesidades reales para diseñar soluciones personalizadas en salud, vida y patrimonio. Tu tranquilidad es nuestro contrato.
           </p>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="flex flex-row justify-center gap-3 sm:gap-4">
             <Link 
               href="/cotizador" 
-              className="bg-[#e11b22] hover:bg-red-600 text-white px-10 py-5 font-black text-base sm:text-lg rounded-full shadow-[0_10px_40px_rgba(225,27,34,0.4)] transition-all hover:-translate-y-1 active:scale-95 flex items-center justify-center gap-3"
+              className="bg-[#e11b22] hover:bg-red-600 text-white px-6 sm:px-8 py-3.5 sm:py-4 font-black text-xs sm:text-sm rounded-full shadow-[0_8px_30px_rgba(225,27,34,0.4)] transition-all hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2"
             >
               <span>Cotizar mi seguro ahora</span>
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-4 h-4" />
             </Link>
             <Link 
               href="/servicios" 
-              className="bg-white/15 hover:bg-white/25 text-white px-8 py-5 font-bold text-base rounded-full border border-white/25 backdrop-blur-md transition-all active:scale-95 flex items-center justify-center gap-2"
+              className="bg-white/15 hover:bg-white/25 text-white px-5 sm:px-7 py-3.5 sm:py-4 font-bold text-xs sm:text-sm rounded-full border border-white/25 backdrop-blur-md transition-all active:scale-95 flex items-center justify-center gap-1.5"
             >
               Explorar Coberturas
             </Link>

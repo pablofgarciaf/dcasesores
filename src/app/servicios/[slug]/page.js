@@ -149,38 +149,44 @@ export default async function ServiceDetailPage({ params }) {
       </nav>
 
       {/* Hero del Servicio con Atmósfera Aetherion */}
-      <section className="relative bg-slate-950 text-white py-20 lg:py-28 px-4 overflow-hidden border-b border-slate-900">
+      <section className="relative bg-slate-950 text-white py-16 lg:py-24 px-4 overflow-hidden border-b border-slate-900">
         
-        {/* Fotografía de Fondo con Alta Visibilidad */}
+        {/* Fotografía de Fondo con Alta Visibilidad (Imagen nítida y reconocible) */}
         <div className="absolute inset-0 z-0">
           <img 
             src={service.imageUrl || '/services-hero.webp'} 
             alt={service.title} 
-            className="w-full h-full object-cover object-center opacity-80 dark:opacity-65 transition-opacity duration-700"
+            className="w-full h-full object-cover object-center opacity-95 dark:opacity-85 transition-opacity duration-700"
           />
-          {/* Degradado Cinematográfico */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-slate-950/40" />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/50 to-transparent" />
+          {/* Degradado Cinematográfico Suave que no ahoga la fotografía */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/50 to-slate-950/20 lg:to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-slate-950 to-transparent" />
           
           {/* Orbe Ruby Aetherion */}
-          <div className="absolute top-1/4 -right-20 w-[550px] h-[550px] bg-[#e11b22]/20 rounded-full blur-[140px] pointer-events-none" />
+          <div className="absolute top-1/4 -right-20 w-[550px] h-[550px] bg-[#e11b22]/15 rounded-full blur-[140px] pointer-events-none" />
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
             {/* Columna Izquierda: Encabezado y Propuesta de Valor */}
-            <div className="lg:col-span-7 space-y-6">
+            <div className="lg:col-span-7 space-y-5">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-500/15 text-red-400 border border-red-500/30 text-xs font-mono font-bold uppercase tracking-wider backdrop-blur-md shadow-md">
                 <span className="w-2 h-2 rounded-full bg-[#e11b22] animate-pulse" />
                 {service.badge}
               </div>
 
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white">
+              {service.headline && (
+                <p className="text-red-400 font-extrabold text-sm sm:text-base uppercase tracking-wider">
+                  {service.headline}
+                </p>
+              )}
+
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white drop-shadow-md">
                 {service.title}
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-300 font-medium leading-relaxed max-w-2xl">
+              <p className="text-base sm:text-lg text-slate-200 font-medium leading-relaxed max-w-2xl drop-shadow-sm">
                 {service.fullDesc}
               </p>
 
@@ -333,6 +339,76 @@ export default async function ServiceDetailPage({ params }) {
                 ))}
               </div>
             </div>
+
+            {/* Bloque 1.1: Ventajas Oficiales del Servicio (Si están especificadas) */}
+            {service.ventajas && service.ventajas.length > 0 && (
+              <div className="space-y-6">
+                <div className="flex items-center gap-3">
+                  <div className="h-px w-8 bg-gradient-to-r from-[#e11b22] to-transparent" />
+                  <span className="text-xs font-mono font-black uppercase tracking-[0.2em] text-[#e11b22]">
+                    {service.ventajasSectionTitle || 'Ventajas del Servicio'}
+                  </span>
+                </div>
+                <h2 className="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
+                  {service.ventajasSectionSubtitle || 'Beneficios que protegen tu salud y tu estabilidad'}
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                  {service.ventajas.map((v, idx) => (
+                    <div 
+                      key={idx}
+                      className="p-5 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 shadow-sm hover:border-[#e11b22]/50 hover:shadow-lg transition-all duration-300 group"
+                    >
+                      <div className="flex items-center gap-2.5 mb-2">
+                        <div className="w-7 h-7 rounded-xl bg-red-500/10 text-[#e11b22] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                          <CheckCircle2 className="w-4 h-4" />
+                        </div>
+                        <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white group-hover:text-[#e11b22] transition-colors">
+                          {v.title}
+                        </h3>
+                      </div>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed pl-9">
+                        {v.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Bloque 1.2: Cobertura Detallada del Plan (Si está especificada) */}
+            {service.coberturaPlan && service.coberturaPlan.length > 0 && (
+              <div className="space-y-6">
+                <div className="flex items-center gap-3">
+                  <div className="h-px w-8 bg-gradient-to-r from-[#e11b22] to-transparent" />
+                  <span className="text-xs font-mono font-black uppercase tracking-[0.2em] text-[#e11b22]">
+                    {service.coberturaSectionTitle || 'Cobertura del Plan'}
+                  </span>
+                </div>
+                <h2 className="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
+                  {service.coberturaSectionSubtitle || 'Protección completa para cada necesidad'}
+                </h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                  {service.coberturaPlan.map((c, idx) => (
+                    <div 
+                      key={idx}
+                      className="p-5 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200/80 dark:border-white/10 shadow-sm hover:border-[#e11b22]/50 hover:shadow-lg transition-all duration-300 group"
+                    >
+                      <div className="flex items-center gap-2.5 mb-2">
+                        <div className="w-7 h-7 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                          <ShieldCheck className="w-4 h-4" />
+                        </div>
+                        <h3 className="text-sm sm:text-base font-black text-slate-900 dark:text-white group-hover:text-[#e11b22] transition-colors">
+                          {c.title}
+                        </h3>
+                      </div>
+                      <p className="text-xs text-slate-600 dark:text-slate-400 font-medium leading-relaxed pl-9">
+                        {c.desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Bloque 2: ¿A quién está dirigido? (Aetherion Card) */}
             <div className="p-8 sm:p-10 rounded-[32px] bg-slate-950 text-white border border-slate-800 shadow-2xl relative overflow-hidden group">

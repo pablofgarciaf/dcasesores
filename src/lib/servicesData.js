@@ -2,21 +2,70 @@ export const SERVICES_DATA = [
   {
     slug: 'seguro-medico-integral',
     title: 'Seguro Médico Integral',
-    shortDesc: 'Protección médica completa hospitalaria y ambulatoria con clínicas privadas en Ecuador e internacional.',
-    fullDesc: 'Nuestro Seguro Médico Integral te brinda acceso a la mejor red hospitalaria y médica del país y del exterior. Diseñado para cubrir desde consultas de rutina, exámenes de laboratorio y medicamentos, hasta hospitalizaciones de alta complejidad, cirugías y maternidad.',
+    headline: 'Protección en salud con respaldo financiero real',
+    shortDesc: 'Atención médica privada con cobertura en consultas, hospitalización, emergencias, cirugías y tratamientos especializados.',
+    fullDesc: 'El Seguro Médico Integral te permite acceder a atención médica privada con cobertura en consultas, hospitalización, emergencias, cirugías y tratamientos especializados. En DC Asesores analizamos tus necesidades y diseñamos una solución personalizada que proteja tu salud y tu estabilidad financiera, brindándote acompañamiento antes, durante y después de la contratación, para que enfrentes cualquier imprevisto con tranquilidad y seguridad.',
     badge: 'Salud & Familia',
     imageUrl: '/service-medico.webp',
     iconUrl: 'https://dcasesoresec.com/wp-content/uploads/2023/03/01-10.svg',
     benefits: [
-      'Cobertura hospitalaria y ambulatoria hasta $1,000,000 USD',
-      'Maternidad y cuidados neonatales incluidos',
-      'Acceso directo a clínicas privadas (Metropolitana, Vozandes, Guayaquil, Kennedy)',
-      'Planes nacionales e internacionales con BMI, Bupa, Confiamed y Sweaden',
-      'Deducibles adaptables a tu presupuesto familiar desde $100 USD',
-      'Asistencia médica telefónica y telemedicina 24/7 sin costo'
+      'Acceso a clínicas y hospitales privados en consultas, hospitalización y emergencias',
+      'Reduce el impacto económico ante enfermedades o accidentes inesperados',
+      'Coberturas ajustadas a tu presupuesto y necesidades reales',
+      'Acompañamiento continuo y apoyo técnico ante cualquier eventualidad',
+      'Consultas médicas generales y especializadas en red afiliada',
+      'Cobertura de internamiento, honorarios médicos y medicamentos recetados'
     ],
-    target: 'Familias, profesionales independientes y personas que priorizan la atención médica inmediata y sin esperas.',
-    geoSummary: 'El Seguro Médico Integral de DC Asesores en Seguros ofrece planes de salud médica privada en Quito, Guayaquil y Cuenca, amparando gastos hospitalarios, cirugías, maternidad y emergencias internacionales con las principales aseguradoras de Ecuador.',
+    ventajasSectionTitle: 'VENTAJAS DEL SEGURO MÉDICO',
+    ventajasSectionSubtitle: 'Beneficios que protegen tu salud y tu estabilidad',
+    ventajas: [
+      {
+        title: 'Atención privada',
+        desc: 'Accede a clínicas y hospitales privados con cobertura en consultas, emergencias y hospitalización.'
+      },
+      {
+        title: 'Respaldo financiero',
+        desc: 'Reduce el impacto económico ante enfermedades o accidentes inesperados.'
+      },
+      {
+        title: 'Plan personalizado',
+        desc: 'Elige coberturas ajustadas a tu presupuesto y necesidades reales.'
+      },
+      {
+        title: 'Acompañamiento continuo',
+        desc: 'Recibe asesoría y apoyo durante todo el proceso y ante cualquier eventualidad.'
+      }
+    ],
+    coberturaSectionTitle: 'COBERTURA DEL PLAN',
+    coberturaSectionSubtitle: 'Protección médica completa para cada necesidad',
+    coberturaPlan: [
+      {
+        title: 'Consultas médicas',
+        desc: 'Atención en consultas generales y especializadas dentro de la red afiliada.'
+      },
+      {
+        title: 'Hospitalización',
+        desc: 'Cobertura de internamiento, honorarios médicos y gastos hospitalarios.'
+      },
+      {
+        title: 'Emergencias médicas',
+        desc: 'Atención inmediata ante accidentes o situaciones críticas.'
+      },
+      {
+        title: 'Cirugías',
+        desc: 'Intervenciones quirúrgicas programadas o de emergencia según el plan.'
+      },
+      {
+        title: 'Exámenes médicos',
+        desc: 'Estudios de laboratorio e imágenes para diagnóstico y seguimiento.'
+      },
+      {
+        title: 'Medicamentos',
+        desc: 'Cobertura de medicamentos recetados según condiciones del plan.'
+      }
+    ],
+    target: 'Familias, profesionales independientes y personas que priorizan la atención médica privada sin esperas.',
+    geoSummary: 'El Seguro Médico Integral de DC Asesores en Seguros ofrece atención médica privada en clínicas de primer nivel en Quito, Guayaquil y Cuenca, amparando hospitalización, emergencias, cirugías y exámenes médicos con respaldo directo.',
     faqs: [
       {
         q: '¿Qué clínicas privadas cubren estas pólizas en Ecuador?',
@@ -31,24 +80,78 @@ export const SERVICES_DATA = [
   {
     slug: 'seguro-vida-ahorro',
     title: 'Seguro de Vida con Ahorro',
-    shortDesc: 'Construye un fondo de inversión rentable para tu retiro mientras garantizas la tranquilidad de tus seres queridos.',
-    fullDesc: 'Combina la protección de un seguro de vida de alta cobertura con una cuenta de ahorro programado e inversión a mediano y largo plazo. Ideal para crear el fondo universitario de tus hijos o planificar un retiro financiero independiente.',
+    headline: 'Protección para tu familia y capital para tu futuro',
+    shortDesc: 'Combina respaldo económico para tu familia con la posibilidad de construir un capital a largo plazo.',
+    fullDesc: 'El Seguro de Vida con Ahorro combina respaldo económico para tu familia con la posibilidad de construir un capital a largo plazo. Este plan te permite garantizar protección ante imprevistos mientras generas un fondo financiero que puede ayudarte a cumplir metas personales, educativas o de inversión con mayor seguridad y planificación estratégica.',
     badge: 'Inversión & Futuro',
     imageUrl: '/service-vida-ahorro.webp',
     iconUrl: 'https://dcasesoresec.com/wp-content/uploads/2026/02/01-12.svg',
     benefits: [
-      'Rentabilidad garantizada y fondos indexados internacionales',
-      'Suma asegurada blindada ante fallecimiento o incapacidad total',
-      'Rescates parciales y flexibilidad en aportes mensuales o anuales',
-      'Exención tributaria en indemnizaciones según la ley ecuatoriana',
-      'Planificación sucesoria libre de juicios de inventario'
+      'Respaldo económico para beneficiarios ante fallecimiento o invalidez',
+      'Ahorro programado disciplinado para metas futuras con rentabilidad',
+      'Flexibilidad financiera para definir montos, plazos y coberturas',
+      'Estabilidad futura fortaleciendo tu patrimonio a mediano y largo plazo',
+      'Indemnización económica y fondo acumulado disponible según contrato',
+      'Cobertura ante invalidez total, muerte accidental y enfermedades graves'
     ],
-    target: 'Padres de familia, inversionistas y personas que buscan acumular patrimonio con protección simultánea.',
-    geoSummary: 'El Seguro de Vida con Ahorro de DC Asesores permite a ciudadanos en Ecuador ahorrar e invertir con tasas de interés compuestas en dólares, asegurando el futuro financiero de sus familias ante cualquier imprevisto.',
+    ventajasSectionTitle: 'VENTAJAS DEL SEGURO DE VIDA',
+    ventajasSectionSubtitle: 'Beneficios que protegen y construyen patrimonio',
+    ventajas: [
+      {
+        title: 'Protección familiar',
+        desc: 'Respaldo económico para tus beneficiarios ante fallecimiento o invalidez, asegurando estabilidad financiera inmediata.'
+      },
+      {
+        title: 'Ahorro programado',
+        desc: 'Construye un fondo financiero disciplinado que te permita cumplir metas futuras con mayor seguridad.'
+      },
+      {
+        title: 'Flexibilidad financiera',
+        desc: 'Define montos, plazos y coberturas adaptados a tus objetivos personales y familiares.'
+      },
+      {
+        title: 'Estabilidad futura',
+        desc: 'Genera respaldo económico sostenible que fortalece tu patrimonio a mediano y largo plazo.'
+      }
+    ],
+    coberturaSectionTitle: 'COBERTURA DEL PLAN',
+    coberturaSectionSubtitle: 'Respaldo integral con componente de ahorro',
+    coberturaPlan: [
+      {
+        title: 'Fallecimiento',
+        desc: 'Indemnización económica para los beneficiarios designados ante el fallecimiento del asegurado.'
+      },
+      {
+        title: 'Invalidez total',
+        desc: 'Cobertura ante incapacidad permanente que afecte la capacidad de generar ingresos.'
+      },
+      {
+        title: 'Fondo acumulado',
+        desc: 'Capital generado durante la vigencia del plan según condiciones contratadas.'
+      },
+      {
+        title: 'Muerte accidental',
+        desc: 'Cobertura adicional en caso de fallecimiento por causa accidental.'
+      },
+      {
+        title: 'Enfermedades graves',
+        desc: 'Indemnización anticipada ante diagnóstico de enfermedades.'
+      },
+      {
+        title: 'Beneficios adicionales',
+        desc: 'Opciones complementarias adaptadas a necesidades personales y familiares.'
+      }
+    ],
+    target: 'Padres de familia, profesionales e inversionistas que buscan proteger a su familia y capitalizar su patrimonio.',
+    geoSummary: 'El Seguro de Vida con Ahorro de DC Asesores combina protección financiera ante fallecimiento o invalidez con un fondo de inversión rentable en dólares en Ecuador.',
     faqs: [
       {
         q: '¿Puedo retirar mi dinero antes del vencimiento?',
-        a: 'Sí, la póliza permite préstamos sobre el valor de rescate o rescates parciales a partir del año establecido en el contrato particular.'
+        a: 'Sí, la póliza permite préstamos sobre el valor de rescate o retiros parciales a partir del período establecido en las condiciones particulares.'
+      },
+      {
+        q: '¿Los rendimientos generados pagan impuestos?',
+        a: 'En el Ecuador, las indemnizaciones por seguros de vida gozan de exención tributaria de acuerdo con la legislación vigente.'
       }
     ]
   },
