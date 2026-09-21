@@ -13,7 +13,11 @@ import {
   ArrowRight, 
   CheckCircle2, 
   Send,
-  Building2
+  Building2,
+  Award,
+  Sparkles,
+  Users,
+  ShieldCheck
 } from 'lucide-react';
 
 const BRANDS = [
@@ -23,9 +27,9 @@ const BRANDS = [
   { label: 'SWEADEN', prefix: '♦', prefixColor: 'text-blue-600', size: 'text-3xl' },
   { label: 'ZURICH', prefix: '■', prefixColor: 'text-blue-700', size: 'text-3xl' },
   { label: 'MAPFRE', size: 'text-3xl font-serif text-[#e11b22]' },
-  { label: 'PRIVILEGIO', size: 'text-3xl text-indigo-900 font-bold' },
+  { label: 'PRIVILEGIO', size: 'text-3xl text-indigo-900 dark:text-indigo-400 font-bold' },
   { label: 'ATLÁNTIDA', prefix: '▲', prefixColor: 'text-teal-600', size: 'text-3xl' },
-  { label: 'ADS SEGUROS', size: 'text-3xl font-bold text-slate-800' },
+  { label: 'ADS SEGUROS', size: 'text-3xl font-bold text-slate-800 dark:text-slate-200' },
   { label: 'VAZ SEGUROS', prefix: '✦', prefixColor: 'text-orange-500', size: 'text-3xl' },
   { label: 'BMI', prefix: '///', prefixColor: 'text-[#e11b22]', size: 'text-3xl' },
 ];
@@ -36,7 +40,7 @@ function MarqueeBrands() {
     <div className="animate-marquee flex items-center w-max">
       {BRANDS_DOUBLED.map((brand, idx) => (
         <div key={idx} className="shrink-0 w-[200px] md:w-[260px] flex items-center justify-center px-4">
-          <div className={`font-black text-slate-800 flex items-center gap-2 ${brand.size}`}>
+          <div className={`font-black text-slate-800 dark:text-slate-100 flex items-center gap-2 ${brand.size}`}>
             {brand.prefix && <span className={brand.prefixColor}>{brand.prefix}</span>}
             <span>{brand.label}</span>
           </div>
@@ -56,18 +60,18 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#f8f9fa] font-sans text-slate-800 relative scroll-smooth selection:bg-[#e11b22] selection:text-white">
+    <div className="min-h-screen bg-[#f8f9fa] dark:bg-slate-950 font-sans text-slate-800 dark:text-slate-100 relative scroll-smooth selection:bg-[#e11b22] selection:text-white transition-colors">
       
       {/* 🟢 WIDGET FLOTANTE DE WHATSAPP */}
       <WhatsAppWidget />
 
-      {/* 🔴 LUXURY NAVBAR UNIFICADO CON MENÚ HAMBURGUESA */}
+      {/* 🔴 LUXURY NAVBAR UNIFICADO CON TOPBAR OFICIAL Y THEME SWITCH */}
       <Navbar />
 
-      {/* 🔴 LUXURY HERO SECTION (IMAGEN MÓVIL Y ESCRITORIO ESPECIALIZADAS) */}
-      <section className="relative w-full min-h-[640px] lg:h-[88vh] flex items-center justify-center overflow-hidden bg-slate-950">
+      {/* 🔴 LUXURY HERO SECTION CON FOTOGRAFÍA NÍTIDA VISIBLE (MOBILE / DESKTOP) */}
+      <section className="relative w-full min-h-[640px] lg:h-[90vh] flex items-center justify-center overflow-hidden bg-slate-950">
         
-        {/* Imagen de Fondo Responsiva */}
+        {/* Imagen de Fondo Responsiva con Alta Claridad */}
         <div className="absolute inset-0 z-0">
           <picture>
             <source media="(max-width: 767px)" srcSet="/hero-mobile.webp" />
@@ -75,32 +79,32 @@ export default function Home() {
             <img 
               src="/hero-desktop.webp" 
               alt="DC Asesores en Seguros - Protección Familiar y Financiera" 
-              className="w-full h-full object-cover object-center opacity-45 transition-opacity"
+              className="w-full h-full object-cover object-center opacity-85 dark:opacity-75 transition-opacity duration-700"
             />
           </picture>
           
-          {/* Degradados cinemáticos de superposición */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/40"></div>
+          {/* Degradado Cinematográfico Suave que conserva la visibilidad de la foto */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-slate-950/20"></div>
           
           {/* Luz roja escénica (Aetherion Glow) */}
-          <div className="absolute top-1/4 -right-1/4 w-[600px] sm:w-[900px] h-[600px] sm:h-[900px] bg-[#e11b22]/25 rounded-full blur-[160px] pointer-events-none"></div>
+          <div className="absolute top-1/4 -right-1/4 w-[600px] sm:w-[900px] h-[600px] sm:h-[900px] bg-[#e11b22]/20 rounded-full blur-[160px] pointer-events-none"></div>
         </div>
 
         {/* Contenido Central del Hero */}
         <div className="max-w-5xl mx-auto px-4 relative z-10 text-center text-white pt-16 pb-24 sm:py-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white text-xs font-bold tracking-[0.2em] uppercase mb-8 shadow-2xl">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/15 border border-white/25 backdrop-blur-md text-white text-xs font-bold tracking-[0.2em] uppercase mb-8 shadow-2xl">
             <span className="w-2 h-2 rounded-full bg-[#e11b22] animate-ping"></span> 
             ASESORÍA INTEGRAL EN SEGUROS • ECUADOR
           </div>
 
           <h1 className="text-4xl sm:text-6xl lg:text-[76px] font-black leading-[1.08] tracking-tight mb-8">
             Protege lo que más importa con el <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e11b22] via-red-500 to-orange-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e11b22] via-red-500 to-amber-400">
               respaldo correcto.
             </span>
           </h1>
 
-          <p className="text-base sm:text-xl text-slate-300 font-medium max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-base sm:text-xl text-slate-200 font-medium max-w-2xl mx-auto mb-10 leading-relaxed drop-shadow-md">
             Analizamos tus necesidades reales para diseñar soluciones personalizadas en salud, vida y patrimonio. Tu tranquilidad es nuestro contrato.
           </p>
 
@@ -114,7 +118,7 @@ export default function Home() {
             </Link>
             <Link 
               href="/servicios" 
-              className="bg-white/10 hover:bg-white/20 text-white px-8 py-5 font-bold text-base rounded-full border border-white/20 backdrop-blur-md transition-all active:scale-95 flex items-center justify-center gap-2"
+              className="bg-white/15 hover:bg-white/25 text-white px-8 py-5 font-bold text-base rounded-full border border-white/25 backdrop-blur-md transition-all active:scale-95 flex items-center justify-center gap-2"
             >
               Explorar Coberturas
             </Link>
@@ -126,19 +130,19 @@ export default function Home() {
       <StatsSection />
 
       {/* 🔴 2. BANDA DE MARCAS (Ubicada exactamente después de los stats) */}
-      <section className="relative py-16 overflow-hidden bg-white border-b border-slate-200/80 shadow-xs">
+      <section className="relative py-16 overflow-hidden bg-white dark:bg-slate-900 border-b border-slate-200/80 dark:border-slate-800 shadow-xs transition-colors">
         <div className="container mx-auto px-6 mb-8 text-center max-w-5xl relative z-10">
           <p className="text-xs font-mono font-black uppercase tracking-[0.2em] text-slate-400 mb-2">
             Alianzas Estratégicas
           </p>
-          <h2 className="text-2xl sm:text-4xl font-black text-slate-900 tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
             Respaldados por las aseguradoras <span className="text-[#e11b22]">más sólidas del mercado</span>
           </h2>
         </div>
         
         {/* Sombras laterales difuminadas para carrusel infinito */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-36 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-36 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute left-0 top-0 bottom-0 w-24 sm:w-36 bg-gradient-to-r from-white dark:from-slate-900 to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-36 bg-gradient-to-l from-white dark:from-slate-900 to-transparent z-10 pointer-events-none"></div>
         
         <div className="w-full flex overflow-hidden py-3">
           <MarqueeBrands />
@@ -148,8 +152,66 @@ export default function Home() {
       {/* 🔴 3. CARRUSEL INTERMINABLE DE SERVICIOS (Estilo Vermilion / Aetherion) */}
       <ServicesCarousel />
 
+      {/* 🔴 4. SECCIÓN NOSOTROS (VINCULADA AL NAVBAR OFICIAL) */}
+      <section id="nosotros" className="py-24 sm:py-32 bg-slate-950 text-white relative overflow-hidden">
+        <div className="absolute inset-0 aetherion-glow pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div className="lg:col-span-6 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-red-500/15 border border-red-500/30 text-xs font-mono font-bold text-red-400 uppercase tracking-widest">
+                <Users className="w-3.5 h-3.5" />
+                Sobre DC Asesores
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+                Más de 15 años protegiendo lo que más valoras en el Ecuador
+              </h2>
+              <p className="text-slate-300 text-base sm:text-lg leading-relaxed font-medium">
+                Somos una Agencia Asesora Productora de Seguros legalmente autorizada por la Superintendencia de Compañías. Nuestro rol fundamental es defender los derechos del asegurado, asesorándolo con independencia total y acompañándolo presencialmente en cada siniestro.
+              </p>
+              
+              <div className="grid grid-cols-2 gap-4 pt-4">
+                <div className="p-5 rounded-2xl bg-white/5 border border-white/10">
+                  <div className="text-3xl font-black text-[#e11b22] font-mono mb-1">100%</div>
+                  <div className="text-xs font-bold text-white uppercase tracking-wider">Independencia</div>
+                  <p className="text-[11px] text-slate-400 mt-1">Sin ataduras comerciales a una sola aseguradora.</p>
+                </div>
+                <div className="p-5 rounded-2xl bg-white/5 border border-white/10">
+                  <div className="text-3xl font-black text-emerald-400 font-mono mb-1">24/7</div>
+                  <div className="text-xs font-bold text-white uppercase tracking-wider">Soporte In Situ</div>
+                  <p className="text-[11px] text-slate-400 mt-1">Presencia física inmediata en emergencias graves.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-6 relative">
+              <div className="rounded-3xl overflow-hidden border border-white/10 shadow-2xl relative">
+                <img 
+                  src="/services-hero.webp" 
+                  alt="Equipo DC Asesores en Seguros Quito" 
+                  className="w-full h-[450px] object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent"></div>
+                <div className="absolute bottom-6 left-6 right-6 p-5 rounded-2xl bg-slate-900/80 backdrop-blur-xl border border-white/15">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#e11b22] flex items-center justify-center text-white font-black">
+                      DC
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-black text-white">Diego Carpio G.</h4>
+                      <p className="text-xs text-slate-300">Director General & Consultor Actuarial</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* 🔴 CÓMO TRABAJAMOS (Metodología DC Asesores) */}
-      <section id="proceso" className="py-24 sm:py-32 bg-slate-950 text-white relative overflow-hidden">
+      <section id="proceso" className="py-24 sm:py-32 bg-slate-900 text-white relative overflow-hidden border-t border-slate-800">
         <div className="max-w-7xl mx-auto px-4 text-center mb-16 sm:mb-20 relative z-10">
           <h4 className="text-[#e11b22] font-black tracking-[0.2em] text-xs uppercase mb-3 font-mono">
             Metodología DC
@@ -169,7 +231,7 @@ export default function Home() {
             ].map((step, i) => (
               <div 
                 key={i} 
-                className="bg-slate-900/60 backdrop-blur-xl p-8 rounded-3xl border border-slate-800 hover:border-[#e11b22] transition-colors group"
+                className="bg-slate-950/60 backdrop-blur-xl p-8 rounded-3xl border border-slate-800 hover:border-[#e11b22] transition-colors group"
               >
                 <div className="text-5xl sm:text-6xl font-black text-slate-800 group-hover:text-[#e11b22] transition-colors mb-4 opacity-70 font-mono">
                   {step.num}
@@ -183,20 +245,20 @@ export default function Home() {
       </section>
 
       {/* 🔴 SECCIÓN BLOG HOME */}
-      <section className="py-24 sm:py-32 bg-[#f4f4f6]">
+      <section className="py-24 sm:py-32 bg-[#f4f4f6] dark:bg-slate-950 transition-colors">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-14">
             <div>
               <h4 className="text-[#e11b22] font-black tracking-[0.2em] text-xs uppercase mb-3 font-mono">
                 Últimas publicaciones
               </h4>
-              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+              <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
                 Inteligencia Financiera & Seguros
               </h2>
             </div>
             <Link 
               href="/blog" 
-              className="mt-4 md:mt-0 font-bold text-sm text-slate-600 hover:text-[#e11b22] flex items-center gap-2 transition-colors"
+              className="mt-4 md:mt-0 font-bold text-xs uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-[#e11b22] flex items-center gap-2 transition-colors"
             >
               <span>Ver todos los artículos</span>
               <ArrowRight className="w-4 h-4" />
@@ -204,43 +266,43 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Link href="/blog" className="group rounded-[2.5rem] bg-white overflow-hidden shadow-lg shadow-slate-200/50 hover:shadow-2xl hover:-translate-y-1.5 transition-all block border border-slate-200/60">
+            <Link href="/blog" className="group rounded-[2.5rem] bg-white dark:bg-slate-900 overflow-hidden shadow-lg shadow-slate-200/50 dark:shadow-black/40 hover:shadow-2xl hover:-translate-y-1.5 transition-all block border border-slate-200/60 dark:border-slate-800">
               <div className="h-60 relative overflow-hidden">
                 <img src="/blog_peace.jpg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="El Seguro y la Tranquilidad" />
               </div>
               <div className="p-8">
-                <h3 className="text-xl font-black text-slate-900 mb-3 group-hover:text-[#e11b22] transition-colors leading-snug">
+                <h3 className="text-xl font-black text-slate-900 dark:text-white mb-3 group-hover:text-[#e11b22] transition-colors leading-snug">
                   El seguro: La herramienta para que Latinoamérica salga de la pobreza
                 </h3>
-                <p className="text-slate-500 font-medium text-sm leading-relaxed">
+                <p className="text-slate-500 dark:text-slate-400 font-medium text-sm leading-relaxed">
                   Jürgen Klarić lo advierte: asegurar tu salud y tu vida es comprar el derecho a dormir tranquilo.
                 </p>
               </div>
             </Link>
             
-            <Link href="/blog" className="group rounded-[2.5rem] bg-white overflow-hidden shadow-lg shadow-slate-200/50 hover:shadow-2xl hover:-translate-y-1.5 transition-all block border border-slate-200/60">
+            <Link href="/blog" className="group rounded-[2.5rem] bg-white dark:bg-slate-900 overflow-hidden shadow-lg shadow-slate-200/50 dark:shadow-black/40 hover:shadow-2xl hover:-translate-y-1.5 transition-all block border border-slate-200/60 dark:border-slate-800">
               <div className="h-60 relative overflow-hidden">
                 <img src="/blog_history.jpg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Historia de los Seguros en Ecuador" />
               </div>
               <div className="p-8">
-                <h3 className="text-xl font-black text-slate-900 mb-3 group-hover:text-[#e11b22] transition-colors leading-snug">
+                <h3 className="text-xl font-black text-slate-900 dark:text-white mb-3 group-hover:text-[#e11b22] transition-colors leading-snug">
                   Los orígenes: Cómo iniciaron los seguros en el Ecuador
                 </h3>
-                <p className="text-slate-500 font-medium text-sm leading-relaxed">
+                <p className="text-slate-500 dark:text-slate-400 font-medium text-sm leading-relaxed">
                   Desde los grandes incendios de Guayaquil hasta la actualidad, conoce la evolución de la protección.
                 </p>
               </div>
             </Link>
 
-            <Link href="/blog" className="group rounded-[2.5rem] bg-white overflow-hidden shadow-lg shadow-slate-200/50 hover:shadow-2xl hover:-translate-y-1.5 transition-all block border border-slate-200/60">
+            <Link href="/blog" className="group rounded-[2.5rem] bg-white dark:bg-slate-900 overflow-hidden shadow-lg shadow-slate-200/50 dark:shadow-black/40 hover:shadow-2xl hover:-translate-y-1.5 transition-all block border border-slate-200/60 dark:border-slate-800">
               <div className="h-60 relative overflow-hidden">
                 <img src="/blog_advisor.jpg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Asistencia Real en Siniestros" />
               </div>
               <div className="p-8">
-                <h3 className="text-xl font-black text-slate-900 mb-3 group-hover:text-[#e11b22] transition-colors leading-snug">
+                <h3 className="text-xl font-black text-slate-900 dark:text-white mb-3 group-hover:text-[#e11b22] transition-colors leading-snug">
                   Más que un papel: Cómo en DC Asesores te damos asistencia real
                 </h3>
-                <p className="text-slate-500 font-medium text-sm leading-relaxed">
+                <p className="text-slate-500 dark:text-slate-400 font-medium text-sm leading-relaxed">
                   Si tienes un siniestro a las 2 AM o una urgencia clínica, nuestro equipo toma el control presencial.
                 </p>
               </div>
@@ -249,48 +311,48 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 🔴 SECCIÓN CONTACTO + GOOGLE MAPS OFICIAL */}
-      <section id="contacto" className="py-24 sm:py-32 bg-white border-t border-slate-200">
+      {/* 🔴 SECCIÓN CONTACTO + GOOGLE MAPS (SIMÉTRICA: IZQUIERDA MAPA CON DATOS, DERECHA FORMULARIO) */}
+      <section id="contacto" className="py-24 sm:py-32 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 transition-colors">
         <div className="max-w-7xl mx-auto px-4">
           
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h4 className="text-[#e11b22] font-black tracking-[0.2em] text-xs uppercase mb-3 font-mono">
               Atención Personalizada
             </h4>
-            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
               Visítanos o Solicita Asesoría Directa
             </h2>
-            <p className="text-sm sm:text-base text-slate-500 font-medium mt-3">
+            <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 font-medium mt-3">
               Estamos ubicados en el corazón corporativo y financiero de Quito, con cobertura en todo el Ecuador.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
             
-            {/* Columna Izquierda: Información de Empresa & Formulario */}
-            <div className="lg:col-span-6 space-y-8">
+            {/* 🔴 COLUMNA IZQUIERDA: DATOS DE CONTACTO SOBRE EL MAPA (ALTURA IGUAL A LA DERECHA) */}
+            <div className="lg:col-span-6 flex flex-col justify-between h-full space-y-6">
               
-              {/* Tarjetas de Datos de la Empresa */}
+              {/* Tarjetas Corporativas Sobre el Mapa */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80">
-                  <div className="w-9 h-9 rounded-xl bg-red-100 text-[#e11b22] flex items-center justify-center mb-3">
-                    <MapPin className="w-5 h-5" />
+                <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 shadow-2xs">
+                  <div className="w-8 h-8 rounded-xl bg-red-100 dark:bg-red-950/60 text-[#e11b22] flex items-center justify-center mb-2.5">
+                    <MapPin className="w-4 h-4" />
                   </div>
-                  <h4 className="text-xs font-mono font-black uppercase text-slate-500 mb-1">Oficina Central</h4>
-                  <p className="text-xs sm:text-sm font-bold text-slate-900 leading-snug">
+                  <h4 className="text-[11px] font-mono font-black uppercase text-slate-500 dark:text-slate-400 mb-1">Oficina Central</h4>
+                  <p className="text-xs sm:text-sm font-black text-slate-900 dark:text-white leading-snug">
                     Quito, Pichincha, Ecuador
                   </p>
-                  <span className="text-[11px] text-slate-500 block mt-0.5">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 block mt-0.5">
                     Sector La Carolina / República de El Salvador
                   </span>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80">
-                  <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center mb-3">
-                    <Phone className="w-5 h-5" />
+                <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 shadow-2xs">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-2.5">
+                    <Phone className="w-4 h-4" />
                   </div>
-                  <h4 className="text-xs font-mono font-black uppercase text-slate-500 mb-1">Teléfonos de Contacto</h4>
-                  <p className="text-xs sm:text-sm font-bold text-slate-900 leading-snug">
+                  <h4 className="text-[11px] font-mono font-black uppercase text-slate-500 dark:text-slate-400 mb-1">Teléfonos de Contacto</h4>
+                  <p className="text-xs sm:text-sm font-black text-slate-900 dark:text-white leading-snug">
                     02 500 3373
                   </p>
                   <a 
@@ -303,99 +365,166 @@ export default function Home() {
                   </a>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80">
-                  <div className="w-9 h-9 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center mb-3">
-                    <Mail className="w-5 h-5" />
+                <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 shadow-2xs">
+                  <div className="w-8 h-8 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-2.5">
+                    <Mail className="w-4 h-4" />
                   </div>
-                  <h4 className="text-xs font-mono font-black uppercase text-slate-500 mb-1">Correo Electrónico</h4>
-                  <p className="text-xs sm:text-sm font-bold text-slate-900 leading-snug">
+                  <h4 className="text-[11px] font-mono font-black uppercase text-slate-500 dark:text-slate-400 mb-1">Correo Electrónico</h4>
+                  <p className="text-xs sm:text-sm font-black text-slate-900 dark:text-white leading-snug">
                     <span>info</span><span className="text-[#e11b22]">&#64;</span><span>dcasesoresec.com</span>
                   </p>
-                  <span className="text-[11px] text-slate-500 block mt-0.5">
+                  <span className="text-[11px] text-slate-500 dark:text-slate-400 block mt-0.5">
                     Respuesta en menos de 2 horas hábiles
                   </span>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200/80">
-                  <div className="w-9 h-9 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center mb-3">
-                    <Clock className="w-5 h-5" />
+                <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 shadow-2xs">
+                  <div className="w-8 h-8 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-2.5">
+                    <Clock className="w-4 h-4" />
                   </div>
-                  <h4 className="text-xs font-mono font-black uppercase text-slate-500 mb-1">Horario Laboral</h4>
-                  <p className="text-xs sm:text-sm font-bold text-slate-900 leading-snug">
+                  <h4 className="text-[11px] font-mono font-black uppercase text-slate-500 dark:text-slate-400 mb-1">Horario Laboral</h4>
+                  <p className="text-xs sm:text-sm font-black text-slate-900 dark:text-white leading-snug">
                     Lunes a Viernes: 08:30 - 18:00
                   </p>
-                  <span className="text-[11px] font-bold text-emerald-600 block mt-0.5">
+                  <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 block mt-0.5">
                     Emergencias & Siniestros: 24/7
                   </span>
                 </div>
               </div>
 
-              {/* Formulario de Consulta Rápida */}
-              <div className="p-8 rounded-3xl bg-slate-50/70 border border-slate-200 shadow-sm">
-                <h3 className="text-xl font-black text-slate-900 mb-4">
-                  Envíanos un mensaje
-                </h3>
-                <form className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <input 
-                      type="text" 
-                      placeholder="Tu nombre completo*" 
-                      className="w-full bg-white border border-slate-200 rounded-2xl px-4 py-3.5 outline-none focus:border-[#e11b22] text-xs font-medium text-slate-800 transition-colors shadow-2xs" 
-                      required 
-                    />
-                    <input 
-                      type="tel" 
-                      placeholder="WhatsApp o celular*" 
-                      className="w-full bg-white border border-slate-200 rounded-2xl px-4 py-3.5 outline-none focus:border-[#e11b22] text-xs font-medium text-slate-800 transition-colors shadow-2xs" 
-                      required 
-                    />
-                  </div>
-                  <input 
-                    type="email" 
-                    placeholder="Correo electrónico institucional o personal*" 
-                    className="w-full bg-white border border-slate-200 rounded-2xl px-4 py-3.5 outline-none focus:border-[#e11b22] text-xs font-medium text-slate-800 transition-colors shadow-2xs" 
-                    required 
-                  />
-                  <textarea 
-                    placeholder="¿Qué tipo de seguro deseas cotizar o qué inquietud tienes?" 
-                    rows="3" 
-                    className="w-full bg-white border border-slate-200 rounded-2xl px-4 py-3.5 outline-none focus:border-[#e11b22] text-xs font-medium text-slate-800 transition-colors shadow-2xs resize-none"
-                  ></textarea>
-                  <button 
-                    type="submit" 
-                    className="w-full py-4 rounded-2xl bg-slate-900 hover:bg-[#e11b22] text-white font-black text-xs uppercase tracking-wider transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
-                  >
-                    <Send className="w-4 h-4" />
-                    <span>Enviar Solicitud</span>
-                  </button>
-                </form>
-              </div>
-
-            </div>
-
-            {/* Columna Derecha: Mapa de Google Maps Interactivo */}
-            <div className="lg:col-span-6 flex flex-col h-full">
-              <div className="bg-white rounded-3xl border border-slate-200/90 shadow-xl overflow-hidden p-2">
-                <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+              {/* Mapa de Google Maps Interactivo */}
+              <div className="flex-1 min-h-[300px] bg-slate-100 dark:bg-slate-950 rounded-3xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-lg relative flex flex-col">
+                <div className="px-5 py-3 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900">
                   <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-xs font-bold text-slate-700">Ubicación Satelital DC Asesores</span>
+                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Ubicación Satelital DC Asesores</span>
                   </div>
                   <span className="text-[11px] font-mono font-bold text-slate-400 uppercase">Quito • Ecuador</span>
                 </div>
                 
-                {/* Iframe provisto por el usuario */}
-                <div className="w-full h-[450px] rounded-2xl overflow-hidden relative">
+                <div className="flex-1 w-full relative">
                   <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d359.5141084768887!2d-78.48699087144594!3d-0.18020313187060877!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sec!4v1789947987659!5m2!1ses-419!2sec" 
                     width="100%" 
                     height="100%" 
-                    className="border-0"
+                    className="border-0 w-full h-full min-h-[260px]"
                     allowFullScreen="" 
                     loading="lazy" 
                     referrerPolicy="strict-origin-when-cross-origin"
                     title="Ubicación DC Asesores en Seguros Quito"
                   />
+                </div>
+              </div>
+
+            </div>
+
+            {/* 🔴 COLUMNA DERECHA: FORMULARIO SOLO (CON AUTOCOMPLETADO Y ALTURA SINCRONIZADA) */}
+            <div className="lg:col-span-6 flex flex-col justify-between h-full">
+              <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 shadow-xl flex flex-col justify-between h-full">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 text-red-600 dark:text-red-400 text-xs font-mono font-bold uppercase tracking-wider mb-4">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    Respuesta Inmediata
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mb-2">
+                    Solicita tu Cotización o Asesoría
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-8 font-medium">
+                    Déjanos tus datos y un especialista senior de DC Asesores te contactará con la comparativa de mercado en menos de 2 horas.
+                  </p>
+
+                  <form className="space-y-4" autoComplete="on">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="client-name" className="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                          Nombre completo*
+                        </label>
+                        <input 
+                          id="client-name"
+                          name="name" 
+                          type="text" 
+                          autoComplete="name"
+                          placeholder="Ej: Carlos Mendoza" 
+                          className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3.5 outline-none focus:border-[#e11b22] text-xs font-medium text-slate-800 dark:text-slate-100 transition-colors shadow-2xs" 
+                          required 
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="client-phone" className="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                          WhatsApp o celular*
+                        </label>
+                        <input 
+                          id="client-phone"
+                          name="tel" 
+                          type="tel" 
+                          autoComplete="tel"
+                          placeholder="Ej: 099 193 8754" 
+                          className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3.5 outline-none focus:border-[#e11b22] text-xs font-medium text-slate-800 dark:text-slate-100 transition-colors shadow-2xs" 
+                          required 
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="client-email" className="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                        Correo electrónico*
+                      </label>
+                      <input 
+                        id="client-email"
+                        name="email" 
+                        type="email" 
+                        autoComplete="email"
+                        placeholder="Ej: carlos.mendoza@empresa.com" 
+                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3.5 outline-none focus:border-[#e11b22] text-xs font-medium text-slate-800 dark:text-slate-100 transition-colors shadow-2xs" 
+                        required 
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="client-service" className="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                        Tipo de seguro que deseas cotizar
+                      </label>
+                      <select
+                        id="client-service"
+                        name="service"
+                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3.5 outline-none focus:border-[#e11b22] text-xs font-medium text-slate-800 dark:text-slate-100 transition-colors shadow-2xs"
+                      >
+                        <option value="vehicular">Seguro Vehicular Multicompañía</option>
+                        <option value="salud">Seguro Médico Integral</option>
+                        <option value="vida-ahorro">Seguro de Vida con Ahorro</option>
+                        <option value="vida-tradicional">Seguro de Vida Tradicional</option>
+                        <option value="patrimonial">Seguro Patrimonial & Hogar</option>
+                        <option value="empresarial">Seguro Empresarial & Corporativo</option>
+                        <option value="siniestros">Asistencia y Gestión de Siniestro</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label htmlFor="client-message" className="text-xs font-bold text-slate-700 dark:text-slate-300 block mb-1">
+                        Detalles o requerimientos adicionales
+                      </label>
+                      <textarea 
+                        id="client-message"
+                        name="message"
+                        placeholder="Indícanos marca, año y valor del vehículo, o edad de los integrantes de tu familia..." 
+                        rows={4} 
+                        className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3.5 outline-none focus:border-[#e11b22] text-xs font-medium text-slate-800 dark:text-slate-100 transition-colors shadow-2xs resize-none"
+                      ></textarea>
+                    </div>
+
+                    <button 
+                      type="submit" 
+                      className="w-full py-4 rounded-2xl bg-[#e11b22] hover:bg-red-600 text-white font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-red-600/30 active:scale-95 flex items-center justify-center gap-2 cursor-pointer mt-2"
+                    >
+                      <Send className="w-4 h-4" />
+                      <span>Enviar Solicitud Inmediata</span>
+                    </button>
+                  </form>
+                </div>
+
+                <div className="pt-6 mt-6 border-t border-slate-200 dark:border-slate-800 flex items-center gap-2 text-slate-400 text-[11px]">
+                  <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
+                  <span>Tus datos están protegidos bajo estricto secreto profesional y confidencialidad.</span>
                 </div>
               </div>
             </div>
@@ -437,10 +566,11 @@ export default function Home() {
             <h4 className="text-white font-black text-sm uppercase tracking-wider mb-5">Navegación Rápida</h4>
             <ul className="space-y-2.5 text-slate-400 text-xs font-medium">
               <li><Link href="/" className="hover:text-[#e11b22] transition-colors">Inicio</Link></li>
-              <li><Link href="/cotizador" className="hover:text-[#e11b22] transition-colors">Cotizador Inteligente 2026</Link></li>
+              <li><Link href="/#nosotros" className="hover:text-[#e11b22] transition-colors">Nosotros</Link></li>
               <li><Link href="/servicios" className="hover:text-[#e11b22] transition-colors">Catálogo de Servicios</Link></li>
-              <li><Link href="/blog" className="hover:text-[#e11b22] transition-colors">Blog de Educación Financiera</Link></li>
-              <li><Link href="/#contacto" className="hover:text-[#e11b22] transition-colors">Contacto & Mapa</Link></li>
+              <li><Link href="/cotizador" className="hover:text-[#e11b22] transition-colors">Cotizador Inteligente 2026</Link></li>
+              <li><Link href="/blog" className="hover:text-[#e11b22] transition-colors">Blog & Artículos</Link></li>
+              <li><Link href="/terminos-y-condiciones" className="hover:text-[#e11b22] transition-colors">Términos y Condiciones</Link></li>
             </ul>
           </div>
 
@@ -467,9 +597,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 text-center border-t border-slate-900 pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 font-medium">
           <p>© 2026 DC Asesores en Seguros. Todos los derechos reservados.</p>
           <div className="flex gap-4 mt-4 sm:mt-0">
-            <Link href="/admin" className="hover:text-slate-400 transition-colors">Acceso Privado</Link>
+            <Link href="/admin" className="hover:text-slate-400 transition-colors">Acceso Master</Link>
             <span>•</span>
-            <Link href="/servicios" className="hover:text-slate-400 transition-colors">Aviso Legal</Link>
+            <Link href="/terminos-y-condiciones" className="hover:text-slate-400 transition-colors">Términos Legales</Link>
           </div>
         </div>
       </footer>

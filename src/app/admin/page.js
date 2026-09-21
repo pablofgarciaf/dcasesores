@@ -32,70 +32,76 @@ export default function AdminPage() {
   const [activeTab, setActiveTab] = useState('aseguradoras');
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-[#e11b22] selection:text-white flex flex-col md:flex-row w-full">
+    <div className="h-screen max-h-screen bg-slate-950 text-slate-200 font-sans selection:bg-[#e11b22] selection:text-white flex flex-col md:flex-row w-full overflow-hidden">
       
-      {/* SIDEBAR ADMIN (100% full-height & dark premium) */}
-      <aside className="w-full md:w-64 bg-slate-900/90 backdrop-blur-md border-r border-slate-800 p-6 flex flex-col shrink-0">
-        <div className="flex items-center gap-3 mb-8">
-          <div className="w-10 h-10 rounded-xl bg-[#e11b22] flex items-center justify-center font-black text-white text-lg shadow-lg shadow-red-900/40">
-            DC
+      {/* SIDEBAR ADMIN (Compacto, 100% de la ventana, sin scrollbar) */}
+      <aside className="w-full md:w-60 md:h-screen md:max-h-screen bg-slate-900/95 backdrop-blur-md border-r border-slate-800 p-4 md:p-5 flex flex-col justify-between shrink-0">
+        <div>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-9 h-9 rounded-xl bg-[#e11b22] flex items-center justify-center font-black text-white text-base shadow-lg shadow-red-900/40 shrink-0">
+              DC
+            </div>
+            <div>
+              <span className="font-black text-white text-sm tracking-tight block">DC ASESORES</span>
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#e11b22] font-bold">Panel Master</span>
+            </div>
           </div>
-          <div>
-            <span className="font-black text-white text-base tracking-tight block">DC ASESORES</span>
-            <span className="text-[10px] font-mono uppercase tracking-widest text-[#e11b22] font-bold">Panel Master</span>
-          </div>
+          
+          <nav className="space-y-1.5">
+            <button 
+              onClick={() => setActiveTab('aseguradoras')}
+              className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${
+                activeTab === 'aseguradoras' 
+                  ? 'bg-[#e11b22] text-white shadow-lg shadow-red-900/30' 
+                  : 'hover:bg-slate-800 text-slate-400 hover:text-white'
+              }`}
+            >
+              <FileSpreadsheet className="w-4 h-4 shrink-0" />
+              <span>Motor & Tasas Excel</span>
+            </button>
+            
+            <button 
+              onClick={() => setActiveTab('crm')}
+              className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${
+                activeTab === 'crm' 
+                  ? 'bg-[#e11b22] text-white shadow-lg shadow-red-900/30' 
+                  : 'hover:bg-slate-800 text-slate-400 hover:text-white'
+              }`}
+            >
+              <Layers className="w-4 h-4 shrink-0" />
+              <span>Prospectos / CRM</span>
+            </button>
+            
+            <button 
+              onClick={() => setActiveTab('cms')}
+              className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${
+                activeTab === 'cms' 
+                  ? 'bg-[#e11b22] text-white shadow-lg shadow-red-900/30' 
+                  : 'hover:bg-slate-800 text-slate-400 hover:text-white'
+              }`}
+            >
+              <FileText className="w-4 h-4 shrink-0" />
+              <span>CMS Web & Contenido</span>
+            </button>
+          </nav>
         </div>
         
-        <nav className="space-y-2 flex-1">
-          <button 
-            onClick={() => setActiveTab('aseguradoras')}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${
-              activeTab === 'aseguradoras' 
-                ? 'bg-[#e11b22] text-white shadow-lg shadow-red-900/30' 
-                : 'hover:bg-slate-800 text-slate-400 hover:text-white'
-            }`}
-          >
-            <FileSpreadsheet className="w-4 h-4" />
-            <span>Motor & Tasas Excel</span>
-          </button>
-          
-          <button 
-            onClick={() => setActiveTab('crm')}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${
-              activeTab === 'crm' 
-                ? 'bg-[#e11b22] text-white shadow-lg shadow-red-900/30' 
-                : 'hover:bg-slate-800 text-slate-400 hover:text-white'
-            }`}
-          >
-            <Layers className="w-4 h-4" />
-            <span>Prospectos / CRM</span>
-          </button>
-          
-          <button 
-            onClick={() => setActiveTab('cms')}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer ${
-              activeTab === 'cms' 
-                ? 'bg-[#e11b22] text-white shadow-lg shadow-red-900/30' 
-                : 'hover:bg-slate-800 text-slate-400 hover:text-white'
-            }`}
-          >
-            <FileText className="w-4 h-4" />
-            <span>CMS Web & Contenidos</span>
-          </button>
-        </nav>
-        
-        <div className="pt-6 border-t border-slate-800/80 mt-6">
+        <div className="pt-4 border-t border-slate-800/80">
+          <div className="flex items-center gap-2 mb-2 px-1">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="text-[10px] font-mono text-slate-400">Sistema Actuarial Activo</span>
+          </div>
           <a 
             href="/" 
-            className="text-slate-400 hover:text-white text-xs font-bold flex items-center gap-2 transition-colors py-2"
+            className="text-slate-400 hover:text-white text-xs font-bold flex items-center gap-2 transition-colors py-1 px-1"
           >
             <span>← Ver Sitio Público</span>
           </a>
         </div>
       </aside>
 
-      {/* MAIN CONTENT (Edge-to-edge full width) */}
-      <main className="flex-1 p-6 md:p-10 overflow-y-auto w-full">
+      {/* MAIN CONTENT (Edge-to-edge full width con scroll interno en el viewport) */}
+      <main className="flex-1 p-6 md:p-8 overflow-y-auto h-screen w-full">
         {activeTab === 'aseguradoras' && <AseguradorasManager />}
         {activeTab === 'crm' && <ConsultationsCrm />}
         {activeTab === 'cms' && <CMSManager />}
@@ -120,30 +126,78 @@ function AseguradorasManager() {
   const [pasteData, setPasteData] = useState('');
   const [importMode, setImportMode] = useState('replace'); // 'replace' | 'append'
   const [parsedPreview, setParsedPreview] = useState([]);
+  const [isMultiInsurer, setIsMultiInsurer] = useState(false);
+  const [detectedInsurers, setDetectedInsurers] = useState([]);
   const [toastMessage, setToastMessage] = useState(null);
 
-  // Parsear texto copiado en tiempo real para previsualización
+  // Parsear texto copiado en tiempo real para previsualización (Soporta 8 cols Consolidado o 7 cols individual)
   useEffect(() => {
     if (!pasteData.trim()) {
       setParsedPreview([]);
+      setIsMultiInsurer(false);
+      setDetectedInsurers([]);
       return;
     }
+
     const lines = pasteData.trim().split('\n');
-    const parsed = lines.map((line, idx) => {
-      const cols = line.split('\t');
-      return {
-        id: idx,
-        producto: cols[0]?.trim() || 'TODORIESGO',
-        ciudad: cols[1]?.trim() || 'NACIONAL',
-        vehiculo: cols[2]?.trim() || 'LIVIANO',
-        desde: Number(cols[3]?.replace(/[^0-9.]/g, '')) || 0,
-        hasta: cols[4] ? Number(cols[4]?.replace(/[^0-9.]/g, '')) || 99999 : 99999,
-        tasa: Number(cols[5]?.replace(/[^0-9.]/g, '')) || 0,
-        rc: Number(cols[6]?.replace(/[^0-9.]/g, '')) || 0,
-      };
-    });
+    const validLines = lines.filter(l => l.trim().length > 0);
+    if (validLines.length === 0) {
+      setParsedPreview([]);
+      return;
+    }
+
+    // Verificar si la primera fila es encabezado
+    let startIndex = 0;
+    const firstLineCols = validLines[0]?.split('\t') || [];
+    const firstColClean = (firstLineCols[0] || '').trim().toUpperCase();
+    if (firstColClean === 'ASEGURADORA' || firstColClean === 'COMPAÑÍA' || firstColClean === 'COMPANIA' || firstColClean === 'PRODUCTO') {
+      startIndex = 1;
+    }
+
+    // Detectar si las filas tienen 8 o más columnas (donde col 0 es Aseguradora)
+    const sampleCols = (validLines[startIndex] || validLines[0])?.split('\t') || [];
+    const is8Col = sampleCols.length >= 8;
+    setIsMultiInsurer(is8Col);
+
+    const insurersSet = new Set();
+    const parsed = [];
+
+    for (let i = startIndex; i < validLines.length; i++) {
+      const cols = validLines[i].split('\t');
+      if (cols.length < 4) continue;
+
+      if (is8Col) {
+        const rawIns = cols[0]?.trim().toUpperCase().replace(/[\s-]+/g, '_') || modalInsurer;
+        insurersSet.add(rawIns);
+        parsed.push({
+          id: i,
+          aseguradora: rawIns,
+          producto: cols[1]?.trim().toUpperCase() || 'TODORIESGO',
+          ciudad: cols[2]?.trim().toUpperCase() || 'NACIONAL',
+          vehiculo: cols[3]?.trim().toUpperCase() || 'LIVIANO',
+          desde: Number(cols[4]?.replace(/[^0-9.]/g, '')) || 0,
+          hasta: cols[5] ? Number(cols[5]?.replace(/[^0-9.]/g, '')) || 99999 : 99999,
+          tasa: Number(cols[6]?.replace(/[^0-9.]/g, '')) || 0,
+          rc: Number(cols[7]?.replace(/[^0-9.]/g, '')) || 0,
+        });
+      } else {
+        parsed.push({
+          id: i,
+          aseguradora: modalInsurer,
+          producto: cols[0]?.trim().toUpperCase() || 'TODORIESGO',
+          ciudad: cols[1]?.trim().toUpperCase() || 'NACIONAL',
+          vehiculo: cols[2]?.trim().toUpperCase() || 'LIVIANO',
+          desde: Number(cols[3]?.replace(/[^0-9.]/g, '')) || 0,
+          hasta: cols[4] ? Number(cols[4]?.replace(/[^0-9.]/g, '')) || 99999 : 99999,
+          tasa: Number(cols[5]?.replace(/[^0-9.]/g, '')) || 0,
+          rc: Number(cols[6]?.replace(/[^0-9.]/g, '')) || 0,
+        });
+      }
+    }
+
+    setDetectedInsurers(Array.from(insurersSet));
     setParsedPreview(parsed);
-  }, [pasteData]);
+  }, [pasteData, modalInsurer]);
 
   // Cargar datos guardados previamente en Firestore si existen
   useEffect(() => {
@@ -184,22 +238,53 @@ function AseguradorasManager() {
   const handleApplyExcelImport = () => {
     if (parsedPreview.length === 0) return;
 
-    setData(prev => {
-      const currentList = prev[modalInsurer] || [];
-      const updatedList = importMode === 'replace' 
-        ? parsedPreview.map(({ id, ...row }) => row) 
-        : [...currentList, ...parsedPreview.map(({ id, ...row }) => row)];
+    if (isMultiInsurer) {
+      // Agrupar filas por aseguradora
+      const grouped = {};
+      parsedPreview.forEach(row => {
+        const ins = row.aseguradora;
+        if (!grouped[ins]) grouped[ins] = [];
+        const { id, aseguradora, ...cleanRow } = row;
+        grouped[ins].push(cleanRow);
+      });
 
-      return {
-        ...prev,
-        [modalInsurer]: updatedList
-      };
-    });
+      setData(prev => {
+        const nextData = { ...prev };
+        Object.keys(grouped).forEach(ins => {
+          if (importMode === 'replace') {
+            nextData[ins] = grouped[ins];
+          } else {
+            nextData[ins] = [...(nextData[ins] || []), ...grouped[ins]];
+          }
+        });
+        return nextData;
+      });
 
-    showToast(`✓ Se importaron ${parsedPreview.length} registros en ${modalInsurer}`);
+      const insurerList = Object.keys(grouped).join(', ');
+      showToast(`✓ Se importaron ${parsedPreview.length} registros en: ${insurerList}`);
+      if (detectedInsurers.length > 0) {
+        setActiveAseguradora(detectedInsurers[0]);
+      }
+    } else {
+      setData(prev => {
+        const currentList = prev[modalInsurer] || [];
+        const cleanRows = parsedPreview.map(({ id, aseguradora, ...row }) => row);
+        const updatedList = importMode === 'replace' 
+          ? cleanRows 
+          : [...currentList, ...cleanRows];
+
+        return {
+          ...prev,
+          [modalInsurer]: updatedList
+        };
+      });
+
+      showToast(`✓ Se importaron ${parsedPreview.length} registros en ${modalInsurer}`);
+      setActiveAseguradora(modalInsurer);
+    }
+
     setPasteData('');
     setIsModalOpen(false);
-    setActiveAseguradora(modalInsurer);
   };
 
   // Edición Inline de Celda
@@ -541,16 +626,27 @@ function AseguradorasManager() {
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs font-bold text-slate-300 block mb-1">Aseguradora Destino:</label>
-                  <select 
-                    value={modalInsurer} 
-                    onChange={(e) => setModalInsurer(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white outline-none focus:border-[#e11b22]"
-                  >
-                    {Object.keys(data).map(ins => (
-                      <option key={ins} value={ins}>{ins}</option>
-                    ))}
-                  </select>
+                  <label className="text-xs font-bold text-slate-300 block mb-1">
+                    {isMultiInsurer ? 'Modo de Distribución:' : 'Aseguradora Destino:'}
+                  </label>
+                  {isMultiInsurer ? (
+                    <div className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-xs text-slate-200">
+                      <span className="font-bold text-[#e11b22] block mb-1">⚡ Consolidado Multicompañía Detectado (8 Cols)</span>
+                      <span className="text-[11px] text-slate-400">
+                        Los registros se asignarán automáticamente a cada aseguradora según la Columna 1.
+                      </span>
+                    </div>
+                  ) : (
+                    <select 
+                      value={modalInsurer} 
+                      onChange={(e) => setModalInsurer(e.target.value)}
+                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white outline-none focus:border-[#e11b22]"
+                    >
+                      {Object.keys(data).map(ins => (
+                        <option key={ins} value={ins}>{ins}</option>
+                      ))}
+                    </select>
+                  )}
                 </div>
 
                 <div>
@@ -582,17 +678,42 @@ function AseguradorasManager() {
                 </div>
               </div>
 
+              {/* Badges de Aseguradoras Detectadas en modo multi */}
+              {isMultiInsurer && detectedInsurers.length > 0 && (
+                <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-2">
+                  <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider block">
+                    Compañías encontradas en el texto copiado ({detectedInsurers.length}):
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {detectedInsurers.map(ins => (
+                      <span key={ins} className="px-2.5 py-1 rounded-lg bg-[#e11b22]/20 border border-red-500/30 text-white font-mono text-[10px] font-bold">
+                        {ins}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Guía de Columnas */}
-              <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800 text-[11px] text-slate-400 font-mono flex items-center gap-2">
-                <span className="text-[#e11b22] font-bold">Columnas esperadas:</span>
-                <span>Producto [TAB] Ciudad [TAB] Vehículo [TAB] Desde [TAB] Hasta [TAB] Tasa% [TAB] RC$</span>
+              <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800 text-[11px] text-slate-400 font-mono flex flex-col sm:flex-row items-start sm:items-center gap-2">
+                <span className="text-[#e11b22] font-bold shrink-0">Columnas soportadas:</span>
+                <span className="text-slate-300 text-[10px]">
+                  {isMultiInsurer 
+                    ? 'ASEGURADORA [TAB] PRODUCTO [TAB] CIUDAD [TAB] VEHÍCULO [TAB] DESDE [TAB] HASTA [TAB] TASA% [TAB] RC$'
+                    : 'PRODUCTO [TAB] CIUDAD [TAB] VEHÍCULO [TAB] DESDE [TAB] HASTA [TAB] TASA% [TAB] RC$'
+                  }
+                </span>
               </div>
 
               {/* Textarea */}
               <textarea 
                 value={pasteData}
                 onChange={(e) => setPasteData(e.target.value)}
-                placeholder="Pega aquí los datos copiados de Excel (Ctrl + V)..."
+                placeholder={
+                  isMultiInsurer 
+                    ? "Pega aquí las filas de la hoja Consolidado con aseguradora en columna 1..."
+                    : "Pega aquí los datos copiados de Excel o Sheets (Ctrl + V)..."
+                }
                 rows={6}
                 className="w-full bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs font-mono text-slate-200 outline-none focus:border-[#e11b22] resize-none"
               />
@@ -602,7 +723,7 @@ function AseguradorasManager() {
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-xs font-bold text-emerald-400">
-                      ✓ {parsedPreview.length} registros detectados y listos para importar
+                      ✓ {parsedPreview.length} registros listos para importar {isMultiInsurer && `en ${detectedInsurers.length} aseguradoras`}
                     </span>
                     <span className="text-[11px] text-slate-500">Mostrando primeros 5 registros</span>
                   </div>
@@ -610,6 +731,7 @@ function AseguradorasManager() {
                     <table className="w-full text-left text-[11px]">
                       <thead className="bg-slate-900 text-slate-400 font-mono">
                         <tr>
+                          {isMultiInsurer && <th className="p-2 text-[#e11b22]">Aseguradora</th>}
                           <th className="p-2">Producto</th>
                           <th className="p-2">Ciudad</th>
                           <th className="p-2">Vehículo</th>
@@ -621,6 +743,7 @@ function AseguradorasManager() {
                       <tbody className="divide-y divide-slate-800/40 text-slate-300">
                         {parsedPreview.slice(0, 5).map(row => (
                           <tr key={row.id}>
+                            {isMultiInsurer && <td className="p-2 font-mono font-bold text-[#e11b22]">{row.aseguradora}</td>}
                             <td className="p-2">{row.producto}</td>
                             <td className="p-2">{row.ciudad}</td>
                             <td className="p-2">{row.vehiculo}</td>
@@ -653,7 +776,12 @@ function AseguradorasManager() {
                 className="px-6 py-2.5 rounded-xl bg-[#e11b22] hover:bg-red-600 disabled:opacity-40 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-red-900/30 transition-all active:scale-95 cursor-pointer"
               >
                 <Check className="w-4 h-4" />
-                <span>Aplicar a {modalInsurer}</span>
+                <span>
+                  {isMultiInsurer 
+                    ? `Aplicar a ${detectedInsurers.length} Aseguradoras (${parsedPreview.length} filas)`
+                    : `Aplicar a ${modalInsurer} (${parsedPreview.length} filas)`
+                  }
+                </span>
               </button>
             </div>
 

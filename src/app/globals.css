@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --animate-marquee: marquee 35s linear infinite;
   --animate-fade-up: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -30,7 +32,6 @@
 }
 
 :root {
-  /* Forzar Light Mode a nivel navegador para evitar choques con el SO */
   color-scheme: light;
 }
 
@@ -39,13 +40,35 @@ body {
   color: #0f172a;
   min-height: 100vh;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Clases premium estables */
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  background-color: #020617;
+  color: #f8fafc;
+}
+
+/* Clases luxury Aetherion */
 .glass-card {
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(226, 232, 240, 0.8);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+}
+
+.dark .glass-card {
+  background-color: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.aetherion-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(225, 27, 34, 0.15) 0%, rgba(225, 27, 34, 0) 70%);
 }

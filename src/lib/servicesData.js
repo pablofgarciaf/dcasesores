@@ -5,6 +5,7 @@ export const SERVICES_DATA = [
     shortDesc: 'Protección médica completa hospitalaria y ambulatoria con clínicas privadas en Ecuador e internacional.',
     fullDesc: 'Nuestro Seguro Médico Integral te brinda acceso a la mejor red hospitalaria y médica del país y del exterior. Diseñado para cubrir desde consultas de rutina, exámenes de laboratorio y medicamentos, hasta hospitalizaciones de alta complejidad, cirugías y maternidad.',
     badge: 'Salud & Familia',
+    imageUrl: '/service-medico.webp',
     iconUrl: 'https://dcasesoresec.com/wp-content/uploads/2023/03/01-10.svg',
     benefits: [
       'Cobertura hospitalaria y ambulatoria hasta $1,000,000 USD',
@@ -33,6 +34,7 @@ export const SERVICES_DATA = [
     shortDesc: 'Construye un fondo de inversión rentable para tu retiro mientras garantizas la tranquilidad de tus seres queridos.',
     fullDesc: 'Combina la protección de un seguro de vida de alta cobertura con una cuenta de ahorro programado e inversión a mediano y largo plazo. Ideal para crear el fondo universitario de tus hijos o planificar un retiro financiero independiente.',
     badge: 'Inversión & Futuro',
+    imageUrl: '/service-vida-ahorro.webp',
     iconUrl: 'https://dcasesoresec.com/wp-content/uploads/2026/02/01-12.svg',
     benefits: [
       'Rentabilidad garantizada y fondos indexados internacionales',
@@ -56,6 +58,7 @@ export const SERVICES_DATA = [
     shortDesc: 'Máxima suma de respaldo patrimonial para tu familia al costo mensual más accesible del mercado.',
     fullDesc: 'Garantiza la estabilidad económica de quienes más amas. En caso de fallecimiento por cualquier causa o invalidez total y permanente, la aseguradora entrega el capital acordado en efectivo de forma inmediata.',
     badge: 'Protección Pura',
+    imageUrl: '/blog_peace.jpg',
     iconUrl: 'https://dcasesoresec.com/wp-content/uploads/2026/02/01-12.svg',
     benefits: [
       'Primas mensuales sumamente económicas desde $15 USD',
@@ -79,6 +82,7 @@ export const SERVICES_DATA = [
     shortDesc: 'Cobertura Todo Riesgo para autos livianos, vehículos de 16 a 25 años y transporte pesado e HINO.',
     fullDesc: 'Comparamos en tiempo real entre Alianza, Latina, Hispana, ADS, Vaz, Sweaden, Privilegio, Atlántida, Zurich y Mapfre. Cobertura completa contra choque, robo, pérdida total, rotura de cristales, auxilio mecánico, grúa nacional y amparo patrimonial.',
     badge: 'Todo Riesgo Auto',
+    imageUrl: '/service-vehicular.webp',
     iconUrl: 'https://dcasesoresec.com/wp-content/uploads/2026/02/01-14.svg',
     benefits: [
       'Comparativa simultánea de más de 10 aseguradoras líderes',
@@ -103,6 +107,7 @@ export const SERVICES_DATA = [
     shortDesc: 'Blindaje integral de residencias, departamentos y edificios contra incendios, sismos, inundaciones y robo.',
     fullDesc: 'Protege tu vivienda o bienes inmuebles contra desastres naturales, eventos fortuitos y actos malintencionados. Incluye la estructura física, acabados y contenidos del hogar (muebles, electrodomésticos, equipos electrónicos).',
     badge: 'Hogar & Bienes',
+    imageUrl: '/service-patrimonial.webp',
     iconUrl: 'https://dcasesoresec.com/wp-content/uploads/2023/03/01-10.svg',
     benefits: [
       'Amparo contra terremoto, temblor y erupción volcánica',
@@ -126,6 +131,7 @@ export const SERVICES_DATA = [
     shortDesc: 'Soluciones integrales de blindaje para PyMEs y corporaciones: multirriesgo industrial, flotas y seguros colectivos.',
     fullDesc: 'Diseñamos planes de protección corporativa a la medida de tu giro de negocio. Protegemos activos fijos, inventarios, maquinaria, equipo electrónico, transporte de mercaderías y brindamos planes de salud y vida grupal para colaboradores.',
     badge: 'Corporativo & PyME',
+    imageUrl: '/service-empresarial.webp',
     iconUrl: 'https://dcasesoresec.com/wp-content/uploads/2026/02/01-12.svg',
     benefits: [
       'Multirriesgo industrial y comercial para oficinas y bodegas',
@@ -149,6 +155,7 @@ export const SERVICES_DATA = [
     shortDesc: 'Acompañamiento presencial y legal 24/7 para garantizar la liquidación justa y rápida de tu reclamo.',
     fullDesc: 'El valor real de un broker de seguros se demuestra cuando ocurre el siniestro. En DC Asesores no te dejamos solo con un número 1800: nuestro equipo gestiona la peritación técnica, revisión de talleres, impugnación de liquidaciones y seguimiento diario hasta la entrega de tu cheque o vehículo reparado.',
     badge: 'Soporte In Situ 24/7',
+    imageUrl: '/blog_advisor.jpg',
     iconUrl: 'https://dcasesoresec.com/wp-content/uploads/2023/03/01-10.svg',
     benefits: [
       'Asistencia personalizada e inmediata ante choques o emergencias',
