@@ -23,24 +23,24 @@ import {
 } from 'lucide-react';
 
 const INSURER_LOGOS = [
-  { src: '/images/insurers/insurer_1.jpeg', alt: 'Aseguradora Alianza' },
-  { src: '/images/insurers/insurer_2.jpeg', alt: 'Latina Seguros' },
-  { src: '/images/insurers/insurer_3.jpeg', alt: 'Hispana de Seguros' },
-  { src: '/images/insurers/insurer_4.jpeg', alt: 'Sweaden Seguros' },
-  { src: '/images/insurers/insurer_5.jpeg', alt: 'Zurich Seguros' },
-  { src: '/images/insurers/insurer_6.jpeg', alt: 'Mapfre Seguros' },
-  { src: '/images/insurers/insurer_7.jpeg', alt: 'Seguros Privilegio' },
-  { src: '/images/insurers/insurer_8.jpeg', alt: 'Seguros Atlántida' },
-  { src: '/images/insurers/insurer_9.jpeg', alt: 'ADS Seguros' },
-  { src: '/images/insurers/insurer_10.jpeg', alt: 'Vaz Seguros' },
-  { src: '/images/insurers/insurer_11.jpeg', alt: 'BMI Ecuador' },
-  { src: '/images/insurers/insurer_12.jpeg', alt: 'Chubb Seguros' },
-  { src: '/images/insurers/insurer_13.jpeg', alt: 'Liberty Seguros' },
-  { src: '/images/insurers/insurer_14.jpeg', alt: 'Bupa Seguros' },
-  { src: '/images/insurers/insurer_15.jpeg', alt: 'AIG Metropolitana' },
-  { src: '/images/insurers/insurer_16.jpeg', alt: 'Seguros Equinoccial' },
-  { src: '/images/insurers/insurer_17.jpeg', alt: 'Confiamed' },
-  { src: '/images/insurers/insurer_18.jpeg', alt: 'Pan-American Life' },
+  { src: '/images/insurers/insurer_1.webp', alt: 'Aseguradora Alianza' },
+  { src: '/images/insurers/insurer_2.webp', alt: 'Latina Seguros' },
+  { src: '/images/insurers/insurer_3.webp', alt: 'Hispana de Seguros' },
+  { src: '/images/insurers/insurer_4.webp', alt: 'Sweaden Seguros' },
+  { src: '/images/insurers/insurer_5.webp', alt: 'Zurich Seguros' },
+  { src: '/images/insurers/insurer_6.webp', alt: 'Mapfre Seguros' },
+  { src: '/images/insurers/insurer_7.webp', alt: 'Seguros Privilegio' },
+  { src: '/images/insurers/insurer_8.webp', alt: 'Seguros Atlántida' },
+  { src: '/images/insurers/insurer_9.webp', alt: 'ADS Seguros' },
+  { src: '/images/insurers/insurer_10.webp', alt: 'Vaz Seguros' },
+  { src: '/images/insurers/insurer_11.webp', alt: 'BMI Ecuador' },
+  { src: '/images/insurers/insurer_12.webp', alt: 'Chubb Seguros' },
+  { src: '/images/insurers/insurer_13.webp', alt: 'Liberty Seguros' },
+  { src: '/images/insurers/insurer_14.webp', alt: 'Bupa Seguros' },
+  { src: '/images/insurers/insurer_15.webp', alt: 'AIG Metropolitana' },
+  { src: '/images/insurers/insurer_16.webp', alt: 'Seguros Equinoccial' },
+  { src: '/images/insurers/insurer_17.webp', alt: 'Confiamed' },
+  { src: '/images/insurers/insurer_18.webp', alt: 'Pan-American Life' },
 ];
 const INSURER_LOGOS_DOUBLED = [...INSURER_LOGOS, ...INSURER_LOGOS];
 
@@ -49,12 +49,12 @@ function MarqueeBrands() {
     <div className="animate-marquee flex items-center w-max">
       {INSURER_LOGOS_DOUBLED.map((brand, idx) => (
         <div key={idx} className="shrink-0 w-[170px] sm:w-[210px] flex items-center justify-center px-4 sm:px-6">
-          <div className="h-14 sm:h-16 w-full flex items-center justify-center p-2 rounded-xl bg-white transition-all hover:scale-105">
+          <div className="h-16 sm:h-20 w-full flex items-center justify-center p-2 rounded-xl bg-white transition-all hover:scale-105">
             <img 
               src={brand.src} 
               alt={brand.alt}
               loading="lazy"
-              className="max-h-full max-w-full object-contain filter contrast-105"
+              className="h-10 sm:h-12 w-auto object-contain filter contrast-105"
             />
           </div>
         </div>
