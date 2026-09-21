@@ -2,7 +2,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { Phone, Lock, ExternalLink } from 'lucide-react';
-import { DcLogo } from '../common/DcLogo';
 import { DC_COMPANY_INFO } from '../../lib/pdfGenerator';
 
 interface HeaderProps {
@@ -21,7 +20,11 @@ export const Header: React.FC<HeaderProps> = ({ currentView = 'cotizador', onVie
             href="/"
             className="flex items-center gap-3 cursor-pointer group"
           >
-            <DcLogo size="md" />
+            <img 
+              src="/logo.webp" 
+              alt="DC Asesores en Seguros" 
+              className="h-10 md:h-12 w-auto object-contain transition-transform group-hover:scale-105" 
+            />
             <div className="hidden lg:block pl-3 border-l border-slate-200">
               <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider block">
                 Cotizador Multicompañía

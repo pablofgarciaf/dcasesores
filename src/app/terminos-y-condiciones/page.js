@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
 import { ShieldCheck, ChevronRight, FileText, CheckCircle2 } from 'lucide-react';
 
 export const metadata = {
@@ -91,9 +92,7 @@ export default function TerminosPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-950 py-8 border-t border-slate-900 text-center text-xs text-slate-500">
-        <p>© 2026 DC Asesores en Seguros. Quito, Ecuador.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }

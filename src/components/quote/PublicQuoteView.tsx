@@ -32,12 +32,13 @@ export const PublicQuoteView: React.FC = () => {
   // Valores iniciales
   const [currentInput, setCurrentInput] = useState<QuoteInput>({
     clientName: 'Carlos Mendoza',
-    clientPhone: '0998765432',
+    clientPhone: '0991938754',
     clientEmail: '',
     vehicleBrandModel: 'Chevrolet D-Max 4x4',
     vehicleYear: 2023,
     vehicleValue: 24000,
     city: 'UIO',
+    vehicleType: 'CAMIONETA',
     productPreference: 'LIVIANO_CLASSIC',
   });
 
@@ -210,43 +211,28 @@ export const PublicQuoteView: React.FC = () => {
       </div>
 
       {/* ─────────────────────────────────────────────────────────────
-          SPLIT SCREEN DASHBOARD (Todo visible en una sola pantalla desktop)
+          OPCIÓN 2: HORIZONTAL DASHBOARD ("UN SOLO IMPACTO VISUAL")
           ───────────────────────────────────────────────────────────── */}
-      <main className="w-full max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* COLUMNA IZQUIERDA (4 COLS): Formulario Compacto */}
-          <div className="lg:col-span-4 xl:col-span-4 lg:sticky lg:top-24">
-            <QuoteForm
-              initialValues={currentInput}
-              onValuesChange={handleValuesChange}
-              onSubmitQuote={handleSubmitQuote}
-            />
+      <main className="w-full max-w-[1700px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+        
+        {/* FILTRO HORIZONTAL SUPERIOR */}
+        <QuoteForm
+          initialValues={currentInput}
+          onValuesChange={handleValuesChange}
+          onSubmitQuote={handleSubmitQuote}
+        />
 
-            {/* Micro Señales de Confianza debajo del form */}
-            <div className="mt-4 bg-white p-4 rounded-2xl border border-slate-200/80 text-xs text-slate-500 space-y-2">
-              <div className="flex items-center gap-2 text-slate-700 font-bold">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                <span>Garantía DC Asesores en Siniestros 24/7</span>
-              </div>
-              <p className="text-[11px] leading-relaxed text-slate-400">
-                Pólizas emitidas directamente con las aseguradoras autorizadas por la Superintendencia de Compañías del Ecuador.
-              </p>
-            </div>
-          </div>
-
-          {/* COLUMNA DERECHA (8 COLS): Tablero de Resultados Dinámico */}
-          <div id="panel-resultados" className="lg:col-span-8 xl:col-span-8 space-y-6">
-            <ComparisonTable
-              results={quoteResults}
-              inputData={currentInput}
-              onSelectForPdf={handleTriggerDownloadSingle}
-              onDownloadAllPdf={handleTriggerDownloadAll}
-              onContactWhatsApp={handleWhatsAppContact}
-            />
-          </div>
-
+        {/* TABLERO DE RESULTADOS MULTICOMPAÑÍA (FULL WIDTH) */}
+        <div id="panel-resultados">
+          <ComparisonTable
+            results={quoteResults}
+            inputData={currentInput}
+            onSelectForPdf={handleTriggerDownloadSingle}
+            onDownloadAllPdf={handleTriggerDownloadAll}
+            onContactWhatsApp={handleWhatsAppContact}
+          />
         </div>
+
       </main>
 
       {/* Modal: Registro de prospecto antes de descargar Proforma */}

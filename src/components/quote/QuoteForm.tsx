@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { QuoteInput } from '../../types';
+import { QuoteInput, VehicleCategory, ProductType } from '../../types';
 import {
   Car,
   Calendar,
@@ -11,23 +11,32 @@ import {
   Phone,
   Sparkles,
   Shield,
+  Truck,
   CheckCircle2,
+  SlidersHorizontal,
+  ChevronDown
 } from 'lucide-react';
 
 interface QuoteFormProps {
   initialValues: QuoteInput;
   onValuesChange: (values: QuoteInput) => void;
-  onSubmitQuote: (values: QuoteInput) => void;
+  onSubmitQuote?: (values: QuoteInput) => void;
   isLoading?: boolean;
 }
 
-const VEHICLE_PRESETS = [
-  'Chevrolet D-Max',
-  'Toyota Hilux',
-  'Kia Sportage',
-  'Hyundai Tucson',
-  'Renault Duster',
+const VEHICLE_CATEGORIES: { id: VehicleCategory; label: string; icon: string; desc: string }[] = [
+  { id: 'CAMIONETA', label: 'Camioneta', icon: '🛻', desc: 'Pick-Up 4x2 / 4x4' },
+  { id: 'SUV', label: 'SUV', icon: '🚙', desc: 'Familiar / Crossover' },
+  { id: 'LIVIANO', label: 'Liviano', icon: '🚗', desc: 'Sedán / Hatchback' },
+  { id: 'PESADO', label: 'Pesado', icon: '🚛', desc: 'Camión / Carga' },
 ];
+
+const VEHICLE_PRESETS: { [key in VehicleCategory]: string[] } = {
+  CAMIONETA: ['Chevrolet D-Max', 'Toyota Hilux', 'Ford F-150', 'Great Wall Poer'],
+  SUV: ['Kia Sportage', 'Hyundai Tucson', 'Renault Duster', 'Toyota RAV4'],
+  LIVIANO: ['Chevrolet Onix', 'Kia Soluto', 'Hyundai Accent', 'Toyota Yaris'],
+  PESADO: ['Hino Dutro', 'Isuzu Forward', 'Chevrolet FTR', 'Fuso Canter'],
+};
 
 export const QuoteForm: React.FC<QuoteFormProps> = ({
   initialValues,
@@ -35,20 +44,25 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
   onSubmitQuote,
   isLoading = false,
 }) => {
-  const [clientName, setClientName] = useState(initialValues.clientName);
-  const [clientPhone, setClientPhone] = useState(initialValues.clientPhone);
+  const [vehicleType, setVehicleType] = useState<VehicleCategory>(
+    initialValues.vehicleType || 'CAMIONETA'
+  );
+  const [clientName, setClientName] = useState(initialValues.clientName || 'Carlos Mendoza');
+  const [clientPhone, setClientPhone] = useState(initialValues.clientPhone || '0991938754');
   const [clientEmail, setClientEmail] = useState(initialValues.clientEmail || '');
-  const [vehicleBrandModel, setVehicleBrandModel] = useState(initialValues.vehicleBrandModel);
-  const [vehicleYear, setVehicleYear] = useState(initialValues.vehicleYear);
-  const [vehicleValue, setVehicleValue] = useState(initialValues.vehicleValue);
-  const [city, setCity] = useState(initialValues.city);
-  const [productPreference, setProductPreference] = useState(
+  const [vehicleBrandModel, setVehicleBrandModel] = useState(
+    initialValues.vehicleBrandModel || 'Chevrolet D-Max 4x4'
+  );
+  const [vehicleYear, setVehicleYear] = useState(initialValues.vehicleYear || 2023);
+  const [vehicleValue, setVehicleValue] = useState(initialValues.vehicleValue || 24000);
+  const [city, setCity] = useState(initialValues.city || 'UIO');
+  const [productPreference, setProductPreference] = useState<ProductType>(
     initialValues.productPreference || 'LIVIANO_CLASSIC'
   );
 
   const currentYear = new Date().getFullYear();
 
-  // Emisión reactiva continua para cálculo instantáneo
+  // Emisión reactiva continua para cálculo instantáneo actuarial
   useEffect(() => {
     onValuesChange({
       clientName,
@@ -58,6 +72,7 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
       vehicleYear,
       vehicleValue,
       city,
+      vehicleType,
       productPreference,
     });
   }, [
@@ -68,175 +83,82 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
     vehicleYear,
     vehicleValue,
     city,
+    vehicleType,
     productPreference,
     onValuesChange,
   ]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleCategoryChange = (cat: VehicleCategory) => {
+    setVehicleType(cat);
+    const presets = VEHICLE_PRESETS[cat];
+    if (presets && presets.length > 0) {
+      setVehicleBrandModel(presets[0]);
+    }
+  };
+
+  const handleScrollToResults = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmitQuote({
-      clientName,
-      clientPhone,
-      clientEmail,
-      vehicleBrandModel,
-      vehicleYear,
-      vehicleValue,
-      city,
-      productPreference,
-    });
+    if (onSubmitQuote) {
+      onSubmitQuote({
+        clientName,
+        clientPhone,
+        clientEmail,
+        vehicleBrandModel,
+        vehicleYear,
+        vehicleValue,
+        city,
+        vehicleType,
+        productPreference,
+      });
+    }
+    const resultsElement = document.getElementById('panel-resultados');
+    if (resultsElement) {
+      resultsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
-    <div className="bg-white rounded-3xl border border-slate-200/90 shadow-lg shadow-slate-200/50 overflow-hidden">
+    <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xl shadow-slate-200/40 dark:shadow-none overflow-hidden transition-all">
       
-      {/* Header del formulario */}
-      <div className="bg-slate-900 px-6 py-4 text-white flex items-center justify-between border-b border-slate-800">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-[#e11b22]/20 border border-[#e11b22]/40 flex items-center justify-center text-[#e11b22]">
-            <Car className="w-5 h-5" />
-          </div>
-          <div>
-            <h2 className="text-sm font-black tracking-tight text-white">
-              Datos del Vehículo
-            </h2>
-            <p className="text-[11px] text-slate-400">
-              Cálculo actuarial en tiempo real
-            </p>
-          </div>
-        </div>
-        <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-          <Sparkles className="w-3 h-3" />
-          Ecuador 2026
-        </span>
-      </div>
-
-      <form onSubmit={handleSubmit} className="p-5 sm:p-6 space-y-4">
+      {/* BARRA HORIZONTAL SUPERIOR: Tipo de Vehículo + Cobertura + Estado en Vivo */}
+      <div className="bg-slate-950 px-4 sm:px-6 py-3 text-white border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
         
-        {/* 1. Datos del Solicitante */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-              <User className="w-3 h-3 text-[#e11b22]" />
-              1. Asegurado
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label className="block text-[11px] font-bold text-slate-700 mb-1">
-                Nombre Completo *
-              </label>
-              <input
-                type="text"
-                required
-                value={clientName}
-                onChange={(e) => setClientName(e.target.value)}
-                placeholder="Ej. Carlos Mendoza"
-                className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-[#e11b22] focus:ring-1 focus:ring-[#e11b22] bg-slate-50 focus:bg-white transition-all font-medium"
-              />
-            </div>
-
-            <div>
-              <label className="block text-[11px] font-bold text-slate-700 mb-1">
-                WhatsApp / Celular *
-              </label>
-              <input
-                type="tel"
-                required
-                value={clientPhone}
-                onChange={(e) => setClientPhone(e.target.value)}
-                placeholder="Ej. 0998765432"
-                className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-[#e11b22] focus:ring-1 focus:ring-[#e11b22] bg-slate-50 focus:bg-white transition-all font-mono font-medium"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* 2. Especificaciones del Vehículo */}
-        <div className="pt-3 border-t border-slate-100 space-y-3">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-            <Car className="w-3 h-3 text-[#e11b22]" />
-            2. Especificaciones
+        {/* Selector de Tipo de Vehículo */}
+        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto py-1 max-w-full">
+          <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 mr-1 hidden sm:inline">
+            Tipo:
           </span>
-
-          <div>
-            <label className="block text-[11px] font-bold text-slate-700 mb-1">
-              Marca y Modelo *
-            </label>
-            <input
-              type="text"
-              required
-              value={vehicleBrandModel}
-              onChange={(e) => setVehicleBrandModel(e.target.value)}
-              placeholder="Ej. Chevrolet D-Max 4x4"
-              className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-[#e11b22] focus:ring-1 focus:ring-[#e11b22] bg-slate-50 focus:bg-white transition-all font-medium"
-            />
-            
-            {/* Presets rápidos */}
-            <div className="mt-1.5 flex items-center gap-1 overflow-x-auto pb-1 text-[10px]">
-              {VEHICLE_PRESETS.map((preset) => (
-                <button
-                  key={preset}
-                  type="button"
-                  onClick={() => setVehicleBrandModel(preset)}
-                  className="shrink-0 px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-red-50 hover:text-[#e11b22] text-slate-600 border border-slate-200/70 transition-colors cursor-pointer"
-                >
-                  {preset}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-[11px] font-bold text-slate-700 mb-1">
-                Año Fabricación *
-              </label>
-              <select
-                value={vehicleYear}
-                onChange={(e) => setVehicleYear(Number(e.target.value))}
-                className="w-full px-2.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-[#e11b22] bg-slate-50 focus:bg-white transition-all cursor-pointer font-medium"
+          {VEHICLE_CATEGORIES.map((cat) => {
+            const isSelected = vehicleType === cat.id;
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => handleCategoryChange(cat.id)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap active:scale-95 ${
+                  isSelected
+                    ? 'bg-[#e11b22] text-white shadow-md shadow-red-600/30 font-black'
+                    : 'bg-white/10 text-slate-300 hover:bg-white/15 hover:text-white border border-white/10'
+                }`}
               >
-                {Array.from({ length: 18 }, (_, i) => currentYear - i).map((y) => (
-                  <option key={y} value={y}>
-                    {y} ({currentYear - y}a)
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-[11px] font-bold text-slate-700 mb-1">
-                Ciudad Circulación *
-              </label>
-              <select
-                value={city}
-                onChange={(e) => setCity(e.target.value as any)}
-                className="w-full px-2.5 py-2 text-xs rounded-xl border border-slate-200 focus:outline-none focus:border-[#e11b22] bg-slate-50 focus:bg-white transition-all cursor-pointer font-medium"
-              >
-                <option value="UIO">Quito (Pichincha)</option>
-                <option value="GYE">Guayaquil (Guayas)</option>
-                <option value="CUE">Cuenca (Azuay)</option>
-                <option value="OTRAS">Otras Provincias</option>
-              </select>
-            </div>
-          </div>
+                <span>{cat.icon}</span>
+                <span>{cat.label}</span>
+              </button>
+            );
+          })}
         </div>
 
-        {/* 3. Nivel de Cobertura */}
-        <div className="pt-3 border-t border-slate-100">
-          <label className="block text-[11px] font-bold text-slate-700 mb-1.5 flex items-center justify-between">
-            <span>Nivel de Cobertura</span>
-            <span className="text-[10px] text-slate-400 font-normal">Responsabilidad Civil</span>
-          </label>
-          <div className="grid grid-cols-2 gap-2">
+        {/* Nivel de Cobertura y Live Status */}
+        <div className="flex items-center gap-3 ml-auto">
+          {/* Plan Cobertura */}
+          <div className="flex items-center bg-white/10 p-1 rounded-xl border border-white/10 text-xs">
             <button
               type="button"
               onClick={() => setProductPreference('LIVIANO_CLASSIC')}
-              className={`px-3 py-2 text-xs rounded-xl border text-center transition-all cursor-pointer font-bold ${
+              className={`px-2.5 py-1 rounded-lg font-bold transition-all cursor-pointer ${
                 productPreference === 'LIVIANO_CLASSIC'
-                  ? 'bg-red-50 border-[#e11b22] text-[#e11b22] shadow-2xs'
-                  : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
+                  ? 'bg-white text-slate-900 shadow-xs'
+                  : 'text-slate-300 hover:text-white'
               }`}
             >
               Estándar
@@ -244,69 +166,198 @@ export const QuoteForm: React.FC<QuoteFormProps> = ({
             <button
               type="button"
               onClick={() => setProductPreference('LIVIANO_GOLD')}
-              className={`px-3 py-2 text-xs rounded-xl border text-center transition-all cursor-pointer font-bold ${
+              className={`px-2.5 py-1 rounded-lg font-bold transition-all cursor-pointer ${
                 productPreference === 'LIVIANO_GOLD'
-                  ? 'bg-amber-50 border-amber-500 text-amber-900 shadow-2xs'
-                  : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
+                  ? 'bg-amber-400 text-slate-950 shadow-xs font-black'
+                  : 'text-slate-300 hover:text-white'
               }`}
             >
               Gold ($50k RC)
             </button>
           </div>
+
+          {/* Indicador de cálculo en tiempo real */}
+          <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-mono font-semibold">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>Cálculo en Vivo</span>
+          </div>
         </div>
 
-        {/* 4. Valor Asegurado */}
-        <div className="pt-3 border-t border-slate-100 bg-slate-50/70 p-3.5 rounded-2xl border border-slate-200/80">
-          <div className="flex items-center justify-between mb-2">
-            <label className="text-[11px] font-black text-slate-800 uppercase tracking-wide flex items-center gap-1">
-              <DollarSign className="w-3.5 h-3.5 text-emerald-600" />
-              Valor Comercial ($ USD)
+      </div>
+
+      {/* CUERPO DEL FORMULARIO HORIZONTAL: Compacto, Intuitivo y de Un Solo Impacto */}
+      <form onSubmit={handleScrollToResults} className="p-4 sm:p-6 space-y-4">
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3 sm:gap-4 items-end">
+          
+          {/* 1. Marca y Modelo (4 cols) */}
+          <div className="lg:col-span-4">
+            <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1 flex items-center justify-between">
+              <span className="flex items-center gap-1">
+                <Car className="w-3.5 h-3.5 text-[#e11b22]" />
+                Marca y Modelo
+              </span>
+              <span className="text-[10px] text-slate-400 font-normal">Requerido</span>
+            </label>
+            <input
+              type="text"
+              required
+              value={vehicleBrandModel}
+              onChange={(e) => setVehicleBrandModel(e.target.value)}
+              placeholder="Ej. Chevrolet D-Max 4x4"
+              className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:border-[#e11b22] dark:focus:border-[#e11b22] bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white font-semibold transition-all shadow-2xs"
+            />
+            {/* Chips rápidos de modelos según categoría */}
+            <div className="mt-1.5 flex items-center gap-1 overflow-x-auto text-[10px] pb-0.5">
+              {VEHICLE_PRESETS[vehicleType]?.map((preset) => (
+                <button
+                  key={preset}
+                  type="button"
+                  onClick={() => setVehicleBrandModel(preset)}
+                  className={`shrink-0 px-2 py-0.5 rounded-lg border transition-colors cursor-pointer ${
+                    vehicleBrandModel === preset
+                      ? 'bg-red-50 dark:bg-red-950/40 border-[#e11b22] text-[#e11b22] font-bold'
+                      : 'bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:text-[#e11b22]'
+                  }`}
+                >
+                  {preset}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 2. Año Fabricación (2 cols) */}
+          <div className="lg:col-span-2">
+            <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1 flex items-center gap-1">
+              <Calendar className="w-3.5 h-3.5 text-[#e11b22]" />
+              <span>Año</span>
             </label>
             <div className="relative">
-              <span className="absolute left-2 top-1 text-slate-400 text-xs font-bold">$</span>
+              <select
+                value={vehicleYear}
+                onChange={(e) => setVehicleYear(Number(e.target.value))}
+                className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:border-[#e11b22] bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white font-semibold transition-all cursor-pointer shadow-2xs appearance-none"
+              >
+                {Array.from({ length: 18 }, (_, i) => currentYear - i).map((y) => (
+                  <option key={y} value={y}>
+                    {y} ({currentYear - y === 0 ? '0 km' : `${currentYear - y} años`})
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-2.5 pointer-events-none" />
+            </div>
+            <span className="text-[10px] text-slate-400 block mt-1">Antigüedad: {currentYear - vehicleYear} años</span>
+          </div>
+
+          {/* 3. Ciudad de Circulación (2 cols) */}
+          <div className="lg:col-span-2">
+            <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1 flex items-center gap-1">
+              <MapPin className="w-3.5 h-3.5 text-[#e11b22]" />
+              <span>Ciudad</span>
+            </label>
+            <div className="relative">
+              <select
+                value={city}
+                onChange={(e) => setCity(e.target.value as any)}
+                className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 focus:outline-none focus:border-[#e11b22] bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white font-semibold transition-all cursor-pointer shadow-2xs appearance-none"
+              >
+                <option value="UIO">Quito (Pichincha)</option>
+                <option value="GYE">Guayaquil (Guayas)</option>
+                <option value="CUE">Cuenca (Azuay)</option>
+                <option value="OTRAS">Otras Provincias</option>
+              </select>
+              <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-2.5 pointer-events-none" />
+            </div>
+            <span className="text-[10px] text-slate-400 block mt-1">Tarifa territorial</span>
+          </div>
+
+          {/* 4. Valor Comercial Asegurado (4 cols con Mini Slider) */}
+          <div className="lg:col-span-4 bg-slate-50 dark:bg-slate-800/60 p-2.5 rounded-2xl border border-slate-200/80 dark:border-slate-700/80">
+            <div className="flex items-center justify-between mb-1">
+              <label className="text-[11px] font-black text-slate-800 dark:text-slate-200 uppercase tracking-wide flex items-center gap-1">
+                <DollarSign className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Valor Comercial ($ USD)</span>
+              </label>
+              <div className="relative">
+                <span className="absolute left-2 top-1 text-slate-400 text-xs font-bold">$</span>
+                <input
+                  type="number"
+                  min="3000"
+                  max="120000"
+                  step="500"
+                  value={vehicleValue}
+                  onChange={(e) => setVehicleValue(Number(e.target.value))}
+                  className="w-28 pl-5 pr-2 py-0.5 text-xs font-black text-right font-mono rounded-lg border border-slate-300 dark:border-slate-600 focus:outline-none focus:border-[#e11b22] bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-2xs"
+                />
+              </div>
+            </div>
+
+            <input
+              type="range"
+              min="5000"
+              max="70000"
+              step="500"
+              value={vehicleValue}
+              onChange={(e) => setVehicleValue(Number(e.target.value))}
+              className="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-[#e11b22]"
+            />
+
+            <div className="flex justify-between text-[10px] text-slate-400 font-mono mt-0.5">
+              <span>$5,000</span>
+              <span>$25,000</span>
+              <span>$45,000</span>
+              <span>$70,000+</span>
+            </div>
+          </div>
+
+        </div>
+
+        {/* LÍNEA 2: Datos de Contacto del Asegurado + Resumen Actuarial */}
+        <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          
+          <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+            <div className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 text-[11px] font-bold uppercase tracking-wider">
+              <User className="w-3.5 h-3.5 text-[#e11b22]" />
+              <span>Asegurado:</span>
+            </div>
+            
+            <div className="flex items-center gap-2 flex-1 sm:flex-initial">
               <input
-                type="number"
-                min="3000"
-                max="100000"
-                step="500"
-                value={vehicleValue}
-                onChange={(e) => setVehicleValue(Number(e.target.value))}
-                className="w-28 pl-5 pr-2 py-1 text-xs font-black text-right font-mono rounded-lg border border-slate-300 focus:outline-none focus:border-[#e11b22] bg-white text-slate-900 shadow-2xs"
+                type="text"
+                value={clientName}
+                onChange={(e) => setClientName(e.target.value)}
+                placeholder="Nombre completo"
+                className="px-3 py-1.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-medium focus:outline-none focus:border-[#e11b22] w-36 sm:w-44"
+              />
+              <input
+                type="tel"
+                value={clientPhone}
+                onChange={(e) => setClientPhone(e.target.value)}
+                placeholder="WhatsApp (099...)"
+                className="px-3 py-1.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-mono font-medium focus:outline-none focus:border-[#e11b22] w-32 sm:w-36"
               />
             </div>
           </div>
 
-          <input
-            type="range"
-            min="5000"
-            max="60000"
-            step="500"
-            value={vehicleValue}
-            onChange={(e) => setVehicleValue(Number(e.target.value))}
-            className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#e11b22]"
-          />
-          
-          <div className="flex justify-between text-[10px] text-slate-400 font-mono mt-1">
-            <span>$5k</span>
-            <span>$20k</span>
-            <span>$35k</span>
-            <span>$50k+</span>
-          </div>
-        </div>
+          <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+            <span className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+              <span>Comparando 11 aseguradoras en vivo</span>
+            </span>
 
-        {/* Botón de Cotización Principal */}
-        <div className="pt-2">
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-red-600 via-red-700 to-[#e11b22] hover:brightness-110 text-white font-black text-sm shadow-lg shadow-red-600/30 active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2"
-          >
-            <Sparkles className="w-4 h-4 text-red-200 animate-pulse" />
-            <span>⚡ Cotizar y Comparar Ofertas</span>
-          </button>
+            {/* En móviles, botón para scrollear hacia resultados */}
+            <button
+              type="submit"
+              className="sm:hidden px-4 py-2 rounded-xl bg-[#e11b22] text-white font-bold text-xs uppercase tracking-wider shadow-sm active:scale-95"
+            >
+              Ver Ofertas ↓
+            </button>
+          </div>
+
         </div>
 
       </form>
+
     </div>
   );
 };

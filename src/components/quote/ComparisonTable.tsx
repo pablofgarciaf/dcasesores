@@ -78,8 +78,14 @@ export const ComparisonTable: React.FC<ComparisonTableProps> = ({
               <Sparkles className="w-3.5 h-3.5 text-red-400" />
               <span>Cotización Inteligente Multicompañía</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-              {inputData.vehicleBrandModel} ({inputData.vehicleYear})
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight flex flex-wrap items-center gap-2.5">
+              <span>{inputData.vehicleBrandModel}</span>
+              <span className="text-slate-400 text-lg">({inputData.vehicleYear})</span>
+              {inputData.vehicleType && (
+                <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white border border-white/20 uppercase">
+                  {inputData.vehicleType}
+                </span>
+              )}
             </h2>
             <p className="text-xs text-slate-300 mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
               <span>

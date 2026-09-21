@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
 import { SERVICES_DATA } from '@/lib/servicesData';
 import { Shield, ArrowRight, CheckCircle2, PhoneCall, Sparkles } from 'lucide-react';
 
@@ -176,18 +177,7 @@ export default function ServiciosPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-slate-950 py-12 border-t border-slate-800 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p>© 2026 DC Asesores en Seguros Ecuador. Todos los derechos reservados.</p>
-          <div className="flex items-center gap-4">
-            <Link href="/" className="hover:text-white transition-colors">Inicio</Link>
-            <span>•</span>
-            <Link href="/cotizador" className="hover:text-white transition-colors">Cotizador</Link>
-            <span>•</span>
-            <Link href="/terminos-y-condiciones" className="hover:text-white transition-colors">Términos y Condiciones</Link>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

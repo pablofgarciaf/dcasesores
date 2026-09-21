@@ -21,6 +21,8 @@ export type CityCategory = 'UIO_GYE_CUE' | 'OTRAS';
 
 export type ProductType = 'LIVIANO_CLASSIC' | 'LIVIANO_GOLD' | 'ESTANDAR';
 
+export type VehicleCategory = 'LIVIANO' | 'SUV' | 'CAMIONETA' | 'PESADO';
+
 export interface EmissionTier {
   id: string;
   minNetPremium: number;
@@ -44,6 +46,7 @@ export interface RateRule {
   rcLimit: number; // Responsabilidad Civil limit, e.g. 30000 ($30k)
   cityCategory?: CityCategory; // for Alianza
   productType?: ProductType;   // for Latina
+  vehicleType?: VehicleCategory; // Liviano, SUV, Camioneta, Pesado
   minAge?: number;             // for Privilegio (e.g. 0)
   maxAge?: number;             // for Privilegio (e.g. 5 or 10)
 }
@@ -80,6 +83,7 @@ export interface QuoteInput {
   vehicleYear: number;
   vehicleValue: number; // Valor Asegurado (VA)
   city: 'UIO' | 'GYE' | 'CUE' | 'OTRAS';
+  vehicleType?: VehicleCategory;
   productPreference?: ProductType;
 }
 

@@ -37,7 +37,7 @@ export function buildWhatsAppQuoteUrl(
     ``,
     `👤 *Cliente:* ${input.clientName}`,
     `📱 *Teléfono:* ${input.clientPhone}`,
-    `🚘 *Vehículo:* ${input.vehicleBrandModel} (${input.vehicleYear})`,
+    `🚘 *Vehículo:* ${input.vehicleBrandModel} (${input.vehicleYear}) ${input.vehicleType ? `[${input.vehicleType}]` : ''}`,
     `💰 *Valor Asegurado (VA):* ${formatCurrency(input.vehicleValue)}`,
     `📍 *Ciudad:* ${input.city}`,
     ``,

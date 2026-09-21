@@ -110,7 +110,8 @@ export function findMatchingRateRule(
   vehicleValue: number,
   vehicleAge: number,
   city: string,
-  preferredProduct?: string
+  preferredProduct?: string,
+  vehicleType?: string
 ): RateRule | null {
   const cityCategory = getCityCategory(city);
 
@@ -118,6 +119,11 @@ export function findMatchingRateRule(
     // Check Value Range: minVA <= VA <= maxVA
     const inValueRange = vehicleValue >= rule.minVA && vehicleValue <= rule.maxVA;
     if (!inValueRange) return false;
+
+    // Check Vehicle Type if rule specifies one
+    if (rule.vehicleType && vehicleType && rule.vehicleType !== vehicleType) {
+      return false;
+    }
 
     // Check City if rule specifies one (e.g. Alianza)
     if (rule.cityCategory && rule.cityCategory !== cityCategory) {
@@ -178,16 +184,17 @@ export function calculateQuoteForInsurer(
   config: GlobalTaxConfig = INITIAL_GLOBAL_CONFIG,
   currentYear = new Date().getFullYear()
 ): QuoteBreakdown {
-  const { vehicleValue, vehicleYear, city, productPreference } = input;
+  const { vehicleValue, vehicleYear, city, productPreference, vehicleType } = input;
   const antiguedad = Math.max(0, currentYear - vehicleYear);
 
   // 1. Check age eligibility
-  if (antiguedad > insurer.maxVehicleAge) {
+  const maxAllowedAge = (vehicleType === 'PESADO') ? Math.min(insurer.maxVehicleAge, 12) : insurer.maxVehicleAge;
+  if (antiguedad > maxAllowedAge) {
     return {
       valorAsegurado: vehicleValue,
       antiguedad,
       elegible: false,
-      motivoNoElegible: `No asegurable: Antigüedad de ${antiguedad} años supera el máximo de ${insurer.maxVehicleAge} años permitido por ${insurer.name}.`,
+      motivoNoElegible: `No asegurable: Antigüedad de ${antiguedad} años supera el límite permitido (${maxAllowedAge} años) por ${insurer.name}.`,
       tasaAplicada: 0,
       primaNeta: 0,
       superCias: 0,
@@ -202,7 +209,7 @@ export function calculateQuoteForInsurer(
   }
 
   // 2. Find matching rule
-  const matchedRule = findMatchingRateRule(insurer, vehicleValue, antiguedad, city, productPreference);
+  const matchedRule = findMatchingRateRule(insurer, vehicleValue, antiguedad, city, productPreference, vehicleType);
 
   if (!matchedRule) {
     return {
@@ -229,7 +236,15 @@ export function calculateQuoteForInsurer(
   // Subtotal = BaseEmision + Emision
   // PrimaTotal = Subtotal * 1.15
   // CuotaMensual = PrimaTotal / 12
-  const tasaAplicada = matchedRule.rate;
+  let tasaAplicada = matchedRule.rate;
+  if (!matchedRule.vehicleType) {
+    if (vehicleType === 'CAMIONETA') {
+      tasaAplicada = roundCurrency(tasaAplicada + 0.15);
+    } else if (vehicleType === 'PESADO') {
+      tasaAplicada = roundCurrency(tasaAplicada + 0.45);
+    }
+  }
+
   const rawPrimaNeta = vehicleValue * (tasaAplicada / 100);
   const rawSuperCias = rawPrimaNeta * config.superRate;
   const rawCampesino = rawPrimaNeta * config.sscRate;

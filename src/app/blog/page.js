@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
 
 export const metadata = {
   title: 'Blog de Protección Financiera | DC Asesores',
@@ -127,9 +128,7 @@ export default function BlogPage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="bg-slate-900 py-10 border-t-4 border-[#e11b22] text-center">
-         <p className="text-slate-500 font-medium text-sm">© 2026 DC Asesores en Seguros. Todos los derechos reservados.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }
